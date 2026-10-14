@@ -1,8 +1,8 @@
-# 07 — Testes, benchmarks e demonstração reproduzível
+# 04 — Testes, benchmarks e demonstração reproduzível
 
 **Objetivo:** avaliar se uma arquitetura de **IA privada para empresas** consegue consultar fontes autorizadas sem dependência de inferência externa, com controles de acesso, integridade, auditoria e prevenção de exposição. O protótipo e o laboratório corporativo exigem evidências separadas.
 
-**Pré-requisito:** funcionalidades das etapas anteriores que serão avaliadas. A trilha principal (01, 05, 06) é obrigatória; a complementar (02–04) é avaliada se existir.
+**Pré-requisito:** funcionalidades das etapas anteriores que serão avaliadas. A trilha principal (01, 02, 03) é obrigatória; a complementar (06–08) é avaliada se existir.
 
 **Testes de segurança obrigatórios:** demonstrar ausência de chamadas externas em operação, inspecionando DNS e tráfego de saída; negar acesso direto do navegador ao banco e ao Ollama; tentar leitura de fonte, tabela, linha e coluna não autorizadas; testar exportações, logs, prompt injection e indisponibilidade de serviços sem fallback em nuvem. Executar testes com dados sintéticos e contas de laboratório. **Desligar a internet não comprova sozinho ausência de vazamento pela LAN.**
 
@@ -24,7 +24,7 @@ Organizar `tests/` por responsabilidade:
 | `test_assistant_eval.py` | Todo o [conjunto de avaliação](../data/avaliacao/perguntas_assistente.csv) |
 | `test_offline.py` | Execução sem dependência de rede externa |
 
-Usar `pytest` e bancos temporários. Na [etapa 06](06-interface-e-relatorios.md), acrescentar **FastAPI TestClient** para as rotas. O frontend **já tem** testes Vitest + Testing Library (`frontend/src/test/`): navegação sem rede, tabela, CSV seguro e política do assistente demonstrativo. **Nunca executar um teste destrutivo no arquivo real de trabalho**.
+Usar `pytest` e bancos temporários. Na [etapa 03](03-interface-e-relatorios.md), acrescentar **FastAPI TestClient** para as rotas. O frontend **já tem** testes Vitest + Testing Library (`frontend/src/test/`): navegação sem rede, tabela, CSV seguro e política do assistente demonstrativo. **Nunca executar um teste destrutivo no arquivo real de trabalho**.
 
 ## Passo 2 — Matriz essencial de cenários
 
@@ -88,7 +88,7 @@ Uma meta não atingida é relatada como tal, com causa e próximo passo. Nunca a
 - F1 = 2 × precision × recall / (precision + recall).
 - Alertas por 1.000 registros e tempo de execução por detector.
 
-Ao usar o gabarito de 50 casos conhecidos, chamar os demais de **não rotulados como anomalia injetada**; não pressupor que são perfeitamente normais. Conferir manualmente os alertas adicionais. Lembrar a **circularidade**: as regras com os mesmos limiares do gerador acertam por construção (ver [etapa 04](04-anomalias-e-ml.md)).
+Ao usar o gabarito de 50 casos conhecidos, chamar os demais de **não rotulados como anomalia injetada**; não pressupor que são perfeitamente normais. Conferir manualmente os alertas adicionais. Lembrar a **circularidade**: as regras com os mesmos limiares do gerador acertam por construção (ver [etapa 08](08-anomalias-e-ml.md)).
 
 ### Integridade
 
