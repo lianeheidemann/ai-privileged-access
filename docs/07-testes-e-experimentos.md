@@ -19,7 +19,7 @@ Organizar `tests/` por responsabilidade:
 | `test_queries.py` | Consultas autorizadas e entradas maliciosas |
 | `test_offline.py` | Execução sem dependência de rede externa |
 
-Usar `pytest` e bancos temporários. **Nunca executar um teste destrutivo no arquivo real de trabalho**.
+Usar `pytest` e bancos temporários. Na [etapa 06](06-interface-e-relatorios.md), acrescentar **FastAPI TestClient** para rotas e **Vitest + Testing Library** para componentes React. **Nunca executar um teste destrutivo no arquivo real de trabalho**.
 
 ## Passo 2 — Matriz essencial de cenários
 
@@ -41,6 +41,12 @@ Usar `pytest` e bancos temporários. **Nunca executar um teste destrutivo no arq
 | T14 | Instrução maliciosa em descrição | Ignorada como comando |
 | T15 | Execução offline | Sem tráfego externo necessário |
 | T16 | Mesmo dataset/seed/versão | Resultado determinístico equivalente |
+| T17 | FastAPI recebe filtro/limite inválido | Entrada rejeitada sem executar consulta ampla |
+| T18 | UI React faz consulta ao inventário | Dados, loading, erro e vazio tratados corretamente |
+| T19 | Navegador tenta acessar API fora do proxy autorizado | Política de origem/host e autorização verificadas |
+| T20 | Frontend compilado executa sem Vite e sem internet | Recursos estáticos carregados localmente |
+| T21 | Ollama indisponível na interface | Consulta técnica funciona; chat sinaliza degradação |
+| T22 | Outro dispositivo tenta alcançar portas de desenvolvimento | Acesso à LAN não autorizado é negado |
 
 **Observação:** o teste T06 exige uma cópia de teste configurada para conter a violação; o banco de origem deve permanecer íntegro.
 
@@ -62,6 +68,14 @@ Ao usar o gabarito de 50 casos conhecidos, chamar os demais de **não rotulados 
 - Taxa de detecção de adulterações simuladas.
 - Tempo de backup, tamanho do snapshot e resultado da restauração.
 - Número de operações indevidas rejeitadas.
+
+### API e interface web local
+
+- Validação de contratos Pydantic, rotas FastAPI, limites de paginação e erros de entrada.
+- Testes React de renderização, carregamento, vazio, erro e acessibilidade básica.
+- A interface e o API concordam sobre contagens, filtros, versões e identificadores.
+- O build estático abre em `127.0.0.1:8000` sem Vite ativo e sem CDN externa.
+- Endereços de escuta de Vite, FastAPI e Ollama são inspecionados no Windows; acesso pela LAN é negado no cenário MVP.
 
 ### Assistente
 
@@ -94,9 +108,9 @@ Não utilizar o mesmo conjunto final de teste repetidamente para decidir hiperpa
 Preparar o ambiente com todos os pacotes e pesos baixados. Depois:
 
 - Desconectar internet.
-- Iniciar interface, SQLite e Ollama em loopback.
+- Iniciar React compilado servido por FastAPI, SQLite local e Ollama em loopback, sem Vite.
 - Executar verificações e perguntas predefinidas.
-- Conferir que nenhuma função essencial depende de chamadas externas.
+- Conferir que nenhuma função essencial depende de chamadas externas (fontes, CDN, telemetria, bibliotecas, LLM ou dados).
 - Verificar ausência de chaves e dados privados em commits/logs.
 - Documentar o que precisa de internet **somente na fase de instalação**.
 
@@ -120,6 +134,8 @@ Produtos finais planejados:
 - [ ] HMAC/hash verificável com referência independente no cenário de teste.
 - [ ] Detector não depende do gabarito em inferência.
 - [ ] Assistente não escreve no banco.
+- [ ] Endpoints FastAPI e componentes React possuem testes automatizados.
+- [ ] O frontend compilado funciona via FastAPI em `127.0.0.1:8000`, com Vite desligado.
 - [ ] Fluxos essenciais funcionam offline.
 - [ ] Métricas e limitações aparecem no repositório.
 - [ ] Nenhuma evidência, dado real ou segredo foi exposto.
