@@ -1,0 +1,31 @@
+{
+  "dataset": "DataGuard AI — inventário fictício de TI",
+  "gerado_em": "2026-10-13",
+  "data_de_referencia": "2026-10-13",
+  "seed": 20261013,
+  "sintetico": true,
+  "tabelas": {
+    "categorias": 12,
+    "setores": 18,
+    "responsaveis": 90,
+    "equipamentos": 750,
+    "movimentacoes": 2095,
+    "chamados": 1196
+  },
+  "anomalias_plantadas": 50,
+  "tipos_anomalias": {
+    "preco_extremo": 8,
+    "aquisicao_futura": 7,
+    "garantia_anterior_compra": 7,
+    "chamado_antigo_aberto": 7,
+    "movimentacao_apos_descarte": 7,
+    "movimentacao_excessiva": 7,
+    "reparos_repetidos": 7
+  },
+  "observacoes": [
+    "Nenhum dado pessoal real.",
+    "As anomalias de negocio e estatisticas nao violam restricoes do SQLite.",
+    "O gabarito das anomalias fica separado da base operacional.",
+    "A auditoria e a IA ainda nao foram implementadas."
+  ]
+}
