@@ -26,7 +26,7 @@
 
 **Private AI · Secure Data Access · On-Premises Processing**
 
-**DataGuard AI:** solução planejada para **agilizar o trabalho diário com dados nas empresas**, permitindo consultar informações, organizar resultados, apoiar análises e gerar relatórios por meio de IA executada na infraestrutura controlada da organização. O protótipo inicial utiliza dados sintéticos para desenvolver e testar essas funcionalidades, sem depender de serviços externos de inferência.
+**DataGuard AI:** projeto de estudo e validação técnica sobre **segurança na integração de inteligência artificial local a dados empresariais**. A proposta funcional é agilizar consultas, organização, análises e relatórios, com inferência executada na infraestrutura controlada da organização. O protótipo inicial utilizará **SQLite e dados sintéticos** para investigar os requisitos técnicos e de segurança; a arquitetura prevê integração posterior a outros bancos de dados, sem exigir migração das fontes corporativas.
 
 ## Status atual — levantamento de pré-requisitos e planejamento técnico
 
@@ -47,7 +47,7 @@ A demonstração é **apenas uma prévia de design e navegação**, com exemplos
 
 ## Objetivo
 
-**Objetivo principal:** desenvolver uma solução de IA privada que **simplifique e acelere processos cotidianos de tratamento de dados**. Usuários autorizados poderão localizar informações, realizar consultas, obter resumos, organizar resultados e produzir relatórios, mantendo o processamento sob controle da organização. A arquitetura prevê permissões mínimas, consultas rastreáveis e restrição de conexões externas. Verificações de qualidade e detecção de anomalias são **recursos complementares**, não o foco principal.
+**Objetivo principal:** **investigar os pré-requisitos técnicos e os mecanismos de segurança necessários para integrar IA local a dados empresariais**, avaliando controle de acesso, isolamento dos serviços, autorização de consultas, proteção das informações e operação sem APIs externas de inferência. Como caso de uso, a solução planejada busca **simplificar e acelerar consultas, organização, análises e geração de relatórios** para usuários autorizados. Verificações de qualidade e detecção de anomalias são **recursos complementares**, não o foco principal.
 
 O DataGuard AI pretende reunir as seguintes capacidades:
 
@@ -64,7 +64,7 @@ Uma API validará as operações e uma interface local apresentará os resultado
 
 ## Validação técnica da solução
 
-Antes de conectar o DataGuard AI a bancos de dados reais, a implementação será validada em um ambiente controlado, com **dados sintéticos**. Essa etapa permitirá testar consultas em linguagem natural, organização e apresentação de resultados, geração de relatórios, qualidade dos dados e inferência local.
+Antes de conectar o DataGuard AI a bancos de dados reais, a implementação será validada em um ambiente controlado, com **SQLite e dados sintéticos**. O SQLite foi escolhido **para a etapa inicial de prototipagem e avaliação dos controles de segurança relacionados ao uso de IA**, e não como banco obrigatório para implantação empresarial. A arquitetura deverá permitir conectores para outros SGBDs em etapas posteriores, conforme permissões e necessidades da organização. Essa etapa permitirá testar consultas em linguagem natural, organização e apresentação de resultados, geração de relatórios, qualidade dos dados e inferência local.
 
 Os testes deverão avaliar **correção das consultas e dos relatórios**, **tempo necessário para tarefas frequentes**, **desempenho no hardware disponível**, **controle de acesso aos dados** e **comportamento da aplicação sem conexões externas de IA**. O dataset sintético também permitirá testar verificações complementares de qualidade; as respostas do assistente serão comparadas aos resultados de consultas autorizadas.
 
@@ -110,7 +110,7 @@ A identidade corporativa (quando disponível), a autenticação, a autorização
 | Tabelas e dados remotos | **TanStack Table, TanStack Query** |
 | Gráficos | **Recharts** |
 | Backend/API | **Python, FastAPI, Pydantic** |
-| Banco inicial | **SQLite** (`sqlite3`) |
+| Banco inicial de validação | **SQLite** (`sqlite3`), utilizado no protótipo para estudar segurança e integração com IA; não é uma exigência da solução empresarial |
 | IA | **Ollama** com modelo instalado e executado localmente; recursos de nuvem e fallback externo desabilitados ou bloqueados por política |
 | Machine Learning | **scikit-learn**, pandas e NumPy |
 | Testes | **pytest**, Vitest e Testing Library (quando implementados) |
@@ -225,4 +225,4 @@ A IA não poderá executar SQL arbitrário nem alterar o banco. Alertas de quali
 
 Para os controles e testes completos, consulte [03 — Auditoria e backups](docs/03-auditoria-e-backups.md), [05 — Assistente local](docs/05-assistente-local.md), [07 — Testes](docs/07-testes-e-experimentos.md) e [08 — Rede privada](docs/08-arquitetura-de-rede-e-seguranca.md).
 
-**Estado dos entregáveis:** proposta empresarial e pré-requisitos técnicos documentados, tecnologias selecionadas, dataset sintético disponível e **primeira tela React demonstrativa criada**. Backend, integrações, validação e benchmarks ainda pendentes.
+**Estado dos entregáveis:** proposta empresarial e pré-requisitos técnicos documentados, tecnologias selecionadas, dataset sintético disponível e **protótipos visuais de sete interfaces**. Backend, integrações, validação dos controles de segurança e benchmarks ainda pendentes. Backend, integrações, validação e benchmarks ainda pendentes.
