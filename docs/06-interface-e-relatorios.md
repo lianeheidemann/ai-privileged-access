@@ -2,9 +2,11 @@
 
 > **Status:** plano de implementação, não funcionalidade concluída. A interface será executada **no próprio computador**, no navegador, sem hospedagem nem APIs externas. Esta etapa substitui a antiga proposta em Streamlit/Plotly.
 
-**Objetivo:** integrar os serviços Python já testados a uma interface profissional, dark e minimalista, com React + TypeScript e uma API FastAPI local.
+**Objetivo:** integrar os serviços Python a uma interface de **IA privada empresarial**, com React + TypeScript e API FastAPI. A primeira execução será local; a interface corporativa posterior será acessível apenas a usuários autorizados na intranet.
 
 **Pré-requisitos:** etapas [01–05](README.md), ou pelo menos o banco, as consultas e os detectores determinísticos para uma interface inicial sem LLM.
+
+**Fronteira de segurança:** a interface nunca deve receber credenciais de banco, tokens de serviço ou acesso direto ao Ollama. A API deve verificar identidade e permissão **a cada requisição**, aplicar limites de exportação e paginação e não retornar colunas sigilosas por padrão. No MVP local, autenticação corporativa é uma exigência de desenho e teste para a etapa 08, não algo já implementado.
 
 ## 1. Stack oficial da interface
 
