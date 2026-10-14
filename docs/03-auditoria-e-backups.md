@@ -1,5 +1,7 @@
 # 03 — Auditoria, hashes e backups consistentes
 
+> **Trilha complementar (qualidade dos dados).** Esta etapa não bloqueia a trilha principal de segurança da IA local (00 → 01 → 05 → 06 → 07). Ela pode ser feita em paralelo ou depois do corte vertical da [etapa 05](05-assistente-local.md).
+
 **Objetivo:** registrar operações e acessos do **DataGuard AI**, produzir evidências e verificar/restaurar backups **sem destruir o banco principal**. O sistema não substitui o mecanismo corporativo de backup nem deve assumir permissão de escrita no banco de origem.
 
 **Pré-requisito:** [etapa 02](02-integridade-e-transacoes.md).
@@ -114,4 +116,4 @@ Arquivos previstos: `src/dataguard/audit/events.py`, `hash_chain.py`, `backup.py
 - [ ] Falta de evidências é relatada como inconclusiva.
 - [ ] Segredos, backups e manifestos privados ficam fora do GitHub.
 
-**Próxima etapa:** [04 — Anomalias e ML](04-anomalias-e-ml.md).
+**Próxima etapa da trilha complementar:** [04 — Anomalias e ML](04-anomalias-e-ml.md).

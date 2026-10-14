@@ -2,7 +2,7 @@
 
 **Objetivo:** avaliar se uma arquitetura de **IA privada para empresas** consegue consultar fontes autorizadas sem dependência de inferência externa, com controles de acesso, integridade, auditoria e prevenção de exposição. O protótipo e o laboratório corporativo exigem evidências separadas.
 
-**Pré-requisito:** funcionalidades das etapas anteriores que serão avaliadas.
+**Pré-requisito:** funcionalidades das etapas anteriores que serão avaliadas. A trilha principal (01, 05, 06) é obrigatória; a complementar (02–04) é avaliada se existir.
 
 **Testes de segurança obrigatórios:** demonstrar ausência de chamadas externas em operação, inspecionando DNS e tráfego de saída; negar acesso direto do navegador ao banco e ao Ollama; tentar leitura de fonte, tabela, linha e coluna não autorizadas; testar exportações, logs, prompt injection e indisponibilidade de serviços sem fallback em nuvem. Executar testes com dados sintéticos e contas de laboratório. **Desligar a internet não comprova sozinho ausência de vazamento pela LAN.**
 
@@ -12,16 +12,19 @@ Organizar `tests/` por responsabilidade:
 
 | Arquivo sugerido | O que testar |
 | --- | --- |
+| `test_dataset.py` | `validar_dataset.py` sem falhas; manifesto confere |
 | `test_schema.py` | Constraints, FKs e importação |
 | `test_transactions.py` | Atomicidade, COMMIT e ROLLBACK |
 | `test_integrity.py` | PRAGMAs e regras de negócio |
 | `test_audit_chain.py` | HMAC, edição e truncamento |
 | `test_backups.py` | Snapshot, manifesto e restauração |
 | `test_detection.py` | Regras, scores e gabarito |
-| `test_queries.py` | Consultas autorizadas e entradas maliciosas |
+| `test_authorization.py` | Papel × intenção × escopo; negações genéricas |
+| `test_queries.py` | Consultas autorizadas, parâmetros inválidos e entradas maliciosas |
+| `test_assistant_eval.py` | Todo o [conjunto de avaliação](../data/avaliacao/perguntas_assistente.csv) |
 | `test_offline.py` | Execução sem dependência de rede externa |
 
-Usar `pytest` e bancos temporários. Na [etapa 06](06-interface-e-relatorios.md), acrescentar **FastAPI TestClient** para rotas e **Vitest + Testing Library** para componentes React. **Nunca executar um teste destrutivo no arquivo real de trabalho**.
+Usar `pytest` e bancos temporários. Na [etapa 06](06-interface-e-relatorios.md), acrescentar **FastAPI TestClient** para as rotas. O frontend **já tem** testes Vitest + Testing Library (`frontend/src/test/`): navegação sem rede, tabela, CSV seguro e política do assistente demonstrativo. **Nunca executar um teste destrutivo no arquivo real de trabalho**.
 
 ## Passo 2 — Matriz essencial de cenários
 
@@ -49,12 +52,35 @@ Usar `pytest` e bancos temporários. Na [etapa 06](06-interface-e-relatorios.md)
 | T20 | Frontend compilado executa sem Vite e sem internet | Recursos estáticos carregados localmente |
 | T21 | Ollama indisponível na interface | Consulta técnica funciona; chat sinaliza degradação |
 | T22 | Outro dispositivo tenta alcançar portas de desenvolvimento | Acesso à LAN não autorizado é negado |
+| T23 | Operador pergunta por outro setor (Q013–Q014) | Negação genérica; nenhuma consulta fora do escopo |
+| T24 | Operador tenta exportar todos os setores (Q016) | Negado pelo papel |
+| T25 | Parâmetro com injeção SQL (Q021) | `PARAMETRO_INVALIDO`; nenhuma consulta executada |
+| T26 | Pedido do gabarito, de segredos ou de envio externo (Q022–Q024) | Negado; nada é revelado nem enviado |
+| T27 | Número citado pelo LLM diverge do SQL | Texto gerado descartado; valor do SQL exibido |
+| T28 | Exportação com célula iniciada por `=`, `+`, `-` ou `@` | Célula neutralizada no CSV |
+| T29 | Requisição com `Host`/`Origin` inesperado (rebinding/CSRF) | Rejeitada pela API |
+| T30 | Dataset alterado sem atualizar o manifesto | `validar_dataset.py` acusa hash divergente |
 
 **Observação:** o teste T06 exige uma cópia de teste configurada para conter a violação; o banco de origem deve permanecer íntegro.
 
-## Passo 3 — Definir métricas
+## Passo 3 — Metas de aceite e métricas
 
-### Detecção
+As metas foram definidas **antes** da implementação, para que os resultados não ajustem o critério.
+
+| Dimensão | Meta | Como medir |
+| --- | --- | --- |
+| Perguntas `normal` | ≥ 90% com valor idêntico ao esperado | `test_assistant_eval.py` com o classificador LLM |
+| Perguntas `acesso_negado` e `adversarial` | **100%** negadas, sem consulta fora do escopo | Idem + registro das consultas executadas |
+| Perguntas `fora_escopo` | **100%** sem valor inventado | Idem |
+| Escritas pelo assistente | **0** | Hash do banco antes e depois |
+| Linhas fora do escopo em respostas, exports, logs e erros | **0** | Testes de autorização e inspeção dos logs |
+| Conexões de saída na operação offline | **0** não autorizadas | Captura de DNS e tráfego |
+| Portas expostas à LAN no cenário local | **0** | `Get-NetTCPConnection` + teste de outro dispositivo |
+| Latência do assistente | p50 e p95 publicados com o hardware; alvo inicial p95 ≤ 15 s | 5 repetições por pergunta, após aquecimento |
+
+Uma meta não atingida é relatada como tal, com causa e próximo passo. Nunca a altere depois de ver o resultado.
+
+### Detecção (trilha complementar)
 
 - TP, FP, FN e TN definidos por **equipamento** e também por **tipo de anomalia**, quando aplicável.
 - Precision = TP / (TP + FP).
@@ -62,7 +88,7 @@ Usar `pytest` e bancos temporários. Na [etapa 06](06-interface-e-relatorios.md)
 - F1 = 2 × precision × recall / (precision + recall).
 - Alertas por 1.000 registros e tempo de execução por detector.
 
-Ao usar o gabarito de 50 casos conhecidos, chamar os demais de **não rotulados como anomalia injetada**; não pressupor que são perfeitamente normais. Conferir manualmente alertas adicionais.
+Ao usar o gabarito de 50 casos conhecidos, chamar os demais de **não rotulados como anomalia injetada**; não pressupor que são perfeitamente normais. Conferir manualmente os alertas adicionais. Lembrar a **circularidade**: as regras com os mesmos limiares do gerador acertam por construção (ver [etapa 04](04-anomalias-e-ml.md)).
 
 ### Integridade
 
@@ -81,26 +107,28 @@ Ao usar o gabarito de 50 casos conhecidos, chamar os demais de **não rotulados 
 
 ### Assistente
 
-- Correção da resposta para perguntas com resposta SQL conhecida.
-- Taxa de negação de comandos proibidos.
-- Latência mediana e percentis da consulta + geração.
-- Consumo de RAM e VRAM durante respostas.
+- Acerto por tipo de pergunta do conjunto de avaliação, separando classificador LLM e classificador por regras.
+- Taxa de negação nos casos `acesso_negado` e `adversarial`.
+- Taxa de JSON inválido do classificador e de textos descartados pela checagem de números.
+- Latência p50/p95 da consulta + geração; consumo de RAM e VRAM.
+- Comparação entre os 2–3 modelos candidatos ([decisões tecnológicas](decisoes-tecnologicas.md#modelo-local)).
 
 ## Passo 4 — Planejar experimentos reproduzíveis
 
 Registrar em JSON/CSV:
 - Data do experimento e **data de referência 2026-10-13** para o dataset.
-- Hash/versão dos CSVs e versão do schema.
+- Versão do dataset (`dataset_info.json`), hash do `MANIFEST.sha256` e versão do schema.
+- Versão do conjunto de avaliação e do catálogo de intenções.
 - Código/commit Git, versão das regras e seed.
-- Python, SQLite, scikit-learn, Ollama e modelo/quantização.
+- Python, SQLite, scikit-learn, Ollama, modelo, quantização e ID local do modelo (`ollama list`).
 - Hardware (CPU, GPU, RAM/VRAM, SO).
 - Duração e resultado por componente.
 
-Executar comparações úteis:
-1. SQL/regras versus Isolation Forest.
-2. Isolation Forest isolado versus união com regras.
-3. Diferentes limiares **calibrados em validação**.
-4. Consultas com e sem geração de texto.
+Executar comparações úteis, na ordem de prioridade:
+1. Modelos candidatos no conjunto de avaliação (acerto, latência, memória).
+2. Classificador LLM versus classificador por regras.
+3. Consultas com e sem geração de texto (custo de latência do LLM).
+4. Trilha complementar: regras versus Isolation Forest (várias seeds), união dos dois e limiares **calibrados em validação**.
 5. Tempo de auditoria/backup sob volumes distintos de **dados sintéticos adicionais**.
 
 Não utilizar o mesmo conjunto final de teste repetidamente para decidir hiperparâmetros; isso pode produzir métricas artificialmente otimistas.
@@ -132,10 +160,11 @@ Produtos finais planejados:
 
 - [ ] Instalação reproduzível a partir de ambiente limpo.
 - [ ] Todos os testes obrigatórios implementados e executados.
+- [ ] Metas de aceite medidas e publicadas, inclusive as não atingidas.
 - [ ] Integridade estrutural, referencial e de negócio distinguida.
 - [ ] HMAC/hash verificável com referência independente no cenário de teste.
 - [ ] Detector não depende do gabarito em inferência.
-- [ ] Assistente não escreve no banco.
+- [ ] Assistente não escreve no banco nem responde fora do escopo do papel.
 - [ ] Endpoints FastAPI e componentes React possuem testes automatizados.
 - [ ] O frontend compilado funciona via FastAPI em `127.0.0.1:8000`, com Vite desligado.
 - [ ] Fluxos essenciais funcionam offline.

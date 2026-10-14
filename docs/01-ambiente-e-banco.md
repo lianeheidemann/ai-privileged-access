@@ -2,7 +2,7 @@
 
 **Objetivo:** construir uma base sintética de teste para uma futura solução de **IA privada empresarial**, sem utilizar nem copiar bancos reais de organizações. Transformar os seis CSVs já existentes em SQLite com relações e tipos definidos. **Nesta etapa, não há IA nem interface gráfica.**
 
-**Entrada:** `data/csv/*.csv`. **Saída esperada:** `runtime/databases/inventario.db` e testes de importação.
+**Entrada:** `data/csv/*.csv` (dataset **v2**). **Saída esperada:** `runtime/databases/inventario.db` e testes de importação.
 
 **Decisão técnica:** nesta etapa, **Python + biblioteca padrão sqlite3** são suficientes. A interface **React + TypeScript + Vite** e a API **FastAPI** só serão implementadas na [etapa 06](06-interface-e-relatorios.md). Separar desde já a persistência da apresentação para não misturar código de UI com consultas SQL.
 
@@ -13,6 +13,15 @@
 Separar conceitualmente **banco de origem** (dados empresariais, mantidos sob controle da organização) e **banco operacional do DataGuard AI** (configuração, execução, resultados e auditoria, com retenção mínima). Nunca copiar uma base completa para inferência por conveniência.
 
 **Evoluções de metadados a planejar, sem criar agora:** `fontes_dados` (identificador lógico, tipo de SGBD, endpoint interno referenciado sem segredo), `politicas_acesso` (perfil, fonte, conjunto autorizado), `consultas_permitidas` (ID, versão, parâmetros e limites), `execucoes_consulta` (quem, quando, finalidade, status, volume, sem SQL sensível), `politicas_retencao` e `versoes_conectores`. Não armazenar senhas em tabelas; usar mecanismo de segredos da implantação.
+
+## Passo 0 — Validar o dataset antes de importar
+
+```powershell
+# Confere contagens, chaves, gabarito, vazamento de rótulos e hashes do manifesto
+python scripts/dataset/validar_dataset.py
+```
+
+O resultado deve terminar em `0 falha(s)`. Se algum hash divergir, os CSVs foram alterados: não importe até entender a mudança. Arquivos de dados usam LF (`.gitattributes`). Se o Git estiver configurado com `core.autocrlf=true` e os hashes falharem, faça um novo checkout dos arquivos de `data/`.
 
 ## Passo 1 — Preparar o Python no Windows
 
@@ -28,8 +37,8 @@ python --version
 Se a execução de scripts estiver bloqueada, use o Python diretamente pelo caminho `.venv\Scripts\python.exe` ou ajuste a política **somente no escopo apropriado**. O projeto usa SQLite pela biblioteca padrão. **Não é necessário instalar Node.js, React, Tailwind ou FastAPI para executar esta etapa.**
 
 Arquivos a criar nesta etapa:
-- `pyproject.toml` — metadados e dependência de `pytest`.
-- `.gitignore` — ignorar `.venv/`, `__pycache__/`, `.pytest_cache/`, `runtime/`, `.env`, chaves e arquivos `*.db`, `*.sqlite3`.
+- `pyproject.toml` — metadados (Python ≥ 3.10) e dependência de `pytest` com versão fixada.
+- O `.gitignore` da raiz já ignora `.venv/`, `__pycache__/`, `runtime/`, `.env`, chaves e `*.db`/`*.sqlite3`. Revise-o, mas não o recrie.
 - `src/dataguard/db/schema.sql` — criação das tabelas.
 - `src/dataguard/db/connection.py` — conexão configurada.
 - `src/dataguard/db/import_csv.py` — importador idempotente ou recriação explícita.
@@ -127,8 +136,9 @@ PRAGMA foreign_key_check;
 - [ ] Opções vazias importadas como `NULL`.
 - [ ] Mesmo script reproduz o banco a partir dos CSVs sem duplicar linhas.
 - [ ] Importação interrompida não deixa carga parcial.
-- [ ] Gabarito não aparece entre as tabelas operacionais.
+- [ ] Gabarito e perguntas de avaliação não aparecem entre as tabelas operacionais.
+- [ ] Teste chama `validar_dataset.py` (ou suas funções) antes da importação.
 
-**Critério de aceite:** o banco SQLite é construído localmente e reproduz os 4.161 registros, com `foreign_key_check` vazio.
+**Critério de aceite:** `validar_dataset.py` sem falhas; o banco SQLite é construído localmente e reproduz os 4.161 registros, com `foreign_key_check` vazio.
 
-**Próxima etapa:** [02 — Integridade e transações](02-integridade-e-transacoes.md). O futuro FastAPI deverá reutilizar estas funções de banco, sem duplicar a lógica de persistência.
+**Próxima etapa (trilha principal):** [05 — Assistente local](05-assistente-local.md), corte vertical com papéis, catálogo e Ollama. **Trilha complementar:** [02 — Integridade e transações](02-integridade-e-transacoes.md). O futuro FastAPI deverá reutilizar estas funções de banco, sem duplicar a lógica de persistência.

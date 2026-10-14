@@ -1,0 +1,29 @@
+{
+  "_aviso": "Identidades fictícias para testes de autorização no MVP. Sem senhas: credenciais de laboratório devem ser geradas localmente e nunca versionadas.",
+  "papeis": {
+    "operador": {
+      "descricao": "Consulta inventário, movimentações e chamados apenas dos setores atribuídos.",
+      "intencoes": ["contagem_por_categoria", "contagem_por_status", "equipamentos_do_setor", "chamados_abertos_do_setor", "historico_movimentacoes"],
+      "escopo": "setores_atribuidos",
+      "exportacao": false
+    },
+    "auditor": {
+      "descricao": "Consulta todos os setores em leitura e vê resultados de auditoria e alertas.",
+      "intencoes": ["contagem_por_categoria", "contagem_por_status", "equipamentos_do_setor", "chamados_abertos_do_setor", "historico_movimentacoes", "custo_reparo_por_setor", "resumo_alertas"],
+      "escopo": "todos_os_setores",
+      "exportacao": true
+    },
+    "admin_lab": {
+      "descricao": "Configura o laboratório e as políticas; não consulta dados de negócio pelo assistente.",
+      "intencoes": [],
+      "escopo": "nenhum",
+      "exportacao": false
+    }
+  },
+  "usuarios": [
+    { "id": "op.redes", "papel": "operador", "setores": [3] },
+    { "id": "op.financeiro", "papel": "operador", "setores": [8] },
+    { "id": "auditor.lab", "papel": "auditor", "setores": "todos" },
+    { "id": "admin.lab", "papel": "admin_lab", "setores": [] }
+  ]
+}

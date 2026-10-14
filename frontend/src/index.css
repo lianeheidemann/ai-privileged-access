@@ -1,0 +1,97 @@
+/* Tokens do tema (padrão shadcn/ui) e base Tailwind. Identidade azul-marinho; sem fontes ou CDN externos. */
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #f7f9fb;
+  --foreground: #1c3040;
+  --sidebar: #ffffff;
+  --card: #ffffff;
+  --card-foreground: #1c3040;
+  --muted: #f1f5f8;
+  --muted-foreground: #5f7482;
+  --primary: #315f7d;
+  --primary-foreground: #ffffff;
+  --accent: #e5f0f6;
+  --accent-foreground: #1c3040;
+  --border: #dce4e9;
+  --input: #dce4e9;
+  --ring: #315f7d;
+  --success: #3f8f7a;
+  --warning: #a8741a;
+  --destructive: #b4443c;
+  --chart-1: #315f7d;
+  --chart-2: #5b8ba9;
+  --chart-3: #83b6d0;
+  --chart-4: #3f8f7a;
+  --chart-5: #a8741a;
+  --radius: 0.75rem;
+}
+
+.dark {
+  --background: #0c141c;
+  --foreground: #eaf1f5;
+  --sidebar: #0e1821;
+  --card: #131f2a;
+  --card-foreground: #eaf1f5;
+  --muted: #172631;
+  --muted-foreground: #95a6b3;
+  --primary: #9cc4d9;
+  --primary-foreground: #0c141c;
+  --accent: #1d3746;
+  --accent-foreground: #eaf1f5;
+  --border: #263540;
+  --input: #2c3d4a;
+  --ring: #9cc4d9;
+  --success: #7bb9a8;
+  --warning: #d9b46a;
+  --destructive: #e08a82;
+  --chart-1: #9cc4d9;
+  --chart-2: #6f9fbd;
+  --chart-3: #4c7a96;
+  --chart-4: #7bb9a8;
+  --chart-5: #d9b46a;
+}
+
+@theme inline {
+  --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-sidebar: var(--sidebar);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-destructive: var(--destructive);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * { @apply border-border; }
+  html { color-scheme: light; }
+  html.dark { color-scheme: dark; }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+  }
+  button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
+}
