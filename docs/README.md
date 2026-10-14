@@ -100,6 +100,8 @@ dataguard-ai/
 ├── tests/                        # A partir da etapa 01
 ├── runtime/                      # Local; ignorado no Git
 ├── pyproject.toml                # Etapa 01
+├── .github/workflows/            # Já existe (CI e publicação da demo)
+├── .gitattributes                # Já existe (LF nos dados, para os hashes)
 └── .gitignore                    # Já existe
 ```
 

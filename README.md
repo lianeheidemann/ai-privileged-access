@@ -146,6 +146,8 @@ A justificativa, as alternativas consideradas e os riscos de cada escolha estão
 | Testes do backend | **pytest** | Planejado |
 | Fontes corporativas | Conectores somente leitura para **PostgreSQL, SQL Server, MySQL** | Futuro (etapa 05) |
 
+As versões exatas em uso, as versões de referência do backend e as alternativas consideradas estão em [Decisões tecnológicas](docs/decisoes-tecnologicas.md#versões).
+
 **Linguagens predominantes:** Python, TypeScript e SQL. O **Node.js** serve apenas às ferramentas de build do frontend. Na distribuição local, o FastAPI servirá o build estático.
 
 ## Dados sintéticos — versão 2
@@ -215,7 +217,7 @@ flowchart LR
 | 07 | Complementar | Auditoria, hashes e backups | [Evidências e backups](docs/07-auditoria-e-backups.md) |
 | 08 | Complementar | Regras de anomalia e Isolation Forest exploratório | [Anomalias e ML](docs/08-anomalias-e-ml.md) |
 
-A numeração das etapas foi mantida. Consulte o [guia de desenvolvimento](docs/README.md).
+As etapas estão numeradas na ordem de leitura: **00–05** na trilha principal e **06–08** na complementar. Consulte o [guia de desenvolvimento](docs/README.md), que traz a equivalência com a numeração antiga.
 
 ### Estrutura do repositório
 
@@ -227,6 +229,7 @@ dataguard-ai/
 ├── docs/                          # Requisitos, arquitetura, decisões e testes
 ├── assets/diagrams/               # SVGs da arquitetura e do modelo de dados
 ├── data/                          # CSVs sintéticos, gabarito, perguntas de avaliação, manifesto
+├── .github/workflows/             # CI: valida o dataset, testa, compila e publica a demo
 ├── scripts/dataset/               # Validação e geração de artefatos do dataset
 ├── config/                        # Exemplos sem segredos (usuários e papéis fictícios)
 ├── frontend/                      # Protótipo React + TypeScript + Vite (implementado)
@@ -271,3 +274,7 @@ A IA não poderá executar SQL arbitrário nem alterar o banco. Alertas de quali
 **Estado dos entregáveis:**
 - **Concluídos:** proposta e pré-requisitos documentados, tecnologias justificadas, dataset sintético v2 validado com conjunto de avaliação, protótipo visual testado.
 - **Pendentes:** backend, autorização, integração com IA, validação dos controles de segurança e benchmarks.
+
+## Licença
+
+Ainda **não definida**: o repositório não tem arquivo `LICENSE`, e sem ele o código não pode ser reutilizado. A escolha está registrada como decisão em aberto em [Decisões tecnológicas](docs/decisoes-tecnologicas.md#decisões-em-aberto).

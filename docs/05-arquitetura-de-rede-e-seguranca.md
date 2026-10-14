@@ -148,7 +148,8 @@ O Ollama normalmente escuta em **127.0.0.1:11434**. No Windows, a configuração
 | OLLAMA_NO_CLOUD | 1 | Desativar as funcionalidades em nuvem do Ollama |
 
 4. Reiniciar o aplicativo Ollama pelo menu Iniciar.
-5. Confirmar que o modelo **local** já foi baixado antes de desconectar a internet.
+5. Confirmar que a nuvem está desativada: o log do Ollama deve mostrar `Ollama cloud disabled: true`. Alternativa à variável: a chave `disable_ollama_cloud` em `~/.ollama/server.json` ([FAQ do Ollama](https://docs.ollama.com/faq)). Com a nuvem desativada, modelos em nuvem e busca web ficam indisponíveis.
+6. Confirmar que o modelo **local** já foi baixado antes de desconectar a internet.
 
 Outra maneira, em PowerShell, **persistindo valores apenas para a conta do Windows** (também requer reiniciar o Ollama):
 
