@@ -1,6 +1,6 @@
 # Guia de desenvolvimento — DataGuard AI
 
-Este é o **ponto de partida** para construir o DataGuard AI como **proposta de IA privada para empresas**, em partes, sem tentar implementar toda a aplicação de uma vez. O inventário sintético é um caso de teste; o objetivo final é permitir análises autorizadas em bancos internos, com inferência na infraestrutura da organização e controles de prevenção de vazamento.
+Este é o **ponto de partida** para construir o DataGuard AI como **proposta de IA privada para empresas**, em partes, sem tentar implementar toda a aplicação de uma vez. O inventário sintético é um caso de teste; o objetivo final é agilizar consultas, organização, análise e apresentação de dados no cotidiano das empresas, com inferência na infraestrutura da organização e controles de proteção das informações.
 
 **Situação atual:** os **seis CSVs sintéticos** e o **gabarito separado** estão disponíveis em `data/`. O banco SQLite, a aplicação Python, a API FastAPI, a interface React e a IA integrada **ainda serão implementados**.
 
