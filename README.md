@@ -41,9 +41,9 @@
 
 ### Demonstração visual da interface
 
-Para quem quiser conhecer **como a interface poderá ficar**, há uma [**demonstração navegável em HTML**](demo/index.html), com sete páginas, gráficos ilustrativos e temas claro/escuro. O arquivo pode ser baixado e aberto no navegador do celular ou computador, inclusive offline. O [código do frontend React](frontend/README.md) também está disponível.
+Para conhecer a proposta de interface, consulte o [**frontend React**](frontend/README.md) ou a [**demonstração no GitHub Pages**](https://lianeheidemann.github.io/dataguard-ai/), quando a publicação estiver disponível. A navegação inclui sete páginas, menu lateral e temas claro/escuro.
 
-A demonstração é **apenas uma prévia de design e navegação**, com exemplos fictícios; não representa funcionalidades empresariais já implementadas nem se conecta a dados reais ou serviços de IA.
+A interface é **apenas um protótipo visual com dados sintéticos**. Não há conexão operacional com banco de dados, backend ou IA; o projeto continua na fase de levantamento de pré-requisitos técnicos e planejamento da arquitetura.
 
 ## Objetivo
 
