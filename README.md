@@ -55,17 +55,15 @@ Uma API validará as operações e uma interface local apresentará os resultado
 
 **A IA explica achados, mas não certifica a integridade dos dados.** Confirmações técnicas dependem de regras e verificações reproduzíveis; alertas estatísticos são **suspeitas**, não prova de corrupção ou fraude.
 
-## Questão de pesquisa e abordagem experimental
+## Validação técnica da solução
 
-**Problema investigado:** como permitir que empresas utilizem IA sobre seus próprios bancos de dados, em infraestrutura controlada, **sem depender de inferência em nuvem nem expor informações confidenciais por conexões externas não autorizadas**, mantendo consultas rastreáveis e permissões restritas?
+Antes de conectar o DataGuard AI a bancos de dados reais, a implementação será validada em um ambiente controlado, com **dados sintéticos**. Essa etapa permitirá verificar o funcionamento das consultas autorizadas, dos mecanismos de integridade, da detecção de anomalias e da inferência local.
 
-O projeto pretende estudar a viabilidade técnica dessa combinação em um ambiente controlado, considerando quatro aspectos: **confiabilidade dos resultados**, **capacidade de detectar inconsistências**, **desempenho em hardware local** e **redução da exposição dos dados à rede**.
+Os testes deverão avaliar **correção dos resultados**, **desempenho no hardware disponível**, **controle de acesso aos dados** e **comportamento da aplicação sem conexões externas de IA**. As anomalias conhecidas do dataset serão usadas para conferir os resultados dos detectores; as respostas do assistente serão comparadas às consultas e evidências permitidas.
 
-A avaliação será conduzida com dados **inteiramente sintéticos** e um gabarito separado de anomalias conhecidas. As regras e os modelos serão comparados com esse gabarito; as respostas da IA serão verificadas quanto à correspondência com consultas autorizadas e evidências do banco. Também serão medidos tempos de execução e uso de recursos, além de realizados testes de operação offline e de exposição de serviços.
+Na futura implantação em rede corporativa, também será necessário validar permissões, isolamento entre serviços, registros de auditoria e regras de tráfego. **Executar a IA localmente reduz a dependência de serviços externos, mas não garante, por si só, a ausência de vazamentos.**
 
-**Hipótese de trabalho, ainda não validada:** uma arquitetura empresarial de IA privada, com isolamento de rede, controle de saída, acesso mínimo ao banco e inferência interna, pode reduzir caminhos de exposição de dados e permitir análises úteis. A segurança precisa ser demonstrada por testes, não presumida por ser uma IA local.
-
-A metodologia detalhada e os critérios de avaliação estão previstos em [04 — Anomalias e ML](docs/04-anomalias-e-ml.md) e [07 — Testes e experimentos](docs/07-testes-e-experimentos.md). **Nenhum ganho de segurança, precisão ou desempenho é afirmado antes dos testes.**
+Os procedimentos e critérios de teste estão documentados em [04 — Anomalias e ML](docs/04-anomalias-e-ml.md), [07 — Testes e experimentos](docs/07-testes-e-experimentos.md) e [08 — Rede privada e segurança](docs/08-arquitetura-de-rede-e-seguranca.md).
 
 ## Arquitetura oficial do MVP
 
