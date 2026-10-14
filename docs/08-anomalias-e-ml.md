@@ -1,10 +1,10 @@
-# 04 — Detectar anomalias: regras primeiro, ML depois
+# 08 — Detectar anomalias: regras primeiro, ML depois
 
-> **Trilha complementar (qualidade dos dados).** Esta etapa não bloqueia a trilha principal de segurança da IA local (00 → 01 → 05 → 06 → 07). Ela pode ser feita em paralelo ou depois do corte vertical da [etapa 05](05-assistente-local.md).
+> **Trilha complementar (qualidade dos dados).** Esta etapa não bloqueia a trilha principal de segurança da IA local (00 → 01 → 02 → 03 → 04). Ela pode ser feita em paralelo ou depois do corte vertical da [etapa 02](02-assistente-local.md).
 
 **Objetivo:** demonstrar uma **funcionalidade de análise empresarial** sobre dados sintéticos: localizar comportamentos fora do padrão e medir a qualidade da detecção, sem tornar o ML requisito para toda consulta segura.
 
-**Pré-requisito:** [etapa 02](02-integridade-e-transacoes.md); a etapa 03 é recomendada para preservar evidências. **Não usar IA generativa para decidir o que é erro.**
+**Pré-requisito:** [etapa 06](06-integridade-e-transacoes.md); a etapa 07 é recomendada para preservar evidências. **Não usar IA generativa para decidir o que é erro.**
 
 **Segurança dos dados:** executar extração e processamento dentro do ambiente autorizado; obter apenas campos e períodos necessários; não transmitir datasets ou vetores derivados a serviços externos; não publicar amostras reais, modelos treinados com dados sensíveis ou relatórios identificáveis. A política de retenção também se aplica a features e resultados.
 
@@ -111,7 +111,7 @@ Comparar **regras**, **Isolation Forest** e **união/combinação dos dois**, co
 
 ## Passo 6 — Visualização simples dos resultados
 
-Antes de integrar **FastAPI e a interface React + TypeScript** (etapa 06), gerar um CSV/JSON com:
+Antes de integrar **FastAPI e a interface React + TypeScript** (etapa 03), gerar um CSV/JSON com:
 - Quantidade de alertas por detector.
 - IDs detectados e evidências.
 - Scores e limiares.
@@ -129,4 +129,4 @@ Antes de integrar **FastAPI e a interface React + TypeScript** (etapa 06), gerar
 
 **Separação de camadas:** os detectores permanecem em Python e retornam resultados estruturados; a futura API FastAPI apenas os expõe, e React/Recharts apenas os apresenta. Nunca realizar cálculos de detecção dentro dos componentes de interface.
 
-**Ao concluir:** exponha os alertas ao assistente pela intenção `resumo_alertas` (papel auditor) da [etapa 05](05-assistente-local.md) e à interface pela [etapa 06](06-interface-e-relatorios.md).
+**Ao concluir:** exponha os alertas ao assistente pela intenção `resumo_alertas` (papel auditor) da [etapa 02](02-assistente-local.md) e à interface pela [etapa 03](03-interface-e-relatorios.md).

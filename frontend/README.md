@@ -63,4 +63,4 @@ O arquivo inclui todos os 750 equipamentos e amostras dos 200 eventos mais recen
 - **Relatórios:** a exportação CSV neutraliza células que começam com `=`, `+`, `-` ou `@` (CSV/formula injection).
 - **Sem rede:** os testes verificam que a navegação não chama `fetch`. Não há fontes, scripts ou estilos de CDN.
 
-A interface **não deve ser exposta como aplicação corporativa** antes da API FastAPI, da autorização por papel e dos testes de segurança. Na etapa 06, `src/services/demo-api.ts` será substituído por chamadas `fetch('/api/...')`; as telas não precisarão mudar.
+A interface **não deve ser exposta como aplicação corporativa** antes da API FastAPI, da autorização por papel e dos testes de segurança. Na etapa 03, `src/services/demo-api.ts` será substituído por chamadas `fetch('/api/...')`; as telas não precisarão mudar.

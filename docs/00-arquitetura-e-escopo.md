@@ -12,13 +12,13 @@ A pergunta de pesquisa se divide em hipóteses verificáveis:
 
 | Hipótese | Como verificar | Etapa |
 | --- | --- | --- |
-| H1 — Autorização no backend impede respostas fora do escopo, mesmo com prompts maliciosos | Perguntas `acesso_negado` e `adversarial` do conjunto de avaliação | 05, 07 |
-| H2 — Catálogo de consultas em conexão somente leitura impede escrita pelo assistente | Hash do banco antes e depois das perguntas adversariais | 05, 07 |
-| H3 — Um modelo local de 3–4B no hardware de referência responde com utilidade em português | Acerto e latência nas perguntas `normal` | 05, 07 |
-| H4 — A operação não depende de serviços externos | Captura de tráfego com internet desligada | 07 |
-| H5 — Na rede privada, banco e LLM ficam inacessíveis fora do backend | Testes N01–N12 | 08 |
+| H1 — Autorização no backend impede respostas fora do escopo, mesmo com prompts maliciosos | Perguntas `acesso_negado` e `adversarial` do conjunto de avaliação | 02, 04 |
+| H2 — Catálogo de consultas em conexão somente leitura impede escrita pelo assistente | Hash do banco antes e depois das perguntas adversariais | 02, 04 |
+| H3 — Um modelo local de 3–4B no hardware de referência responde com utilidade em português | Acerto e latência nas perguntas `normal` | 02, 04 |
+| H4 — A operação não depende de serviços externos | Captura de tráfego com internet desligada | 04 |
+| H5 — Na rede privada, banco e LLM ficam inacessíveis fora do backend | Testes N01–N12 | 05 |
 
-A trilha complementar (etapas 02–04) separa quatro conceitos de qualidade de dados:
+A trilha complementar (etapas 06–08) separa quatro conceitos de qualidade de dados:
 
 | Conceito | Pergunta | Como verificar |
 | --- | --- | --- |
@@ -34,12 +34,12 @@ A trilha complementar (etapas 02–04) separa quatro conceitos de qualidade de d
 - Definir **fronteiras de confiança** entre navegador, API, inferência e banco, com matriz de fluxos autorizados.
 - Bloquear **tráfego de saída por padrão** durante a operação. Registrar exceções justificadas e testar DNS, HTTP(S), telemetria e atualizações automáticas.
 - Diferenciar API **interna** (FastAPI/Ollama) de API **externa**: proibir chamadas a provedores de inferência em nuvem.
-- **Autorização por papel e por escopo desde o MVP**, com usuários fictícios ([`config/usuarios-ficticios.example.json`](../config/usuarios-ficticios.example.json)), aplicada no backend antes de qualquer consulta. Identidade corporativa fica para a etapa 08.
+- **Autorização por papel e por escopo desde o MVP**, com usuários fictícios ([`config/usuarios-ficticios.example.json`](../config/usuarios-ficticios.example.json)), aplicada no backend antes de qualquer consulta. Identidade corporativa fica para a etapa 05.
 - Não encaminhar tabelas inteiras ao LLM. Limitar campos, linhas e conteúdo retornado.
 - Proteger logs, backups, relatórios, prompts e respostas contra exposição de dados sensíveis.
 - Validar com testes negativos, monitoramento de conexões e revisão de permissões. **Nenhuma topologia garante vazamento zero.**
 
-A implantação com PostgreSQL, segmentação e TLS ocorre na [etapa 08](08-arquitetura-de-rede-e-seguranca.md), mas estes requisitos influenciam o MVP desde agora.
+A implantação com PostgreSQL, segmentação e TLS ocorre na [etapa 05](05-arquitetura-de-rede-e-seguranca.md), mas estes requisitos influenciam o MVP desde agora.
 
 ## 3. Escopo inicial e limites
 
@@ -85,11 +85,11 @@ flowchart TD
 | Camada | Tecnologia definida | Quando implementar |
 | --- | --- | --- |
 | Banco | Python + SQLite | Etapa 01 |
-| Autorização, catálogo e assistente | Python + Ollama local | Etapa 05 (corte vertical) |
-| API e contratos de dados | Python + FastAPI + Pydantic | Etapa 06 |
-| Interface web local | React + TypeScript + Vite, Tailwind, shadcn/ui, TanStack, Recharts | Protótipo pronto; conexão à API na etapa 06 |
-| Qualidade de dados (complementar) | Python + SQLite + scikit-learn | Etapas 02–04 |
-| Rede corporativa | PostgreSQL, RLS, TLS, identidade corporativa, segmentação | Etapa 08, **somente após o MVP** |
+| Autorização, catálogo e assistente | Python + Ollama local | Etapa 02 (corte vertical) |
+| API e contratos de dados | Python + FastAPI + Pydantic | Etapa 03 |
+| Interface web local | React + TypeScript + Vite, Tailwind, shadcn/ui, TanStack, Recharts | Protótipo pronto; conexão à API na etapa 03 |
+| Qualidade de dados (complementar) | Python + SQLite + scikit-learn | Etapas 06–08 |
+| Rede corporativa | PostgreSQL, RLS, TLS, identidade corporativa, segmentação | Etapa 05, **somente após o MVP** |
 
 Justificativas e alternativas estão em [Decisões tecnológicas](decisoes-tecnologicas.md).
 
@@ -142,10 +142,10 @@ O conjunto [`data/avaliacao/perguntas_assistente.csv`](../data/avaliacao/pergunt
 | `runtime/` é a pasta de trabalho local, ignorada no Git | Aplicada |
 | SQLite criado a partir dos CSVs, sem versionar um banco operacional | Registrada (etapa 01) |
 | Dataset com data de referência fixa, seed e manifesto SHA-256 | Aplicada (`dataset_info.json`, `MANIFEST.sha256`) |
-| React é interface local; FastAPI é o único ponto de acesso ao banco e ao Ollama | Registrada (etapa 06) |
-| Autorização por papel fictício no backend desde o MVP | Registrada (etapa 05) |
-| Assistente sem operações de escrita e sem SQL arbitrário, inclusive gerado pelo LLM | Registrada (etapa 05) |
-| Números da resposta vêm do SQL; o LLM só redige | Registrada (etapa 05) |
+| React é interface local; FastAPI é o único ponto de acesso ao banco e ao Ollama | Registrada (etapa 03) |
+| Autorização por papel fictício no backend desde o MVP | Registrada (etapa 02) |
+| Assistente sem operações de escrita e sem SQL arbitrário, inclusive gerado pelo LLM | Registrada (etapa 02) |
+| Números da resposta vêm do SQL; o LLM só redige | Registrada (etapa 02) |
 | Dependências travadas por lockfile | Aplicada no frontend; backend na etapa 01 |
 | Revisão de alertas confirmada manualmente pelo usuário | Registrada (trilha complementar) |
 | Cada execução de auditoria tem identificador e versão das regras | Registrada (trilha complementar) |

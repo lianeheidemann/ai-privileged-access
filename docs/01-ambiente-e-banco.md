@@ -4,11 +4,11 @@
 
 **Entrada:** `data/csv/*.csv` (dataset **v2**). **Saída esperada:** `runtime/databases/inventario.db` e testes de importação.
 
-**Decisão técnica:** nesta etapa, **Python + biblioteca padrão sqlite3** são suficientes. A interface **React + TypeScript + Vite** e a API **FastAPI** só serão implementadas na [etapa 06](06-interface-e-relatorios.md). Separar desde já a persistência da apresentação para não misturar código de UI com consultas SQL.
+**Decisão técnica:** nesta etapa, **Python + biblioteca padrão sqlite3** são suficientes. A interface **React + TypeScript + Vite** e a API **FastAPI** só serão implementadas na [etapa 03](03-interface-e-relatorios.md). Separar desde já a persistência da apresentação para não misturar código de UI com consultas SQL.
 
 ## Decisão sobre o banco de dados empresarial
 
-**Não é necessário alterar os seis CSVs nem as seis tabelas de domínio agora.** O inventário é um *fixture* sintético de validação; não deve ser apresentado como esquema universal de bancos empresariais. Para a implantação real, não substituir nem migrar automaticamente o banco da empresa: planejar **conector de leitura**, usuário de banco dedicado com permissões mínimas e **visões autorizadas**. PostgreSQL é uma opção para o laboratório de rede da etapa 08, não uma exigência para todos os clientes.
+**Não é necessário alterar os seis CSVs nem as seis tabelas de domínio agora.** O inventário é um *fixture* sintético de validação; não deve ser apresentado como esquema universal de bancos empresariais. Para a implantação real, não substituir nem migrar automaticamente o banco da empresa: planejar **conector de leitura**, usuário de banco dedicado com permissões mínimas e **visões autorizadas**. PostgreSQL é uma opção para o laboratório de rede da etapa 05, não uma exigência para todos os clientes.
 
 Separar conceitualmente **banco de origem** (dados empresariais, mantidos sob controle da organização) e **banco operacional do DataGuard AI** (configuração, execução, resultados e auditoria, com retenção mínima). Nunca copiar uma base completa para inferência por conveniência.
 
@@ -141,4 +141,4 @@ PRAGMA foreign_key_check;
 
 **Critério de aceite:** `validar_dataset.py` sem falhas; o banco SQLite é construído localmente e reproduz os 4.161 registros, com `foreign_key_check` vazio.
 
-**Próxima etapa (trilha principal):** [05 — Assistente local](05-assistente-local.md), corte vertical com papéis, catálogo e Ollama. **Trilha complementar:** [02 — Integridade e transações](02-integridade-e-transacoes.md). O futuro FastAPI deverá reutilizar estas funções de banco, sem duplicar a lógica de persistência.
+**Próxima etapa (trilha principal):** [02 — Assistente local](02-assistente-local.md), corte vertical com papéis, catálogo e Ollama. **Trilha complementar:** [06 — Integridade e transações](06-integridade-e-transacoes.md). O futuro FastAPI deverá reutilizar estas funções de banco, sem duplicar a lógica de persistência.

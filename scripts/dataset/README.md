@@ -15,4 +15,4 @@ Somente biblioteca padrão do Python (3.10+). Execute a partir da raiz do reposi
 python scripts/dataset/validar_dataset.py
 ~~~
 
-`comum.py` contém as sete regras de referência usadas **apenas para validar o dataset**. O detector da etapa 04 deve ser implementado de forma independente em `src/dataguard/detection/`.
+`comum.py` contém as sete regras de referência usadas **apenas para validar o dataset**. O detector da etapa 08 deve ser implementado de forma independente em `src/dataguard/detection/`.

@@ -11,22 +11,22 @@ Este documento registra **por que** cada tecnologia foi escolhida, quais alterna
 3. **Testabilidade:** cada controle de segurança precisa de teste automatizado.
 4. **Hardware de referência:** notebook Windows 11, 16 GB de RAM, RTX 3060 Laptop com 6 GB de VRAM.
 5. **Curva de aprendizado e manutenção** compatíveis com um projeto de estudo individual.
-6. **Caminho para a empresa:** a escolha do MVP não pode impedir a etapa 08 (rede privada, outros SGBDs).
+6. **Caminho para a empresa:** a escolha do MVP não pode impedir a etapa 05 (rede privada, outros SGBDs).
 
 ## Matriz de decisão
 
 | Camada | Escolha | Alternativas consideradas | Por que a escolha | Riscos e mitigação | Situação |
 | --- | --- | --- | --- | --- | --- |
-| Banco de validação | **SQLite** (`sqlite3`) | PostgreSQL, DuckDB | Sem servidor nem porta, arquivo único, biblioteca padrão, `mode=ro` e `set_authorizer` para leitura | **Não tem usuários, GRANT nem RLS**: a autorização do MVP fica no backend. Mitigação: papéis fictícios no backend desde o MVP; PostgreSQL + RLS na etapa 08 | Planejado (01) |
-| Banco empresarial | **PostgreSQL** para o laboratório | SQL Server, MySQL | RLS nativo, `pg_hba.conf`, TLS `verify-full`, open source | Cada SGBD corporativo tem outro modelo de permissões (o MySQL não tem RLS). Mitigação: conectores com **visões autorizadas** e contas de privilégio mínimo | Futuro (08) |
-| API | **FastAPI + Pydantic** | Flask, Django | Validação tipada na borda, OpenAPI, TestClient, servidor ASGI leve | `/docs` exposto. Mitigação: desabilitar ou proteger fora do laboratório | Planejado (06) |
-| Runtime de LLM | **Ollama** | llama.cpp server, vLLM, LM Studio | Instalação simples no Windows, gestão de modelos, API HTTP local, uso de GPU | **Sem autenticação** em `11434`; concorrência limitada; recursos de nuvem. Mitigação: loopback, `OLLAMA_NO_CLOUD`, só o backend chama. Na etapa 08, comparar com llama.cpp server/vLLM para multiusuário | Planejado (05) |
-| Uso do LLM | **Classificar intenção + redigir explicação** | Text-to-SQL livre, agente com ferramentas | Mantém o SQL revisado e fora do alcance do modelo; respostas verificáveis | Utilidade limitada ao catálogo. Mitigação futura: camada semântica/visões e SQL validado por parser e allowlist, **depois** das metas da etapa 07 | Planejado (05) |
-| Autorização no MVP | **Usuários e papéis fictícios no backend** | Sem autenticação até a etapa 08; Keycloak local | Testa a hipótese central desde o início, sem infraestrutura extra | Não representa identidade corporativa. Mitigação: mapear papéis para grupos OIDC/AD na etapa 08, com os mesmos testes | Planejado (05) |
-| Qualidade de dados | **Regras SQL/Python + Isolation Forest** (scikit-learn) | LOF, One-Class SVM, z-score robusto | Regras explicáveis primeiro; Isolation Forest é simples, sem rótulos e com `random_state` | Circularidade com o gerador; dataset pequeno. Mitigação: ML exploratório, várias seeds (ver [04](04-anomalias-e-ml.md)) | Planejado (04, complementar) |
+| Banco de validação | **SQLite** (`sqlite3`) | PostgreSQL, DuckDB | Sem servidor nem porta, arquivo único, biblioteca padrão, `mode=ro` e `set_authorizer` para leitura | **Não tem usuários, GRANT nem RLS**: a autorização do MVP fica no backend. Mitigação: papéis fictícios no backend desde o MVP; PostgreSQL + RLS na etapa 05 | Planejado (01) |
+| Banco empresarial | **PostgreSQL** para o laboratório | SQL Server, MySQL | RLS nativo, `pg_hba.conf`, TLS `verify-full`, open source | Cada SGBD corporativo tem outro modelo de permissões (o MySQL não tem RLS). Mitigação: conectores com **visões autorizadas** e contas de privilégio mínimo | Futuro (05) |
+| API | **FastAPI + Pydantic** | Flask, Django | Validação tipada na borda, OpenAPI, TestClient, servidor ASGI leve | `/docs` exposto. Mitigação: desabilitar ou proteger fora do laboratório | Planejado (03) |
+| Runtime de LLM | **Ollama** | llama.cpp server, vLLM, LM Studio | Instalação simples no Windows, gestão de modelos, API HTTP local, uso de GPU | **Sem autenticação** em `11434`; concorrência limitada; recursos de nuvem. Mitigação: loopback, `OLLAMA_NO_CLOUD`, só o backend chama. Na etapa 05, comparar com llama.cpp server/vLLM para multiusuário | Planejado (02) |
+| Uso do LLM | **Classificar intenção + redigir explicação** | Text-to-SQL livre, agente com ferramentas | Mantém o SQL revisado e fora do alcance do modelo; respostas verificáveis | Utilidade limitada ao catálogo. Mitigação futura: camada semântica/visões e SQL validado por parser e allowlist, **depois** das metas da etapa 04 | Planejado (02) |
+| Autorização no MVP | **Usuários e papéis fictícios no backend** | Sem autenticação até a etapa 05; Keycloak local | Testa a hipótese central desde o início, sem infraestrutura extra | Não representa identidade corporativa. Mitigação: mapear papéis para grupos OIDC/AD na etapa 05, com os mesmos testes | Planejado (02) |
+| Qualidade de dados | **Regras SQL/Python + Isolation Forest** (scikit-learn) | LOF, One-Class SVM, z-score robusto | Regras explicáveis primeiro; Isolation Forest é simples, sem rótulos e com `random_state` | Circularidade com o gerador; dataset pequeno. Mitigação: ML exploratório, várias seeds (ver [08](08-anomalias-e-ml.md)) | Planejado (08, complementar) |
 | Frontend | **React 18 + TypeScript + Vite 6** | Streamlit, Next.js | SPA estática servida pelo FastAPI, sem servidor Node; tipagem; build rápido | Ecossistema npm (supply chain). Mitigação: lockfile, `npm ci`, poucas dependências | **Em uso** |
 | Estilo e componentes | **Tailwind CSS 4 + padrão shadcn/ui** | CSS próprio, MUI, Chakra | Componentes copiados para o repositório (sem runtime de terceiros), tema por tokens CSS | Consistência depende de disciplina. Mitigação: primitivas em `components/ui/` | **Em uso** |
-| Tabelas e dados | **TanStack Table + TanStack Query** | AG Grid, SWR | Headless, leve, paginação/ordenação manual para o servidor; cache e estados de carregamento | Paginação ainda no cliente. Mitigação: passar para o servidor na etapa 06 | **Em uso** |
+| Tabelas e dados | **TanStack Table + TanStack Query** | AG Grid, SWR | Headless, leve, paginação/ordenação manual para o servidor; cache e estados de carregamento | Paginação ainda no cliente. Mitigação: passar para o servidor na etapa 03 | **Em uso** |
 | Gráficos | **Recharts 3** | ECharts, Chart.js | Componentes React declarativos, SVG acessível | Pacote grande (~540 kB). Mitigação: chunk separado, carregado só em Análises | **Em uso** |
 | Testes | **pytest**, **Vitest + Testing Library** | unittest, Jest | Padrão de cada ecossistema; Vitest integrado ao Vite | — | Vitest **em uso**; pytest planejado |
 | Dataset | **CSVs sintéticos + scripts stdlib** | Faker, SDV | Sem dependências, reproduzível, auditável por hash | Realismo limitado. Mitigação: limitações documentadas em `dataset_info.json` | **Em uso** (v2) |
@@ -55,7 +55,7 @@ Este documento registra **por que** cada tecnologia foi escolhida, quais alterna
 - latência p50/p95;
 - VRAM/RAM.
 
-Escolha o primeiro que atinja as metas da [etapa 07](07-testes-e-experimentos.md) e registre nome, tag, ID local (`ollama list`), licença e resultados de **todos** os candidatos.
+Escolha o primeiro que atinja as metas da [etapa 04](04-testes-e-experimentos.md) e registre nome, tag, ID local (`ollama list`), licença e resultados de **todos** os candidatos.
 
 **Procedência:**
 - Baixe somente do registro oficial ou do fornecedor e registre o identificador.
@@ -76,7 +76,7 @@ Escolha o primeiro que atinja as metas da [etapa 07](07-testes-e-experimentos.md
 | Antes | Agora | Motivo |
 | --- | --- | --- |
 | Interface em Streamlit/Plotly | React + FastAPI | Separação clara entre interface e backend; distribuição estática sem servidor Python de UI |
-| Autenticação só na etapa 08 | Papéis fictícios no MVP | A autorização é a hipótese central e precisa ser testada desde o corte vertical |
+| Autenticação só na etapa 05 | Papéis fictícios no MVP | A autorização é a hipótese central e precisa ser testada desde o corte vertical |
 | Stack de UI declarada, mas não usada | Protótipo migrado para Tailwind, shadcn/ui, TanStack e Recharts | Alinhar documentação e código |
 | Dataset v1 | Dataset v2 sem vazamento de rótulos | IDs contíguos, textos, horários e datas denunciavam as anomalias |
 | Recharts 2 | Recharts 3 | A linha 2.x foi descontinuada |

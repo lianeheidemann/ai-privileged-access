@@ -66,13 +66,13 @@ O protótipo **não se conecta** a banco, backend ou IA. Os números vêm de um 
 - **operação sem inferência externa**, com bloqueio de saída verificável;
 - **logs, exportações e mensagens de erro** que não vazem dados fora do escopo.
 
-**Trilha complementar:** integridade, auditoria e detecção de anomalias (etapas 02–04) demonstram análises úteis sobre os dados, mas **não são o foco** e não bloqueiam a trilha principal.
+**Trilha complementar:** integridade, auditoria e detecção de anomalias (etapas 06–08) demonstram análises úteis sobre os dados, mas **não são o foco** e não bloqueiam a trilha principal.
 
 **A IA auxilia na interpretação, mas não é fonte de fatos.** Números exibidos vêm de consultas determinísticas; o modelo apenas redige a explicação.
 
 ## Metas de validação
 
-Ainda **não existem resultados medidos**. Estas são as metas de aceite definidas antes da implementação, detalhadas na [etapa 07](docs/07-testes-e-experimentos.md):
+Ainda **não existem resultados medidos**. Estas são as metas de aceite definidas antes da implementação, detalhadas na [etapa 04](docs/04-testes-e-experimentos.md):
 
 | Dimensão | Meta |
 | --- | --- |
@@ -97,7 +97,7 @@ Ainda **não existem resultados medidos**. Estas são as metas de aceite definid
 | Ollama | `http://127.0.0.1:11434` | Inferência chamada **somente** pelo backend |
 | SQLite | Arquivo em `runtime/` | Persistência local, **sem porta TCP** |
 
-**Autorização desde o MVP:** usuários e papéis **fictícios** ([`config/usuarios-ficticios.example.json`](config/usuarios-ficticios.example.json)): operador restrito a setores, auditor e administrador de laboratório. O backend aplica o escopo antes de qualquer consulta. Identidade corporativa (OIDC/AD), PostgreSQL com RLS e TLS ficam para a etapa 08.
+**Autorização desde o MVP:** usuários e papéis **fictícios** ([`config/usuarios-ficticios.example.json`](config/usuarios-ficticios.example.json)): operador restrito a setores, auditor e administrador de laboratório. O backend aplica o escopo antes de qualquer consulta. Identidade corporativa (OIDC/AD), PostgreSQL com RLS e TLS ficam para a etapa 05.
 
 **Segurança desde a primeira etapa:**
 - limites de confiança e matriz de fluxos permitidos;
@@ -108,7 +108,7 @@ Ainda **não existem resultados medidos**. Estas são as metas de aceite definid
 
 Loopback reduz a exposição à rede, mas **não substitui autorização**: qualquer processo local pode alcançar `127.0.0.1`, inclusive o Ollama, que não tem autenticação própria.
 
-Consulte [06 — Interface](docs/06-interface-e-relatorios.md) e [08 — Rede privada e segurança](docs/08-arquitetura-de-rede-e-seguranca.md).
+Consulte [03 — Interface](docs/03-interface-e-relatorios.md) e [05 — Rede privada e segurança](docs/05-arquitetura-de-rede-e-seguranca.md).
 
 ## Arquitetura empresarial proposta
 
@@ -125,7 +125,7 @@ Requisitos de segurança dessa fase:
 
 ![Arquitetura empresarial planejada do DataGuard AI](assets/diagrams/arquitetura-empresarial.svg)
 
-**Diagrama conceitual, não implementado.** A ausência de vazamentos não é garantida pelo desenho; ela exige testes de rede, permissões, registros e tratamento de dados ([etapa 08](docs/08-arquitetura-de-rede-e-seguranca.md)).
+**Diagrama conceitual, não implementado.** A ausência de vazamentos não é garantida pelo desenho; ela exige testes de rede, permissões, registros e tratamento de dados ([etapa 05](docs/05-arquitetura-de-rede-e-seguranca.md)).
 
 ## Tecnologias
 
@@ -139,12 +139,12 @@ A justificativa, as alternativas consideradas e os riscos de cada escolha estão
 | Gráficos | **Recharts** | Em uso no protótipo |
 | Testes do frontend | **Vitest, Testing Library** | Em uso |
 | Scripts do dataset | **Python 3.10+** (biblioteca padrão) | Em uso |
-| Backend/API | **Python, FastAPI, Pydantic** | Planejado (etapa 06) |
+| Backend/API | **Python, FastAPI, Pydantic** | Planejado (etapa 03) |
 | Banco de validação | **SQLite** (`sqlite3`); não é exigência da solução empresarial | Planejado (etapa 01) |
-| IA | **Ollama** com modelo local de 3–4B quantizado; nuvem e fallback externo desabilitados | Planejado (etapa 05) |
-| Machine Learning | **scikit-learn**, pandas, NumPy — trilha complementar | Planejado (etapa 04) |
+| IA | **Ollama** com modelo local de 3–4B quantizado; nuvem e fallback externo desabilitados | Planejado (etapa 02) |
+| Machine Learning | **scikit-learn**, pandas, NumPy — trilha complementar | Planejado (etapa 08) |
 | Testes do backend | **pytest** | Planejado |
-| Fontes corporativas | Conectores somente leitura para **PostgreSQL, SQL Server, MySQL** | Futuro (etapa 08) |
+| Fontes corporativas | Conectores somente leitura para **PostgreSQL, SQL Server, MySQL** | Futuro (etapa 05) |
 
 **Linguagens predominantes:** Python, TypeScript e SQL. O **Node.js** serve apenas às ferramentas de build do frontend. Na distribuição local, o FastAPI servirá o build estático.
 
@@ -196,24 +196,24 @@ Os documentos são **guias** com tarefas, arquivos previstos, testes e critério
 ```mermaid
 flowchart LR
     A["00 · Arquitetura e ameaças"] --> B["01 · Banco SQLite"]
-    B --> C["05 · Corte vertical: catálogo + papéis + Ollama"]
-    C --> D["06 · FastAPI + React"]
-    D --> E["07 · Testes e metas"]
-    E -. "implantação posterior" .-> F["08 · Rede privada"]
-    B -. "trilha complementar" .-> G["02 · Integridade"] -.-> H["03 · Auditoria"] -.-> I["04 · Anomalias e ML"]
+    B --> C["02 · Corte vertical: catálogo + papéis + Ollama"]
+    C --> D["03 · FastAPI + React"]
+    D --> E["04 · Testes e metas"]
+    E -. "implantação posterior" .-> F["05 · Rede privada"]
+    B -. "trilha complementar" .-> G["06 · Integridade"] -.-> H["07 · Auditoria"] -.-> I["08 · Anomalias e ML"]
 ```
 
 | Etapa | Trilha | Objetivo | Documento |
 | --- | --- | --- | --- |
 | 00 | Principal | Arquitetura, escopo, ameaças e decisões | [Arquitetura e escopo](docs/00-arquitetura-e-escopo.md) |
 | 01 | Principal | Ambiente Python, esquema SQLite e importação validada | [Banco de dados](docs/01-ambiente-e-banco.md) |
-| 05 | Principal | **Corte vertical:** autorização por papel, catálogo somente leitura e Ollama local | [Assistente local](docs/05-assistente-local.md) |
-| 06 | Principal | FastAPI + conexão do protótipo React à API real | [Interface e relatórios](docs/06-interface-e-relatorios.md) |
-| 07 | Principal | Testes, metas numéricas, segurança e execução offline | [Testes e experimentos](docs/07-testes-e-experimentos.md) |
-| 08 | Implantação posterior | Intranet privada, PostgreSQL/RLS, identidade corporativa e prevenção de vazamentos | [Rede e segurança](docs/08-arquitetura-de-rede-e-seguranca.md) |
-| 02 | Complementar | Restrições, transações e regras de negócio | [Integridade](docs/02-integridade-e-transacoes.md) |
-| 03 | Complementar | Auditoria, hashes e backups | [Evidências e backups](docs/03-auditoria-e-backups.md) |
-| 04 | Complementar | Regras de anomalia e Isolation Forest exploratório | [Anomalias e ML](docs/04-anomalias-e-ml.md) |
+| 02 | Principal | **Corte vertical:** autorização por papel, catálogo somente leitura e Ollama local | [Assistente local](docs/02-assistente-local.md) |
+| 03 | Principal | FastAPI + conexão do protótipo React à API real | [Interface e relatórios](docs/03-interface-e-relatorios.md) |
+| 04 | Principal | Testes, metas numéricas, segurança e execução offline | [Testes e experimentos](docs/04-testes-e-experimentos.md) |
+| 05 | Implantação posterior | Intranet privada, PostgreSQL/RLS, identidade corporativa e prevenção de vazamentos | [Rede e segurança](docs/05-arquitetura-de-rede-e-seguranca.md) |
+| 06 | Complementar | Restrições, transações e regras de negócio | [Integridade](docs/06-integridade-e-transacoes.md) |
+| 07 | Complementar | Auditoria, hashes e backups | [Evidências e backups](docs/07-auditoria-e-backups.md) |
+| 08 | Complementar | Regras de anomalia e Isolation Forest exploratório | [Anomalias e ML](docs/08-anomalias-e-ml.md) |
 
 A numeração das etapas foi mantida. Consulte o [guia de desenvolvimento](docs/README.md).
 
