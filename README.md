@@ -26,7 +26,7 @@
 
 **Private AI · Secure Data Access · On-Premises Processing**
 
-**DataGuard AI:** solução planejada para consultar e analisar dados internos com IA executada na infraestrutura controlada da organização. O núcleo combina acesso autorizado às fontes de dados, processamento privado e consultas rastreáveis, sem depender de serviços externos de inferência. O primeiro protótipo usa dados sintéticos para validar a arquitetura e funcionalidades como integridade e detecção de anomalias.
+**DataGuard AI:** solução planejada para **agilizar o trabalho diário com dados nas empresas**, permitindo consultar informações, organizar resultados, apoiar análises e gerar relatórios por meio de IA executada na infraestrutura controlada da organização. O protótipo inicial utiliza dados sintéticos para desenvolver e testar essas funcionalidades, sem depender de serviços externos de inferência.
 
 ## Status atual — levantamento de requisitos e planejamento técnico
 
@@ -41,25 +41,26 @@
 
 ## Objetivo
 
-**Objetivo principal:** desenvolver uma solução de IA privada que permita a usuários autorizados consultar e analisar informações de bancos internos, mantendo o processamento sob controle da organização. A arquitetura prevê permissões mínimas, consultas rastreáveis e restrição de conexões externas. Auditoria e detecção de anomalias são **funcionalidades e casos de uso demonstrativos**, não a finalidade exclusiva do sistema.
+**Objetivo principal:** desenvolver uma solução de IA privada que **simplifique e acelere processos cotidianos de tratamento de dados**. Usuários autorizados poderão localizar informações, realizar consultas, obter resumos, organizar resultados e produzir relatórios, mantendo o processamento sob controle da organização. A arquitetura prevê permissões mínimas, consultas rastreáveis e restrição de conexões externas. Verificações de qualidade e detecção de anomalias são **recursos complementares**, não o foco principal.
 
-O DataGuard AI pretende reunir três capacidades demonstrativas:
+O DataGuard AI pretende reunir as seguintes capacidades:
 
 | Capacidade | Objetivo |
 | --- | --- |
-| **Integridade de dados** | Verificar relações, transações, regras de negócio, evidências e backups de forma reproduzível |
-| **Detecção de anomalias** | Identificar registros e comportamentos incomuns, distinguindo suspeitas de falhas comprovadas |
-| **Assistente de IA local** | Explicar resultados e responder perguntas por meio de consultas predefinidas de somente leitura |
+| **Consultas assistidas por IA** | Facilitar a busca e a compreensão de informações em fontes internas autorizadas |
+| **Organização e análise de dados** | Aplicar filtros, resumir resultados e apoiar atividades recorrentes |
+| **Relatórios** | Apresentar e exportar informações conforme as permissões do usuário |
+| **Qualidade dos dados** | Identificar inconsistências e registros atípicos que possam prejudicar processos operacionais |
 
 Uma API validará as operações e uma interface local apresentará os resultados. As **tecnologias específicas** estão consolidadas na seção [Linguagens e tecnologias definidas](#linguagens-e-tecnologias-definidas).
 
-**A IA explica achados, mas não certifica a integridade dos dados.** Confirmações técnicas dependem de regras e verificações reproduzíveis; alertas estatísticos são **suspeitas**, não prova de corrupção ou fraude.
+**A IA auxilia na interpretação e no tratamento das informações, mas não substitui validações técnicas.** Verificações de qualidade devem usar regras reproduzíveis, e resultados estatísticos devem ser apresentados como indicadores que precisam de contexto.
 
 ## Validação técnica da solução
 
-Antes de conectar o DataGuard AI a bancos de dados reais, a implementação será validada em um ambiente controlado, com **dados sintéticos**. Essa etapa permitirá verificar o funcionamento das consultas autorizadas, dos mecanismos de integridade, da detecção de anomalias e da inferência local.
+Antes de conectar o DataGuard AI a bancos de dados reais, a implementação será validada em um ambiente controlado, com **dados sintéticos**. Essa etapa permitirá testar consultas em linguagem natural, organização e apresentação de resultados, geração de relatórios, qualidade dos dados e inferência local.
 
-Os testes deverão avaliar **correção dos resultados**, **desempenho no hardware disponível**, **controle de acesso aos dados** e **comportamento da aplicação sem conexões externas de IA**. As anomalias conhecidas do dataset serão usadas para conferir os resultados dos detectores; as respostas do assistente serão comparadas às consultas e evidências permitidas.
+Os testes deverão avaliar **correção das consultas e dos relatórios**, **tempo necessário para tarefas frequentes**, **desempenho no hardware disponível**, **controle de acesso aos dados** e **comportamento da aplicação sem conexões externas de IA**. O dataset sintético também permitirá testar verificações complementares de qualidade; as respostas do assistente serão comparadas aos resultados de consultas autorizadas.
 
 Na futura implantação em rede corporativa, também será necessário validar permissões, isolamento entre serviços, registros de auditoria e regras de tráfego. **Executar a IA localmente reduz a dependência de serviços externos, mas não garante, por si só, a ausência de vazamentos.**
 
@@ -116,7 +117,7 @@ A identidade corporativa (quando disponível), a autenticação, a autorização
 
 Interface **dark, minimalista e responsiva**, com fundo em azul-marinho escuro, bordas discretas, textos legíveis e foco em tabelas e evidências. Gráficos serão usados quando acrescentarem informação; sem gradientes chamativos ou efeitos decorativos excessivos.
 
-**Telas principais planejadas:** Visão geral, Fontes de dados, Consultas, Análises, Assistente, Auditoria e Configurações. **Módulos demonstrativos:** Inventário, Integridade, Anomalias e Backups, usando o dataset sintético inicial. A interface definitiva será ajustada conforme os testes.
+**Telas principais planejadas:** Visão geral, Fontes de dados, Consultas, Análises, Assistente, Relatórios e Configurações. **Recursos complementares:** histórico de operações, verificações de qualidade e módulos demonstrativos baseados no inventário sintético. A interface definitiva será ajustada conforme os testes.
 
 ## Dados sintéticos já disponíveis
 
@@ -214,7 +215,7 @@ dataguard-ai/
 
 O MVP será executado **localmente**, com dados sintéticos, consultas autorizadas e serviços vinculados a `127.0.0.1`. O funcionamento offline e o isolamento de rede **ainda precisarão ser testados**.
 
-A IA não poderá executar SQL arbitrário nem alterar o banco. **Anomalias não são prova de fraude**; hashes e HMAC só identificam alterações quando comparados com referências confiáveis. Segredos, bancos operacionais, backups e logs privados não devem ser versionados.
+A IA não poderá executar SQL arbitrário nem alterar o banco. Alertas de qualidade não devem ser tratados como erros confirmados sem verificação; hashes e HMAC só identificam alterações quando comparados com referências confiáveis. Segredos, bancos operacionais, backups e logs privados não devem ser versionados.
 
 Para os controles e testes completos, consulte [03 — Auditoria e backups](docs/03-auditoria-e-backups.md), [05 — Assistente local](docs/05-assistente-local.md), [07 — Testes](docs/07-testes-e-experimentos.md) e [08 — Rede privada](docs/08-arquitetura-de-rede-e-seguranca.md).
 
