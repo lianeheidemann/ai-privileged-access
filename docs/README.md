@@ -119,6 +119,6 @@ Para cada funcionalidade, registre:
 | Qual é a saída? | Consulta, resultado, alerta ou relatório |
 | O que pode falhar? | FK inválida, backup adulterado, consulta proibida |
 | Como provar que funciona? | Teste reproduzível com resultado esperado |
-| Qual é o limite? | Um score estatístico **não prova fraude** |
+| Qual é o limite? | Um score estatístico **não confirma erro nos dados** |
 
 Voltar ao [README principal](../README.md).
