@@ -1,5 +1,5 @@
 # Valida o dataset sintético, testa o frontend e publica o protótipo React no GitHub Pages (somente na main).
-name: Deploy DataGuard AI frontend to GitHub Pages
+name: Deploy
 
 on:
   push:
