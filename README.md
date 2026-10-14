@@ -26,7 +26,7 @@
 
 **Local Database Integrity Auditing · Anomaly Detection · Private AI Assistant**
 
-Projeto experimental para auditoria da integridade de dados, detecção de anomalias e consultas em português por IA **local**, com interface web no próprio computador, **sem APIs externas de inferência**.
+**Proposta de IA privada para empresas:** arquitetura para consultar e analisar bancos de dados corporativos dentro da infraestrutura controlada da organização, sem depender de APIs externas de inferência. O protótipo inicial utiliza dados sintéticos e execução local para validar segurança, integridade e detecção de anomalias.
 
 ## Status atual — levantamento de requisitos e planejamento técnico
 
@@ -37,11 +37,13 @@ Projeto experimental para auditoria da integridade de dados, detecção de anoma
 >
 > **Já disponível:** documentação do planejamento e dataset sintético em CSV, incluindo o *ground truth* para avaliação.
 >
-> **Ainda a desenvolver:** banco SQLite operacional, serviços Python, verificações de integridade, detecção de anomalias, integração com Ollama, API FastAPI, interface React/TypeScript, testes e experimentos. A arquitetura empresarial de rede privada está prevista para uma fase posterior.
+> **Ainda a desenvolver:** banco SQLite operacional, serviços Python, verificações de integridade, detecção de anomalias, integração com Ollama, API FastAPI, interface React/TypeScript, testes e experimentos. A **implantação empresarial** será posterior ao protótipo, mas seus **requisitos de segurança orientam todas as etapas**.
 
 ## Objetivo
 
-O DataGuard AI pretende reunir três capacidades complementares:
+**Objetivo principal:** propor e avaliar uma solução de IA privada para empresas, permitindo acesso controlado a bancos internos e processamento local de informações, com restrição de tráfego externo, permissões mínimas e evidências de segurança. Auditoria e detecção de anomalias são **casos de uso para validar essa arquitetura**, não sua finalidade exclusiva.
+
+O DataGuard AI pretende reunir três capacidades demonstrativas:
 
 | Capacidade | Objetivo |
 | --- | --- |
@@ -55,19 +57,19 @@ Uma API validará as operações e uma interface local apresentará os resultado
 
 ## Questão de pesquisa e abordagem experimental
 
-**Problema investigado:** como combinar verificações determinísticas de integridade, detecção de anomalias e um assistente de IA executado localmente para apoiar a análise de um banco de dados, **sem enviar os registros a serviços externos de inferência**?
+**Problema investigado:** como permitir que empresas utilizem IA sobre seus próprios bancos de dados, em infraestrutura controlada, **sem depender de inferência em nuvem nem expor informações confidenciais por conexões externas não autorizadas**, mantendo consultas rastreáveis e permissões restritas?
 
 O projeto pretende estudar a viabilidade técnica dessa combinação em um ambiente controlado, considerando quatro aspectos: **confiabilidade dos resultados**, **capacidade de detectar inconsistências**, **desempenho em hardware local** e **redução da exposição dos dados à rede**.
 
 A avaliação será conduzida com dados **inteiramente sintéticos** e um gabarito separado de anomalias conhecidas. As regras e os modelos serão comparados com esse gabarito; as respostas da IA serão verificadas quanto à correspondência com consultas autorizadas e evidências do banco. Também serão medidos tempos de execução e uso de recursos, além de realizados testes de operação offline e de exposição de serviços.
 
-**Hipótese de trabalho, ainda não validada:** é possível oferecer uma ferramenta útil de apoio à auditoria com processamento local, mantendo separadas as evidências verificáveis, as suspeitas estatísticas e as explicações geradas por IA.
+**Hipótese de trabalho, ainda não validada:** uma arquitetura empresarial de IA privada, com isolamento de rede, controle de saída, acesso mínimo ao banco e inferência interna, pode reduzir caminhos de exposição de dados e permitir análises úteis. A segurança precisa ser demonstrada por testes, não presumida por ser uma IA local.
 
 A metodologia detalhada e os critérios de avaliação estão previstos em [04 — Anomalias e ML](docs/04-anomalias-e-ml.md) e [07 — Testes e experimentos](docs/07-testes-e-experimentos.md). **Nenhum ganho de segurança, precisão ou desempenho é afirmado antes dos testes.**
 
 ## Arquitetura oficial do MVP
 
-**Execução inicial:** um único notebook Windows 11. O React abre no navegador, mas frontend, backend, banco e IA executam **localmente**, sem necessidade de hospedagem externa.
+**Protótipo de validação:** um único notebook Windows 11. O React abre no navegador, mas frontend, backend, banco e IA executam **localmente**, sem necessidade de hospedagem externa.
 
 ![Arquitetura local planejada do DataGuard AI](assets/diagrams/arquitetura-local.svg)
 
@@ -80,7 +82,7 @@ A metodologia detalhada e os critérios de avaliação estão previstos em [04 �
 
 **Distribuição local planejada:** após gerar o build do React, o próprio FastAPI poderá servir a interface em **http://127.0.0.1:8000**. O servidor de desenvolvimento Vite não será necessário para executar o aplicativo normalmente.
 
-**Segurança:** usar bind em `127.0.0.1`, aplicar acesso somente leitura às consultas do assistente, parametrizar SQL e testar firewall, isolamento e execução offline. Loopback reduz exposição à rede, mas **não substitui controles de autorização ou segurança do computador**.
+**Segurança desde a primeira etapa:** definir limites de confiança, fluxos permitidos, política de saída sem internet, minimização dos dados e testes de não exfiltração; usar bind em `127.0.0.1`, aplicar acesso somente leitura às consultas do assistente, parametrizar SQL e testar firewall, isolamento e execução offline. Loopback reduz exposição à rede, mas **não substitui controles de autorização ou segurança do computador**.
 
 Consultar [06 — Interface React/FastAPI](docs/06-interface-e-relatorios.md) e [08 — Rede privada e segurança](docs/08-arquitetura-de-rede-e-seguranca.md).
 
@@ -155,9 +157,9 @@ Os arquivos abaixo são **guias**, com tarefas, arquivos previstos, testes e cri
 | 05 | Serviço de perguntas usando Ollama local | [Assistente local](docs/05-assistente-local.md) |
 | 06 | FastAPI + interface React/TypeScript | [Interface e relatórios](docs/06-interface-e-relatorios.md) |
 | 07 | Testes, métricas, segurança e execução offline | [Testes e experimentos](docs/07-testes-e-experimentos.md) |
-| **08 (posterior)** | Intranet privada, PostgreSQL, permissões e prevenção de vazamentos | [Arquitetura de rede e segurança](docs/08-arquitetura-de-rede-e-seguranca.md) |
+| **08 (implantação posterior)** | Validar arquitetura corporativa em intranet privada, PostgreSQL, permissões e prevenção de vazamentos | [Arquitetura de rede e segurança](docs/08-arquitetura-de-rede-e-seguranca.md) |
 
-A implementação será incremental: **primeiro banco e serviços Python; depois frontend/API; por último, laboratório empresarial de rede privada**. Para iniciar, consulte [Como começar](#como-começar).
+A implementação será incremental: **requisitos empresariais de segurança desde a etapa 00; protótipo SQLite e serviços Python; interface/API; validação offline; por último, laboratório empresarial em rede privada**. Consulte o [guia de desenvolvimento](docs/README.md).
 
 ### Estrutura planejada de código
 
@@ -186,10 +188,12 @@ dataguard-ai/
 
 ## Segurança e limitações
 
+**Requisito central:** nenhum dado corporativo deve ser enviado a APIs externas ou serviços de inferência em nuvem. A operação prevista deve aplicar bloqueio de saída por padrão, exceções documentadas, autenticação, autorização por perfil, consultas somente leitura, minimização de dados, logs sem conteúdo confidencial e testes de tráfego. **API interna não é API externa:** FastAPI e Ollama podem comunicar-se somente dentro da infraestrutura autorizada.
+
 O MVP será executado **localmente**, com dados sintéticos, consultas autorizadas e serviços vinculados a `127.0.0.1`. O funcionamento offline e o isolamento de rede **ainda precisarão ser testados**.
 
 A IA não poderá executar SQL arbitrário nem alterar o banco. **Anomalias não são prova de fraude**; hashes e HMAC só identificam alterações quando comparados com referências confiáveis. Segredos, bancos operacionais, backups e logs privados não devem ser versionados.
 
 Para os controles e testes completos, consulte [03 — Auditoria e backups](docs/03-auditoria-e-backups.md), [05 — Assistente local](docs/05-assistente-local.md), [07 — Testes](docs/07-testes-e-experimentos.md) e [08 — Rede privada](docs/08-arquitetura-de-rede-e-seguranca.md).
 
-**Estado dos entregáveis:** requisitos e pré-requisitos técnicos documentados, tecnologias selecionadas e dataset sintético disponível. **Desenvolvimento da aplicação, validação e benchmarks ainda pendentes.**
+**Estado dos entregáveis:** proposta empresarial e pré-requisitos técnicos documentados, tecnologias selecionadas e dataset sintético disponível. **Desenvolvimento da aplicação, validação e benchmarks ainda pendentes.**
