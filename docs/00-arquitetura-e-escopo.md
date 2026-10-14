@@ -1,12 +1,12 @@
 # 00 — Arquitetura, escopo e decisões
 
-**Objetivo:** definir claramente o que o DataGuard AI deve fazer, quais dados serão usados e como evitar que a IA se torne um risco para a base auditada.
+**Objetivo:** definir uma **arquitetura de IA privada empresarial**, com consultas autorizadas a bancos internos, inferência hospedada na infraestrutura controlada e redução de vias de vazamento. O inventário sintético é o primeiro caso de validação, não o limite do produto.
 
 **Pré-requisito:** nenhum. **Não implementar código nesta etapa.**
 
 ## 1. O problema que o projeto resolve
 
-A aplicação deverá receber um banco local, executar verificações reproduzíveis, apontar inconsistências e explicar resultados em português. O MVP usará **React + TypeScript em um navegador local**, conectado por **FastAPI** aos serviços Python. O conjunto inicial retrata um inventário **inteiramente fictício**.
+A solução deverá conectar-se de forma controlada a uma fonte de dados interna, executar consultas permitidas e análises reproduzíveis sem enviar registros a provedores externos. O protótipo começa com banco local e dados sintéticos; a integração corporativa será posterior. O MVP usará **React + TypeScript em um navegador local**, conectado por **FastAPI** aos serviços Python. O conjunto inicial retrata um inventário **inteiramente fictício**.
 
 Separar quatro conceitos:
 
@@ -19,7 +19,20 @@ Separar quatro conceitos:
 
 **Integridade criptográfica** é outra dimensão: validar que uma cópia ou evidência não mudou **desde uma referência confiável**. Isso não prova que seu conteúdo era correto quando a referência foi criada.
 
-## 2. Escopo inicial e limites
+## 2. Requisitos empresariais de segurança desde o início
+
+- Definir **fronteiras de confiança** entre navegador, API, inferência e banco, com matriz de fluxos autorizados.
+- Bloquear **tráfego de saída por padrão** durante a operação; registrar exceções justificadas e testar DNS, HTTP(S), telemetria e atualizações automáticas.
+- Diferenciar API **interna** (FastAPI/Ollama) de API **externa**: proibir chamadas a provedores de inferência em nuvem.
+- Planejar autenticação, autorização por papel e por conjunto de dados, consultas de leitura mínima e isolamento de credenciais.
+- Não encaminhar tabelas inteiras ao LLM; limitar campos, linhas e conteúdo retornado.
+- Proteger logs, backups, relatórios, prompts e respostas contra exposição de dados sensíveis.
+- Definir modelo de ameaça incluindo cliente comprometido, acesso lateral na LAN, injeção de prompt, credenciais vazadas e exfiltração por exportação.
+- Validar segurança com testes negativos, monitoramento de conexões e revisão de permissões. **Nenhuma topologia garante vazamento zero.**
+
+A implantação com PostgreSQL, segmentação e TLS ocorrerá na [etapa 08](08-arquitetura-de-rede-e-seguranca.md), mas estes requisitos devem influenciar o MVP desde agora.
+
+## 3. Escopo inicial e limites
 
 **Fazer:**
 - Banco SQLite local gerado a partir dos seis CSVs versionados.
