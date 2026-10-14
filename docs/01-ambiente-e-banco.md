@@ -1,0 +1,124 @@
+# 01 — Preparar o ambiente e criar o SQLite
+
+**Objetivo:** transformar os seis CSVs já existentes em um banco relacional SQLite com relações e tipos definidos. **Nesta etapa, não há IA nem interface gráfica.**
+
+**Entrada:** `data/csv/*.csv`. **Saída esperada:** `runtime/databases/inventario.db` e testes de importação.
+
+## Passo 1 — Preparar o Python no Windows
+
+Criar um ambiente virtual na raiz do repositório:
+
+```powershell
+# Cria e ativa um ambiente virtual local em PowerShell
+py -3 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python --version
+```
+
+Se a execução de scripts estiver bloqueada, use o Python diretamente pelo caminho `.venv\Scripts\python.exe` ou ajuste a política **somente no escopo apropriado**. O projeto usa SQLite pela biblioteca padrão.
+
+Arquivos a criar nesta etapa:
+- `pyproject.toml` — metadados e dependência de `pytest`.
+- `.gitignore` — ignorar `.venv/`, `__pycache__/`, `.pytest_cache/`, `runtime/`, `.env`, chaves e arquivos `*.db`, `*.sqlite3`.
+- `src/dataguard/db/schema.sql` — criação das tabelas.
+- `src/dataguard/db/connection.py` — conexão configurada.
+- `src/dataguard/db/import_csv.py` — importador idempotente ou recriação explícita.
+- `tests/test_database.py` — testes do esquema, importação e FKs.
+
+## Passo 2 — Conferir os CSVs de origem
+
+Os dados já estão em `data/csv/`. Conferir os cabeçalhos reais antes de definir o esquema:
+
+| Tabela | Registros esperados | Observação |
+| --- | ---: | --- |
+| categorias | 12 | Preços de referência em **centavos** |
+| setores | 18 | Identificadores de setor |
+| responsaveis | 90 | `setor_id` obrigatório |
+| equipamentos | 750 | `responsavel_id` e `data_descarte` podem estar vazios |
+| movimentacoes | 2.095 | Vínculo ao equipamento e aos setores |
+| chamados | 1.196 | `encerrado_em` pode estar vazio |
+
+**Total esperado:** 4.161 registros de dados (não inclui gabarito). Arquivos CSV usam cabeçalho.
+
+## Passo 3 — Projetar as tabelas e constraints
+
+Definir tipos e relações correspondentes aos CSVs, preservando todos os campos.
+
+**Constraints mínimas sugeridas:**
+- `id INTEGER PRIMARY KEY` em cada tabela.
+- `categorias.nome`, `setores.codigo`, `equipamentos.patrimonio` únicos.
+- FKs de `responsaveis.setor_id`, `equipamentos.categoria_id`, `equipamentos.responsavel_id`, `equipamentos.setor_id`, `movimentacoes.equipamento_id`, seus setores e `chamados.equipamento_id`.
+- `preco_centavos >= 0` e `custo_reparo_centavos >= 0` por `CHECK`.
+- Campos obrigatórios de acordo com os valores existentes. Usar `NULL` nos campos opcionais, não string vazia.
+- Índices nas FKs e datas consultadas com frequência.
+
+**Não criar `CHECK(garantia_fim >= data_aquisicao)` nem `CHECK(data_aquisicao <= hoje)` neste banco de experimentos.** Essas situações fazem parte das anomalias sintéticas e devem entrar na fase de regras de negócio.
+
+Exemplo de configuração da conexão:
+
+```python
+# Abre o SQLite habilitando validação de chaves estrangeiras em cada conexão
+import sqlite3
+
+con = sqlite3.connect("runtime/databases/inventario.db")
+con.execute("PRAGMA foreign_keys = ON")
+assert con.execute("PRAGMA foreign_keys").fetchone()[0] == 1
+```
+
+Ative `foreign_keys` **antes de começar qualquer transação**. Evite `executescript` dentro de uma transação de importação que deva ser totalmente atômica, pois ele pode efetuar um COMMIT pendente.
+
+## Passo 4 — Criar o importador
+
+Importar usando a biblioteca `csv` ou `pandas`, em ordem de dependência:
+
+1. `categorias`
+2. `setores`
+3. `responsaveis`
+4. `equipamentos`
+5. `movimentacoes`
+6. `chamados`
+
+Regras para o importador:
+- Executar a criação do schema **antes** da carga de dados.
+- Converter identificadores e valores monetários para inteiro.
+- Converter campo CSV vazio para `None` quando a coluna for opcional.
+- Preservar textos e datas originais; guardar datas em formato ISO 8601.
+- Usar comandos SQL com placeholders `?`.
+- Fazer a carga de dados em **uma transação**: falha em uma tabela deve fazer `ROLLBACK`.
+- Oferecer opção explícita para recriar somente um **banco de testes**, não apagar bancos de usuários automaticamente.
+- Não carregar `data/ground_truth/gabarito_anomalias.csv` na base operacional.
+
+## Passo 5 — Verificar os resultados
+
+Rodar as seguintes consultas no banco já importado:
+
+```sql
+-- Confere a quantidade de registros em tabelas principais
+SELECT COUNT(*) FROM categorias;     -- 12
+SELECT COUNT(*) FROM setores;        -- 18
+SELECT COUNT(*) FROM responsaveis;   -- 90
+SELECT COUNT(*) FROM equipamentos;   -- 750
+SELECT COUNT(*) FROM movimentacoes;  -- 2095
+SELECT COUNT(*) FROM chamados;       -- 1196
+```
+
+E verificar a integridade referencial:
+
+```sql
+-- Não deve retornar linhas se todas as chaves estrangeiras estiverem válidas
+PRAGMA foreign_key_check;
+```
+
+### Testes a implementar
+
+- [ ] Tabelas e índices criados.
+- [ ] Contagens de todas as tabelas conferidas.
+- [ ] Relações `equipamentos → categorias`, `equipamentos → setores`, `movimentacoes → equipamentos` e `chamados → equipamentos` válidas.
+- [ ] Opções vazias importadas como `NULL`.
+- [ ] Mesmo script reproduz o banco a partir dos CSVs sem duplicar linhas.
+- [ ] Importação interrompida não deixa carga parcial.
+- [ ] Gabarito não aparece entre as tabelas operacionais.
+
+**Critério de aceite:** o banco SQLite é construído localmente e reproduz os 4.161 registros, com `foreign_key_check` vazio.
+
+**Próxima etapa:** [02 — Integridade e transações](02-integridade-e-transacoes.md).
