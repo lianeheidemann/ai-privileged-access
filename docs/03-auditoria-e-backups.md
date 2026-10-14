@@ -1,8 +1,10 @@
 # 03 — Auditoria, hashes e backups consistentes
 
-**Objetivo:** registrar alterações, produzir evidências e verificar/restaurar backups **sem destruir o banco principal**.
+**Objetivo:** registrar operações e acessos do **DataGuard AI**, produzir evidências e verificar/restaurar backups **sem destruir o banco principal**. O sistema não substitui o mecanismo corporativo de backup nem deve assumir permissão de escrita no banco de origem.
 
 **Pré-requisito:** [etapa 02](02-integridade-e-transacoes.md).
+
+**Confidencialidade empresarial:** logs de prompts, consultas, erros, respostas, exports e backups podem conter dados sigilosos. Registrar por padrão apenas IDs, identidades autorizadas, contagens, resultados e timestamps; aplicar mascaramento, retenção limitada, criptografia conforme a política da organização e controle de acesso aos arquivos. Não usar logs de aplicação como cópia de dados do cliente.
 
 ## 1. Separar as garantias
 
