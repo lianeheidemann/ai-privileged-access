@@ -2,7 +2,7 @@
 
 Este é o **ponto de partida** para construir o DataGuard AI em partes, sem tentar implementar toda a aplicação de uma vez.
 
-**Situação atual:** os **seis CSVs sintéticos** e o **gabarito separado** estão disponíveis em `data/`. A aplicação Python, o esquema SQLite, os verificadores, a interface e a IA **ainda serão implementados**.
+**Situação atual:** os **seis CSVs sintéticos** e o **gabarito separado** estão disponíveis em `data/`. O banco SQLite, a aplicação Python, a API FastAPI, a interface React e a IA integrada **ainda serão implementados**.
 
 ## Sequência recomendada
 
@@ -13,7 +13,7 @@ flowchart LR
     C --> D["3 · Auditoria"]
     D --> E["4 · Anomalias"]
     E --> F["5 · IA local"]
-    F --> G["6 · Interface"]
+    F --> G["6 · FastAPI + React"]
     G --> H["7 · Testes finais"]
     H -. "Após concluir o MVP" .-> I["8 · Rede privada e segurança"]
 ```
@@ -25,12 +25,28 @@ flowchart LR
 | 2 | [Integridade e transações](02-integridade-e-transacoes.md) | Verificador com testes de falha e rollback |
 | 3 | [Auditoria e backups](03-auditoria-e-backups.md) | Evidências verificáveis e restauração testada |
 | 4 | [Anomalias e Machine Learning](04-anomalias-e-ml.md) | Alertas com evidências, baseline e comparação |
-| 5 | [Assistente local](05-assistente-local.md) | Perguntas em português com consulta somente leitura |
-| 6 | [Interface e relatórios](06-interface-e-relatorios.md) | Painel navegável e exportação |
+| 5 | [Assistente local](05-assistente-local.md) | Serviço Python de consulta segura + Ollama, sem interface ainda |
+| 6 | [Interface e relatórios](06-interface-e-relatorios.md) | API FastAPI e frontend React + TypeScript + Vite, local e offline |
 | 7 | [Testes e experimentos](07-testes-e-experimentos.md) | Resultados reproduzíveis e teste offline |
 | 8 **(futura)** | [Arquitetura de rede e segurança](08-arquitetura-de-rede-e-seguranca.md) | Rede privada, PostgreSQL, acesso restrito e testes de vazamento |
 
-> **Etapa 08 é uma expansão posterior.** Não substitui nem altera a sequência do MVP (00–07). O guia inclui arquitetura cliente-servidor, laboratório isolado, RBAC/RLS, TLS, firewall, Ollama e testes de proteção contra vazamento.
+> **Etapa 08 é uma expansão posterior.** Não substitui nem altera a sequência do MVP (00–07). O guia inclui arquitetura cliente-servidor, laboratório isolado, RBAC/RLS, TLS, firewall, Ollama e testes de proteção contra vazamento. A seção **2.1** da etapa 08 documenta o *loopback* local e já poderá ser aplicada durante o desenvolvimento da interface.
+
+## Stack definida e separação das etapas
+
+| Camada | Tecnologia | Implementação |
+| --- | --- | --- |
+| Banco e regras | Python + SQLite | Etapas 01–04 |
+| IA local e consultas | Python + Ollama | Etapa 05 |
+| Backend web | Python + FastAPI + Pydantic | Etapa 06 |
+| Frontend web local | React + TypeScript + Vite | Etapa 06 |
+| Estilo e componentes | Tailwind CSS + shadcn/ui + Lucide React | Etapa 06 |
+| Tabelas e gráficos | TanStack Table/Query + Recharts | Etapa 06 |
+| Servidor de banco em rede privada | PostgreSQL, TLS e controles de acesso | Etapa 08 (futura) |
+
+**Interface web local não é hospedagem na internet.** Durante o desenvolvimento, Vite e FastAPI usam `127.0.0.1`; depois do build, o FastAPI poderá servir os arquivos React estáticos. Somente o backend acessa SQLite e Ollama.
+
+A etapa 01 requer apenas Python e SQLite; **não instale React, Node.js nem FastAPI antes de chegar à etapa 06**, salvo necessidade de testes específicos.
 
 ## Como estudar e implementar cada etapa
 
@@ -65,14 +81,20 @@ dataguard-ai-/
 │   ├── audit/
 │   ├── detection/
 │   ├── assistant/
-│   └── reports/
+│   ├── reports/
+│   └── api/                       # FastAPI, a criar na etapa 06
+├── frontend/                     # React + TypeScript + Vite, etapa 06
+│   └── src/
+│       ├── components/
+│       ├── pages/
+│       ├── services/
+│       └── types/
 ├── tests/                        # A criar na etapa 1
 ├── scripts/                      # A criar conforme necessário
 ├── runtime/                      # A criar localmente; ignorar no Git
 │   ├── databases/
 │   ├── backups/
 │   └── reports/
-├── app.py                        # A criar na etapa 6
 ├── pyproject.toml                # A criar na etapa 1
 └── .gitignore                    # A criar na etapa 1
 ```
