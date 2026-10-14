@@ -17,12 +17,12 @@ Documentação breve para orientar a criação das telas do DataGuard AI. **São
 | Visão geral | Resumo das fontes, análises e atividades |
 | Fontes de dados | Conexões e informações das fontes autorizadas |
 | Consultas | Consultas disponíveis e seus resultados |
-| Análises | Integridade, anomalias e outras verificações |
+| Análises | Exploração, resumos e verificações de qualidade dos dados |
 | Assistente | Perguntas sobre dados acessíveis ao usuário |
-| Auditoria | Histórico de operações e evidências |
+| Relatórios | Visualização e exportação de resultados autorizados |
 | Configurações | Preferências e controles permitidos |
 
-**Módulos de demonstração:** inventário, integridade, anomalias e backups podem ganhar telas próprias conforme a necessidade, sem definir toda a navegação do produto.
+**Recursos complementares:** histórico de operações, verificações de qualidade e módulos demonstrativos podem ganhar telas próprias conforme a necessidade, sem definir toda a navegação do produto.
 
 ## Orientações para implementação
 
