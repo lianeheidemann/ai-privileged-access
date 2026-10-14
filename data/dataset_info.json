@@ -29,11 +29,11 @@
   "historico": [
     {
       "versao": "1.0",
-      "descricao": "Versão inicial. Continha vazamentos de rótulo: anomalias nos IDs 701–750, textos exclusivos ('Teste: ...', 'Falha recorrente'), horários, prioridades, minutos e centavos distintos dos registros normais, e 62 chamados antigos abertos não rotulados."
+      "descricao": "Versão inicial. Continha vazamentos de rótulo: anomalias nos IDs 701–750; textos exclusivos ('Teste: ...', 'Falha recorrente'); horários, prioridades, minutos e centavos distintos dos registros normais; rajadas e descartes anômalos nos mesmos dias do calendário; e 62 chamados antigos abertos não rotulados."
     },
     {
       "versao": "2.0",
-      "descricao": "Correção por scripts/dataset/migrar_v2.py: IDs de equipamentos permutados (seed fixa), textos e distribuições das linhas anômalas igualados aos registros normais, chamados antigos fora da classe chamado_antigo_aberto encerrados, movimentações e chamados renumerados em ordem cronológica. Contagens preservadas."
+      "descricao": "Correção por scripts/dataset/migrar_v2.py (seed fixa): IDs de equipamentos permutados; textos e distribuições das linhas anômalas igualados aos registros normais; rajadas e descartes anômalos dispersos no tempo; chamados antigos abertos fora da classe chamado_antigo_aberto encerrados; movimentações e chamados renumerados em ordem cronológica. Contagens preservadas. Verificado por scripts/dataset/validar_dataset.py."
     }
   ],
   "observacoes": [

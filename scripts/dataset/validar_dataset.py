@@ -137,6 +137,34 @@ def checar_vazamentos(tabelas, anomalos: set[int]) -> None:
         checar(all(a[coluna] <= b[coluna] for a, b in zip(linhas, linhas[1:])), f"{tabela}: IDs em ordem cronológica")
 
 
+def inicio_janela_mais_densa(instantes, dias: int = 30):
+    ordenados = sorted(instantes)
+    melhor, inicio_melhor, inicio = 0, ordenados[0], 0
+    for fim, atual in enumerate(ordenados):
+        while (atual - ordenados[inicio]).days > dias:
+            inicio += 1
+        if fim - inicio + 1 > melhor:
+            melhor, inicio_melhor = fim - inicio + 1, ordenados[inicio]
+    return inicio_melhor
+
+
+def checar_dispersao_temporal(tabelas, por_classe) -> None:
+    """As anomalias de uma classe não devem cair todas no mesmo mês do calendário."""
+    equip = {int(e["id"]): e for e in tabelas["equipamentos"]}
+    eventos = {
+        "movimentacao_excessiva": ("movimentacoes", "ocorrido_em"),
+        "reparos_repetidos": ("chamados", "aberto_em"),
+    }
+    meses = {"movimentacao_apos_descarte": {equip[i]["data_descarte"][:7] for i in por_classe["movimentacao_apos_descarte"]}}
+    for classe, (tabela, coluna) in eventos.items():
+        meses[classe] = set()
+        for eid in por_classe[classe]:
+            instantes = [dt(r[coluna]) for r in tabelas[tabela] if int(r["equipamento_id"]) == eid]
+            meses[classe].add(inicio_janela_mais_densa(instantes).strftime("%Y-%m"))
+    for classe, distintos in meses.items():
+        checar(len(distintos) >= 3, f"dispersão temporal {classe}: {len(distintos)} meses distintos (mínimo 3)")
+
+
 def checar_manifesto() -> None:
     manifesto = DADOS / "MANIFEST.sha256"
     if not manifesto.exists():
@@ -155,6 +183,7 @@ def main() -> None:
     checar_chaves(tabelas)
     por_classe = checar_gabarito(tabelas, gabarito)
     checar_vazamentos(tabelas, set().union(*por_classe.values()))
+    checar_dispersao_temporal(tabelas, por_classe)
     checar_manifesto()
     print(f"\n{len(falhas)} falha(s).")
     sys.exit(1 if falhas else 0)
