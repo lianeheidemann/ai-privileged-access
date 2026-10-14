@@ -1,12 +1,16 @@
 # 08 — Arquitetura de rede privada e segurança corporativa
 
-> **EXPANSÃO FUTURA.** Implementar esta etapa **somente após concluir e testar as etapas 00–07** do DataGuard AI. Este documento descreve um laboratório proposto, não recursos já existentes.
+> **IMPLANTAÇÃO EMPRESARIAL FUTURA.** O laboratório de rede será implementado após validar o protótipo 00–07. **Os requisitos de confidencialidade, ausência de inferência externa, permissões e controle de tráfego devem ser definidos desde a etapa 00 e testados ao longo do MVP.** Este documento descreve uma implantação proposta, não recursos já existentes.
 >
 > **Propósito:** demonstrar como uma empresa pode usar IA local para consultar e analisar um banco em rede privada, reduzindo o risco de vazamento por exposição de serviços, permissões inadequadas, logs ou respostas do modelo.
 
+## Princípio arquitetural
+
+**Não depender de APIs externas de IA** não significa eliminar APIs internas: o frontend pode comunicar-se com FastAPI, e o backend com Ollama e o SGBD, **exclusivamente nos caminhos autorizados**. Aplicar bloqueio de saída por padrão, autenticação e autorização, segmentação, TLS onde houver comunicação entre hosts, filtragem de dados, auditoria e testes de tráfego. Evitar copiar o banco corporativo inteiro para o serviço de IA.
+
 ## 1. O que vamos demonstrar
 
-O projeto existente audita um inventário fictício em SQLite. Nesta expansão ele se torna uma demonstração controlada de arquitetura **cliente–aplicação–banco–LLM**, com redes privadas e controles verificáveis.
+O objetivo do projeto é uma **solução empresarial de IA privada**; o inventário sintético SQLite é apenas a prova de conceito. Nesta etapa a solução será validada em uma arquitetura controlada **cliente–aplicação–banco–LLM**, com redes privadas e controles verificáveis.
 
 | Propriedade | Objetivo verificável |
 | --- | --- |
