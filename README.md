@@ -26,7 +26,17 @@
 
 Projeto experimental para auditoria da integridade de dados, detecção de anomalias e consultas em português por IA **local**, com interface web no próprio computador, **sem APIs externas de inferência**.
 
-> **Estado do projeto:** o dataset sintético e os guias de implementação estão disponíveis. A aplicação, os endpoints, a interface e os modelos integrados **ainda são planejados**. Os diagramas abaixo ilustram o desenho pretendido e não comprovam funcionalidades existentes.
+## Status atual — levantamento de requisitos e planejamento técnico
+
+> **EM CONSTRUÇÃO — IMPLEMENTAÇÃO AINDA NÃO INICIADA.**
+>
+> O DataGuard AI está atualmente na fase de **levantamento de requisitos, definição dos pré-requisitos técnicos, escolha das tecnologias e documentação da arquitetura**. **As funcionalidades descritas neste README ainda serão implementadas e testadas.** Não há, neste momento, uma aplicação funcional disponível para execução.
+>
+> **Já disponível:** documentação do planejamento e dataset sintético em CSV, incluindo o gabarito separado para avaliação.
+>
+> **Ainda a desenvolver:** banco SQLite operacional, serviços Python, verificações de integridade, detecção de anomalias, integração com Ollama, API FastAPI, interface React/TypeScript, testes e experimentos. A arquitetura empresarial de rede privada está prevista para uma fase posterior.
+
+**Importante:** as badges de tecnologias indicam a **stack escolhida para implementação futura**; diagramas, mockups, endpoints e etapas do roadmap representam **propostas de desenvolvimento**, não funcionalidades prontas.
 
 ## Objetivo
 
@@ -177,4 +187,4 @@ dataguard-ai/
 - A expansão 08 utilizará rede privada e PostgreSQL **sem substituir o MVP SQLite nem expor serviços ao público**.
 - Arquivos `.env`, segredos, bancos de produção, backups e logs privados **não devem ser versionados**.
 
-**Estado dos entregáveis:** dados e documentação disponíveis; implementação e benchmarks pendentes.
+**Estado dos entregáveis:** requisitos e pré-requisitos técnicos documentados, tecnologias selecionadas e dataset sintético disponível. **Desenvolvimento da aplicação, validação e benchmarks ainda pendentes.**
