@@ -274,6 +274,8 @@ flowchart LR
 
 ### Hardware e isolamento do laboratório
 
+> Dimensionamento por número de usuários (piloto, departamento e empresa): [Requisitos de hardware](requisitos-de-hardware.md).
+
 O notebook de referência tem **16 GB de RAM e RTX 3060 Laptop 6 GB de VRAM**. A interface será **React + TypeScript** e a API será **FastAPI**, conforme a escolha de stack do projeto. Prefira, inicialmente, **um único host Windows 11**, com serviços isolados por processos, Docker/WSL2 ou VM, e um modelo pequeno quantizado. Isso permite estudar portas e comunicação sem necessitar de dois computadores físicos.
 
 **Importante:** em Docker Compose, publicar `5432:5432` ou `11434:11434` sem endereço explícito pode expor as portas em interfaces do host. Para teste apenas no host, prefira bind em `127.0.0.1` quando for necessário publicar uma porta. Para comunicação entre serviços no Compose, prefira rede interna com nomes de serviços e sem publicação dessas portas. Verifique a exposição efetiva do Windows/WSL/Docker, não apenas o arquivo de configuração.

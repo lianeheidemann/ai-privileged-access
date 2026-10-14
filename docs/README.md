@@ -42,7 +42,7 @@ Isso valida cedo o hardware, a qualidade do modelo em português e os controles 
 
 > **Numeração alterada em 14/10/2026.** As etapas passaram a seguir a ordem de leitura. Equivalência com a numeração antiga: 05 → **02**, 06 → **03**, 07 → **04**, 08 → **05**, 02 → **06**, 03 → **07**, 04 → **08** (as etapas 00 e 01 não mudaram). Os arquivos foram renomeados de acordo; se você tem links ou anotações antigas, use esta tabela.
 
-Referência transversal: [**Decisões tecnológicas**](decisoes-tecnologicas.md), com alternativas, riscos e critérios de escolha do modelo.
+Referência transversal: [**Requisitos de hardware**](requisitos-de-hardware.md), do MVP no notebook à empresa com alta disponibilidade. [**Decisões tecnológicas**](decisoes-tecnologicas.md), com alternativas, riscos e critérios de escolha do modelo.
 
 ## Stack e situação
 
