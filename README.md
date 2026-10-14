@@ -86,7 +86,7 @@ Ainda **não existem resultados medidos**. Estas são as metas de aceite definid
 
 ## Arquitetura do MVP
 
-**Protótipo de validação:** um único notebook Windows 11. O React abre no navegador, mas frontend, backend, banco e IA executam **localmente**, sem hospedagem externa.
+**Protótipo de validação:** um único notebook Windows 11. O React abre no navegador, mas frontend, backend, banco e IA executam **localmente**, sem hospedagem externa. Referência: RTX 3060 Laptop (6 GB de VRAM) e 16 GB de RAM; veja [Requisitos de hardware](docs/requisitos-de-hardware.md).
 
 ![Arquitetura local planejada do DataGuard AI](assets/diagrams/arquitetura-local.svg)
 
@@ -146,7 +146,7 @@ A justificativa, as alternativas consideradas e os riscos de cada escolha estão
 | Testes do backend | **pytest** | Planejado |
 | Fontes corporativas | Conectores somente leitura para **PostgreSQL, SQL Server, MySQL** | Futuro (etapa 05) |
 
-As versões exatas em uso, as versões de referência do backend e as alternativas consideradas estão em [Decisões tecnológicas](docs/decisoes-tecnologicas.md#versões).
+As versões exatas em uso, as versões de referência do backend e as alternativas consideradas estão em [Decisões tecnológicas](docs/decisoes-tecnologicas.md#versões). O hardware necessário para o MVP e para escalas maiores está em [Requisitos de hardware](docs/requisitos-de-hardware.md).
 
 **Linguagens predominantes:** Python, TypeScript e SQL. O **Node.js** serve apenas às ferramentas de build do frontend. Na distribuição local, o FastAPI servirá o build estático.
 

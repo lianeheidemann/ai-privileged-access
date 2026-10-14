@@ -11,7 +11,7 @@ Este documento registra **por que** cada tecnologia foi escolhida, quais alterna
 1. **Execução 100% local** depois do preparo, sem dependência de serviços externos em runtime.
 2. **Superfície de ataque pequena:** poucos serviços, bind em loopback, sem portas de banco.
 3. **Testabilidade:** cada controle de segurança precisa de teste automatizado.
-4. **Hardware de referência:** notebook Windows 11, 16 GB de RAM, RTX 3060 Laptop com 6 GB de VRAM.
+4. **Hardware de referência:** notebook Windows 11, 16 GB de RAM, RTX 3060 Laptop com 6 GB de VRAM. O dimensionamento para o MVP e para escala está em [Requisitos de hardware](requisitos-de-hardware.md).
 5. **Curva de aprendizado e manutenção** compatíveis com um projeto de estudo individual.
 6. **Caminho para a empresa:** a escolha do MVP não pode impedir a etapa 05 (rede privada, outros SGBDs).
 
@@ -136,6 +136,7 @@ Escolha o primeiro que atinja as metas da [etapa 04](04-testes-e-experimentos.md
 | **Licença do repositório** | O repositório é público e **não tem arquivo `LICENSE`**: sem licença, ninguém pode reutilizar o código legalmente | Escolher uma (MIT e Apache-2.0 são comuns) ou manter todos os direitos reservados. **Nenhuma foi adicionada sem decisão** |
 | React 18 × 19 | Em uso: 18.3.1 | Avaliar a migração para o 19 e a compatibilidade das bibliotecas (shadcn/ui, Recharts, TanStack) |
 | Modelo local | Candidatos sem verificação oficial | Consultar a biblioteca do Ollama, medir e escolher (ver [Modelo local](#modelo-local)) |
+| Hardware do piloto | Só estimativas, nada medido | Definir o número de usuários simultâneos e medir o modelo escolhido antes de comprar (ver [Requisitos de hardware](requisitos-de-hardware.md#como-dimensionar-de-verdade)) |
 | Python do backend | Alvo 3.12+ | Fixar a versão ao criar o `pyproject.toml` |
 | Cifragem do SQLite | BitLocker no MVP | Decidir por SQLCipher ou cifragem do SGBD antes de qualquer dado real |
 
