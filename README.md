@@ -163,28 +163,39 @@ A implementação será incremental: **requisitos empresariais de segurança des
 
 ### Estrutura planejada de código
 
+A organização separa **dados sintéticos de demonstração**, **serviços internos** e **futuras integrações corporativas**. Os diretórios marcados como planejados ainda não representam funcionalidades implementadas.
+
 ~~~text
 dataguard-ai/
 ├── README.md
-├── docs/                           # Guias atuais
-├── data/                           # CSVs e gabarito atuais
-├── src/dataguard/                  # A implementar
-│   ├── db/
-│   ├── integrity/
-│   ├── audit/
-│   ├── detection/
-│   ├── assistant/
-│   ├── reports/
-│   └── api/                        # FastAPI (etapa 06)
-├── frontend/                       # React + Vite (etapa 06)
+├── docs/                          # Requisitos, arquitetura e testes
+├── assets/diagrams/               # SVGs do protótipo e arquitetura
+├── data/                          # Somente CSVs e gabarito sintéticos
+├── src/dataguard/                 # Backend Python (planejado)
+│   ├── db/                        # SQLite de demonstração
+│   ├── connectors/                # Futuras fontes corporativas somente leitura
+│   ├── security/                  # Autenticação, autorização e políticas
+│   ├── integrity/                 # Verificações determinísticas
+│   ├── audit/                     # Eventos, evidências e backups
+│   ├── detection/                 # Regras e Machine Learning
+│   ├── assistant/                 # Ollama e catálogo de consultas permitidas
+│   ├── reports/                   # Resultados e exportação controlada
+│   └── api/                       # FastAPI interna
+├── frontend/                      # React + TypeScript + Vite
 │   └── src/
 │       ├── components/
 │       ├── pages/
 │       ├── services/
 │       └── types/
-├── tests/
-└── runtime/                        # Banco e evidências locais; ignorar no Git
+├── config/                        # Exemplos sem segredos e políticas versionadas
+├── deployment/                    # Laboratório corporativo futuro
+│   ├── network/                   # Segmentação e fluxos autorizados
+│   └── security/                  # Firewall, TLS e restrições de saída
+├── tests/                         # Integridade, autorização e testes offline
+└── runtime/                       # Bancos, logs e evidências locais; fora do Git
 ~~~
+
+**Separação essencial:** o banco da empresa continua sob controle da organização. Os conectores deverão usar identidades com privilégios mínimos, consultas previamente aprovadas e nenhuma credencial armazenada no repositório. `deployment/` documentará um laboratório futuro, não uma infraestrutura já existente.
 
 ## Segurança e limitações
 
