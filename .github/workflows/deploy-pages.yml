@@ -1,4 +1,4 @@
-# Publica o frontend React original com navegação lateral no GitHub Pages.
+# Valida o dataset sintético, testa o frontend e publica o protótipo React no GitHub Pages (somente na main).
 name: Deploy DataGuard AI frontend to GitHub Pages
 
 on:
@@ -6,6 +6,14 @@ on:
     branches: [main]
     paths:
       - 'frontend/**'
+      - 'data/**'
+      - 'scripts/dataset/**'
+      - '.github/workflows/deploy-pages.yml'
+  pull_request:
+    paths:
+      - 'frontend/**'
+      - 'data/**'
+      - 'scripts/dataset/**'
       - '.github/workflows/deploy-pages.yml'
   workflow_dispatch:
 
@@ -15,7 +23,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: github-pages
+  group: github-pages-${{ github.event_name == 'pull_request' && github.ref || 'deploy' }}
   cancel-in-progress: true
 
 jobs:
@@ -24,25 +32,43 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate synthetic dataset
+        run: python scripts/dataset/validar_dataset.py
+      - name: Check frontend summary is up to date
+        run: |
+          python scripts/dataset/gerar_resumo_frontend.py
+          git diff --exit-code frontend/src/data/demo-summary.json
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Install dependencies
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install dependencies (lockfile)
         working-directory: frontend
-        run: npm install --no-audit --no-fund
+        run: npm ci --no-audit --no-fund
+      - name: Test frontend
+        working-directory: frontend
+        run: npm test
       - name: Build React frontend
         working-directory: frontend
         env:
           GITHUB_PAGES: 'true'
         run: npm run build
       - name: Setup Pages
+        if: github.event_name != 'pull_request'
         uses: actions/configure-pages@v5
       - name: Upload React build
+        if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3
         with:
           path: frontend/dist
   deploy:
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     needs: build
     environment:
