@@ -71,7 +71,7 @@ def max_eventos_em_janela(instantes: list[datetime], dias: int = 30) -> int:
 def avaliar_regras(tabelas: dict[str, list[dict[str, str]]], referencia: date = DATA_REFERENCIA) -> dict[str, set[int]]:
     """Aplica as sete regras documentadas e devolve os IDs de equipamento que cada uma sinaliza.
 
-    Usado apenas para validar o dataset; não substitui o detector da etapa 08.
+    Usado apenas para validar o dataset; não substitui o detector da etapa 10.
     """
     ref = datetime.combine(referencia, datetime.min.time())
     categorias = {int(c["id"]): int(c["valor_referencia_centavos"]) for c in tabelas["categorias"]}

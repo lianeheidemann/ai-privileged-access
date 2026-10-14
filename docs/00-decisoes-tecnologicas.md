@@ -1,8 +1,8 @@
-# Decisões tecnológicas
+# 00 — Decisões tecnológicas
 
 > **Última revisão:** 14/10/2026.
 
-Este documento registra **por que** cada tecnologia foi escolhida, quais alternativas foram consideradas e quais riscos permanecem. Ele complementa as tabelas de stack do [README](../README.md) e da [etapa 00](00-arquitetura-e-escopo.md).
+Este documento registra **por que** cada tecnologia foi escolhida, quais alternativas foram consideradas e quais riscos permanecem. Ele complementa as tabelas de stack do [README](../README.md) e da [etapa 02](02-arquitetura-e-escopo.md).
 
 **Como ler:** "Situação" indica se a escolha já está em uso no repositório ou é planejada. As versões estão na seção [Versões](#versões). **Fixe versões exatas** (lockfile, hashes) ao implementar e reavalie as escolhas se uma premissa mudar. Informações que **não foram verificadas em fonte oficial** estão marcadas como tal.
 
@@ -11,9 +11,9 @@ Este documento registra **por que** cada tecnologia foi escolhida, quais alterna
 1. **Execução 100% local** depois do preparo, sem dependência de serviços externos em runtime.
 2. **Superfície de ataque pequena:** poucos serviços, bind em loopback, sem portas de banco.
 3. **Testabilidade:** cada controle de segurança precisa de teste automatizado.
-4. **Hardware de referência:** notebook Windows 11, 16 GB de RAM, RTX 3060 Laptop com 6 GB de VRAM. O dimensionamento para o MVP e para escala está em [Requisitos de hardware](requisitos-de-hardware.md).
+4. **Hardware de referência:** notebook Windows 11, 16 GB de RAM, RTX 3060 Laptop com 6 GB de VRAM. O dimensionamento para o MVP e para escala está em [Requisitos de hardware](01-requisitos-de-hardware.md).
 5. **Curva de aprendizado e manutenção** compatíveis com um projeto de estudo individual.
-6. **Caminho para a empresa:** a escolha do MVP não pode impedir a etapa 05 (rede privada, outros SGBDs).
+6. **Caminho para a empresa:** a escolha do MVP não pode impedir a etapa 07 (rede privada, outros SGBDs).
 
 ## Versões
 
@@ -55,19 +55,19 @@ Versões exatas do `frontend/package-lock.json`. O `npm ci` instala exatamente e
 
 | Camada | Escolha | Alternativas consideradas | Por que a escolha | Riscos e mitigação | Situação |
 | --- | --- | --- | --- | --- | --- |
-| Banco de validação | **SQLite** (`sqlite3`) | PostgreSQL, DuckDB | Sem servidor nem porta, arquivo único, biblioteca padrão, `mode=ro` e `set_authorizer` para leitura | **Não tem usuários, GRANT nem RLS**: a autorização do MVP fica no backend. Mitigação: papéis fictícios no backend desde o MVP; PostgreSQL + RLS na etapa 05 | Planejado (01) |
-| Banco empresarial | **PostgreSQL** para o laboratório | SQL Server, MySQL | RLS nativo, `pg_hba.conf`, TLS `verify-full`, open source | Cada SGBD corporativo tem outro modelo de permissões (o MySQL não tem RLS). Mitigação: conectores com **visões autorizadas** e contas de privilégio mínimo | Futuro (05) |
-| API | **FastAPI + Pydantic** | Flask, Django | Validação tipada na borda, OpenAPI, TestClient, servidor ASGI leve | `/docs` exposto. Mitigação: desabilitar ou proteger fora do laboratório | Planejado (03) |
-| Sessão local | **Cookie `HttpOnly` + `SameSite=Strict`**, senha com `scrypt` (`hashlib`) | JWT no navegador, Keycloak local | Sem dependência extra; o token não fica acessível a scripts da página | Não é identidade corporativa. Mitigação: OIDC/AD na etapa 05 | Planejado (02, 03) |
-| Runtime de LLM | **Ollama** | llama.cpp server, vLLM, LM Studio | Instalação simples no Windows, gestão de modelos, API HTTP local, uso de GPU | **Sem autenticação** em `11434`; concorrência limitada. Mitigação: loopback e só o backend chama. **Nuvem desativada** com `OLLAMA_NO_CLOUD=1` ou `disable_ollama_cloud` em `~/.ollama/server.json`, com reinício e verificação pela mensagem `Ollama cloud disabled: true` no log (fonte: [FAQ do Ollama](https://docs.ollama.com/faq)). Contrapartida: sem modelos em nuvem e sem busca web. Na etapa 05, comparar com llama.cpp server/vLLM para multiusuário | Planejado (02) |
-| Uso do LLM | **Classificar intenção + redigir explicação** | Text-to-SQL livre, agente com ferramentas | Mantém o SQL revisado e fora do alcance do modelo; respostas verificáveis | Utilidade limitada ao catálogo. Mitigação futura: camada semântica/visões e SQL validado por parser e allowlist, **depois** das metas da etapa 04 | Planejado (02) |
-| Autorização no MVP | **Usuários e papéis fictícios no backend** | Sem autenticação até a etapa 05; Keycloak local | Testa a hipótese central desde o início, sem infraestrutura extra | Não representa identidade corporativa. Mitigação: mapear papéis para grupos OIDC/AD na etapa 05, com os mesmos testes | Planejado (02) |
-| Qualidade de dados | **Regras SQL/Python + Isolation Forest** (scikit-learn) | LOF, One-Class SVM, z-score robusto | Regras explicáveis primeiro; Isolation Forest é simples, sem rótulos e com `random_state` | Circularidade com o gerador; dataset pequeno. Mitigação: ML exploratório, várias seeds (ver [08](08-anomalias-e-ml.md)) | Planejado (08, complementar) |
+| Banco de validação | **SQLite** (`sqlite3`) | PostgreSQL, DuckDB | Sem servidor nem porta, arquivo único, biblioteca padrão, `mode=ro` e `set_authorizer` para leitura | **Não tem usuários, GRANT nem RLS**: a autorização do MVP fica no backend. Mitigação: papéis fictícios no backend desde o MVP; PostgreSQL + RLS na etapa 07 | Planejado (03) |
+| Banco empresarial | **PostgreSQL** para o laboratório | SQL Server, MySQL | RLS nativo, `pg_hba.conf`, TLS `verify-full`, open source | Cada SGBD corporativo tem outro modelo de permissões (o MySQL não tem RLS). Mitigação: conectores com **visões autorizadas** e contas de privilégio mínimo | Futuro (07) |
+| API | **FastAPI + Pydantic** | Flask, Django | Validação tipada na borda, OpenAPI, TestClient, servidor ASGI leve | `/docs` exposto. Mitigação: desabilitar ou proteger fora do laboratório | Planejado (05) |
+| Sessão local | **Cookie `HttpOnly` + `SameSite=Strict`**, senha com `scrypt` (`hashlib`) | JWT no navegador, Keycloak local | Sem dependência extra; o token não fica acessível a scripts da página | Não é identidade corporativa. Mitigação: OIDC/AD na etapa 07 | Planejado (02, 03) |
+| Runtime de LLM | **Ollama** | llama.cpp server, vLLM, LM Studio | Instalação simples no Windows, gestão de modelos, API HTTP local, uso de GPU | **Sem autenticação** em `11434`; concorrência limitada. Mitigação: loopback e só o backend chama. **Nuvem desativada** com `OLLAMA_NO_CLOUD=1` ou `disable_ollama_cloud` em `~/.ollama/server.json`, com reinício e verificação pela mensagem `Ollama cloud disabled: true` no log (fonte: [FAQ do Ollama](https://docs.ollama.com/faq)). Contrapartida: sem modelos em nuvem e sem busca web. Na etapa 07, comparar com llama.cpp server/vLLM para multiusuário | Planejado (04) |
+| Uso do LLM | **Classificar intenção + redigir explicação** | Text-to-SQL livre, agente com ferramentas | Mantém o SQL revisado e fora do alcance do modelo; respostas verificáveis | Utilidade limitada ao catálogo. Mitigação futura: camada semântica/visões e SQL validado por parser e allowlist, **depois** das metas da etapa 06 | Planejado (04) |
+| Autorização no MVP | **Usuários e papéis fictícios no backend** | Sem autenticação até a etapa 07; Keycloak local | Testa a hipótese central desde o início, sem infraestrutura extra | Não representa identidade corporativa. Mitigação: mapear papéis para grupos OIDC/AD na etapa 07, com os mesmos testes | Planejado (04) |
+| Qualidade de dados | **Regras SQL/Python + Isolation Forest** (scikit-learn) | LOF, One-Class SVM, z-score robusto | Regras explicáveis primeiro; Isolation Forest é simples, sem rótulos e com `random_state` | Circularidade com o gerador; dataset pequeno. Mitigação: ML exploratório, várias seeds (ver [10](10-anomalias-e-ml.md)) | Planejado (10, complementar) |
 | Cifragem em repouso | **BitLocker** no disco do notebook | SQLCipher, cifragem do SGBD | Sem custo de código no MVP com dados sintéticos | O arquivo SQLite fica em claro para quem acessa a sessão do Windows. Mitigação: com dados reais, avaliar SQLCipher ou cifragem do SGBD | Planejado |
-| Dependências Python | **`pip` com versões e hashes** (`--require-hashes`) | `uv`, Poetry | Sem ferramenta extra; reprodutível e verificável | Manutenção manual dos hashes. Mitigação: gerar com `pip-compile` ou equivalente ao criar o projeto | Planejado (01) |
+| Dependências Python | **`pip` com versões e hashes** (`--require-hashes`) | `uv`, Poetry | Sem ferramenta extra; reprodutível e verificável | Manutenção manual dos hashes. Mitigação: gerar com `pip-compile` ou equivalente ao criar o projeto | Planejado (03) |
 | Frontend | **React 18 + TypeScript + Vite 6** | Streamlit, Next.js | SPA estática servida pelo FastAPI, sem servidor Node; tipagem; build rápido | Ecossistema npm (supply chain). Mitigação: lockfile, `npm ci`, poucas dependências | **Em uso** |
 | Estilo e componentes | **Tailwind CSS 4 + padrão shadcn/ui** | CSS próprio, MUI, Chakra | Componentes copiados para o repositório (sem runtime de terceiros), tema por tokens CSS | Consistência depende de disciplina. Mitigação: primitivas em `components/ui/` | **Em uso** |
-| Tabelas e dados | **TanStack Table + TanStack Query** | AG Grid, SWR | Headless, leve, paginação/ordenação manual para o servidor; cache e estados de carregamento | Paginação ainda no cliente. Mitigação: passar para o servidor na etapa 03 | **Em uso** |
+| Tabelas e dados | **TanStack Table + TanStack Query** | AG Grid, SWR | Headless, leve, paginação/ordenação manual para o servidor; cache e estados de carregamento | Paginação ainda no cliente. Mitigação: passar para o servidor na etapa 05 | **Em uso** |
 | Gráficos | **Recharts 3** | ECharts, Chart.js | Componentes React declarativos, SVG acessível | Pacote grande (~540 kB). Mitigação: chunk separado, carregado só em Análises | **Em uso** |
 | Testes | **pytest**, **Vitest + Testing Library** | unittest, Jest | Padrão de cada ecossistema; Vitest integrado ao Vite | — | Vitest **em uso**; pytest planejado |
 | Dataset | **CSVs sintéticos + scripts stdlib** | Faker, SDV | Sem dependências, reproduzível, auditável por hash | Realismo limitado. Mitigação: limitações documentadas em `dataset_info.json` | **Em uso** (v2) |
@@ -102,7 +102,7 @@ Versões exatas do `frontend/package-lock.json`. O `npm ci` instala exatamente e
 - latência p50/p95;
 - VRAM/RAM.
 
-Escolha o primeiro que atinja as metas da [etapa 04](04-testes-e-experimentos.md) e registre nome, tag, ID local (`ollama list`), licença e resultados de **todos** os candidatos.
+Escolha o primeiro que atinja as metas da [etapa 06](06-testes-e-experimentos.md) e registre nome, tag, ID local (`ollama list`), licença e resultados de **todos** os candidatos.
 
 **Procedência:**
 - Baixe somente do registro oficial ou do fornecedor e registre o identificador.
@@ -114,7 +114,7 @@ Escolha o primeiro que atinja as metas da [etapa 04](04-testes-e-experimentos.md
 | Ecossistema | Controle |
 | --- | --- |
 | npm (frontend) | `package-lock.json` commitado; `npm ci` na CI; atualizações revisadas |
-| PyPI (backend) | Python ≥ 3.10; `requirements` com versões e hashes (`pip install --require-hashes`) a partir da etapa 01 |
+| PyPI (backend) | Python ≥ 3.10; `requirements` com versões e hashes (`pip install --require-hashes`) a partir da etapa 03 |
 | Modelos | Identificador registrado; download só na fase de preparo; offline depois |
 | Dados | `data/MANIFEST.sha256` verificado por `validar_dataset.py` na CI |
 
@@ -122,7 +122,7 @@ Escolha o primeiro que atinja as metas da [etapa 04](04-testes-e-experimentos.md
 
 | Decisão | Motivo | Onde está |
 | --- | --- | --- |
-| Etapas numeradas na ordem de leitura: **00–05** (principal) e **06–08** (complementar) | A numeração antiga misturava as trilhas e confundia a leitura | [Guia de desenvolvimento](README.md) |
+| Documentos numerados na ordem de leitura: **00–01** (referência), **02–07** (principal) e **08–10** (complementar) | A numeração antiga misturava as trilhas, e os dois documentos de referência ficavam soltos no fim da listagem | [Guia de desenvolvimento](README.md) |
 | Dados em **LF** (`.gitattributes`) | Os hashes do `MANIFEST.sha256` dependem dos bytes do arquivo; `core.autocrlf` no Windows os alteraria | `.gitattributes` |
 | CI valida o dataset e confere o resumo gerado antes de publicar | Impede que a demo exiba números diferentes dos CSVs | `.github/workflows/deploy-pages.yml` |
 | Nome do repositório mantido: **`dataguard-ai`** | O nome e o endereço da demo já são conhecidos; renomear quebraria o link do Pages | — |
@@ -136,7 +136,7 @@ Escolha o primeiro que atinja as metas da [etapa 04](04-testes-e-experimentos.md
 | **Licença do repositório** | O repositório é público e **não tem arquivo `LICENSE`**: sem licença, ninguém pode reutilizar o código legalmente | Escolher uma (MIT e Apache-2.0 são comuns) ou manter todos os direitos reservados. **Nenhuma foi adicionada sem decisão** |
 | React 18 × 19 | Em uso: 18.3.1 | Avaliar a migração para o 19 e a compatibilidade das bibliotecas (shadcn/ui, Recharts, TanStack) |
 | Modelo local | Candidatos sem verificação oficial | Consultar a biblioteca do Ollama, medir e escolher (ver [Modelo local](#modelo-local)) |
-| Hardware do piloto | Só estimativas, nada medido | Definir o número de usuários simultâneos e medir o modelo escolhido antes de comprar (ver [Requisitos de hardware](requisitos-de-hardware.md#como-dimensionar-de-verdade)) |
+| Hardware do piloto | Só estimativas, nada medido | Definir o número de usuários simultâneos e medir o modelo escolhido antes de comprar (ver [Requisitos de hardware](01-requisitos-de-hardware.md#como-dimensionar-de-verdade)) |
 | Python do backend | Alvo 3.12+ | Fixar a versão ao criar o `pyproject.toml` |
 | Cifragem do SQLite | BitLocker no MVP | Decidir por SQLCipher ou cifragem do SGBD antes de qualquer dado real |
 
@@ -145,12 +145,12 @@ Escolha o primeiro que atinja as metas da [etapa 04](04-testes-e-experimentos.md
 | Antes | Agora | Motivo |
 | --- | --- | --- |
 | Interface em Streamlit/Plotly | React + FastAPI | Separação clara entre interface e backend; distribuição estática sem servidor Python de UI |
-| Autenticação só na etapa 05 | Papéis fictícios no MVP | A autorização é a hipótese central e precisa ser testada desde o corte vertical |
+| Autenticação só na etapa 07 | Papéis fictícios no MVP | A autorização é a hipótese central e precisa ser testada desde o corte vertical |
 | Stack de UI declarada, mas não usada | Protótipo migrado para Tailwind, shadcn/ui, TanStack e Recharts | Alinhar documentação e código |
 | Dataset v1 | Dataset v2 sem vazamento de rótulos | IDs contíguos, textos, horários e datas denunciavam as anomalias |
 | Recharts 2 | Recharts 3 | A linha 2.x foi descontinuada |
 | Anomalias e ML no centro do roadmap | Segurança da IA local no centro; anomalias como trilha complementar | O objetivo do projeto é a integração segura de IA a dados empresariais |
-| Numeração 00, 01, 05, 06, 07, 08, 02, 03, 04 | Numeração sequencial 00–08 | Acompanha a ordem real de leitura |
+| Numeração 00, 01, 05, 06, 07, 08, 02, 03, 04 | Numeração sequencial 00–10, com as referências no início | Acompanha a ordem real de leitura |
 
 ## Fontes
 

@@ -43,7 +43,7 @@ O caso de uso é agilizar consultas, análises e relatórios. O protótipo usa *
 >
 > **Já disponível:**
 > - documentação de arquitetura, ameaças e testes;
-> - [decisões tecnológicas](docs/decisoes-tecnologicas.md);
+> - [decisões tecnológicas](docs/00-decisoes-tecnologicas.md);
 > - dataset sintético **v2**, validado por script, com gabarito e [conjunto de perguntas de avaliação](data/avaliacao/perguntas_assistente.csv);
 > - **protótipo visual React** com as sete telas, alimentado por agregados reais do dataset sintético e coberto por testes.
 >
@@ -66,13 +66,13 @@ O protótipo **não se conecta** a banco, backend ou IA. Os números vêm de um 
 - **operação sem inferência externa**, com bloqueio de saída verificável;
 - **logs, exportações e mensagens de erro** que não vazem dados fora do escopo.
 
-**Trilha complementar:** integridade, auditoria e detecção de anomalias (etapas 06–08) demonstram análises úteis sobre os dados, mas **não são o foco** e não bloqueiam a trilha principal.
+**Trilha complementar:** integridade, auditoria e detecção de anomalias (etapas 08–10) demonstram análises úteis sobre os dados, mas **não são o foco** e não bloqueiam a trilha principal.
 
 **A IA auxilia na interpretação, mas não é fonte de fatos.** Números exibidos vêm de consultas determinísticas; o modelo apenas redige a explicação.
 
 ## Metas de validação
 
-Ainda **não existem resultados medidos**. Estas são as metas de aceite definidas antes da implementação, detalhadas na [etapa 04](docs/04-testes-e-experimentos.md):
+Ainda **não existem resultados medidos**. Estas são as metas de aceite definidas antes da implementação, detalhadas na [etapa 06](docs/06-testes-e-experimentos.md):
 
 | Dimensão | Meta |
 | --- | --- |
@@ -86,7 +86,7 @@ Ainda **não existem resultados medidos**. Estas são as metas de aceite definid
 
 ## Arquitetura do MVP
 
-**Protótipo de validação:** um único notebook Windows 11. O React abre no navegador, mas frontend, backend, banco e IA executam **localmente**, sem hospedagem externa. Referência: RTX 3060 Laptop (6 GB de VRAM) e 16 GB de RAM; veja [Requisitos de hardware](docs/requisitos-de-hardware.md).
+**Protótipo de validação:** um único notebook Windows 11. O React abre no navegador, mas frontend, backend, banco e IA executam **localmente**, sem hospedagem externa. Referência: RTX 3060 Laptop (6 GB de VRAM) e 16 GB de RAM; veja [Requisitos de hardware](docs/01-requisitos-de-hardware.md).
 
 ![Arquitetura local planejada do DataGuard AI](assets/diagrams/arquitetura-local.svg)
 
@@ -97,7 +97,7 @@ Ainda **não existem resultados medidos**. Estas são as metas de aceite definid
 | Ollama | `http://127.0.0.1:11434` | Inferência chamada **somente** pelo backend |
 | SQLite | Arquivo em `runtime/` | Persistência local, **sem porta TCP** |
 
-**Autorização desde o MVP:** usuários e papéis **fictícios** ([`config/usuarios-ficticios.example.json`](config/usuarios-ficticios.example.json)): operador restrito a setores, auditor e administrador de laboratório. O backend aplica o escopo antes de qualquer consulta. Identidade corporativa (OIDC/AD), PostgreSQL com RLS e TLS ficam para a etapa 05.
+**Autorização desde o MVP:** usuários e papéis **fictícios** ([`config/usuarios-ficticios.example.json`](config/usuarios-ficticios.example.json)): operador restrito a setores, auditor e administrador de laboratório. O backend aplica o escopo antes de qualquer consulta. Identidade corporativa (OIDC/AD), PostgreSQL com RLS e TLS ficam para a etapa 07.
 
 **Segurança desde a primeira etapa:**
 - limites de confiança e matriz de fluxos permitidos;
@@ -108,7 +108,7 @@ Ainda **não existem resultados medidos**. Estas são as metas de aceite definid
 
 Loopback reduz a exposição à rede, mas **não substitui autorização**: qualquer processo local pode alcançar `127.0.0.1`, inclusive o Ollama, que não tem autenticação própria.
 
-Consulte [03 — Interface](docs/03-interface-e-relatorios.md) e [05 — Rede privada e segurança](docs/05-arquitetura-de-rede-e-seguranca.md).
+Consulte [05 — Interface](docs/05-interface-e-relatorios.md) e [07 — Rede privada e segurança](docs/07-arquitetura-de-rede-e-seguranca.md).
 
 ## Arquitetura empresarial proposta
 
@@ -125,11 +125,11 @@ Requisitos de segurança dessa fase:
 
 ![Arquitetura empresarial planejada do DataGuard AI](assets/diagrams/arquitetura-empresarial.svg)
 
-**Diagrama conceitual, não implementado.** A ausência de vazamentos não é garantida pelo desenho; ela exige testes de rede, permissões, registros e tratamento de dados ([etapa 05](docs/05-arquitetura-de-rede-e-seguranca.md)).
+**Diagrama conceitual, não implementado.** A ausência de vazamentos não é garantida pelo desenho; ela exige testes de rede, permissões, registros e tratamento de dados ([etapa 07](docs/07-arquitetura-de-rede-e-seguranca.md)).
 
 ## Tecnologias
 
-A justificativa, as alternativas consideradas e os riscos de cada escolha estão em [**Decisões tecnológicas**](docs/decisoes-tecnologicas.md).
+A justificativa, as alternativas consideradas e os riscos de cada escolha estão em [**Decisões tecnológicas**](docs/00-decisoes-tecnologicas.md).
 
 | Camada | Stack | Situação |
 | --- | --- | --- |
@@ -139,14 +139,14 @@ A justificativa, as alternativas consideradas e os riscos de cada escolha estão
 | Gráficos | **Recharts** | Em uso no protótipo |
 | Testes do frontend | **Vitest, Testing Library** | Em uso |
 | Scripts do dataset | **Python 3.10+** (biblioteca padrão) | Em uso |
-| Backend/API | **Python, FastAPI, Pydantic** | Planejado (etapa 03) |
-| Banco de validação | **SQLite** (`sqlite3`); não é exigência da solução empresarial | Planejado (etapa 01) |
-| IA | **Ollama** com modelo local de 3–4B quantizado; nuvem e fallback externo desabilitados | Planejado (etapa 02) |
-| Machine Learning | **scikit-learn**, pandas, NumPy — trilha complementar | Planejado (etapa 08) |
+| Backend/API | **Python, FastAPI, Pydantic** | Planejado (etapa 05) |
+| Banco de validação | **SQLite** (`sqlite3`); não é exigência da solução empresarial | Planejado (etapa 03) |
+| IA | **Ollama** com modelo local de 3–4B quantizado; nuvem e fallback externo desabilitados | Planejado (etapa 04) |
+| Machine Learning | **scikit-learn**, pandas, NumPy — trilha complementar | Planejado (etapa 10) |
 | Testes do backend | **pytest** | Planejado |
-| Fontes corporativas | Conectores somente leitura para **PostgreSQL, SQL Server, MySQL** | Futuro (etapa 05) |
+| Fontes corporativas | Conectores somente leitura para **PostgreSQL, SQL Server, MySQL** | Futuro (etapa 07) |
 
-As versões exatas em uso, as versões de referência do backend e as alternativas consideradas estão em [Decisões tecnológicas](docs/decisoes-tecnologicas.md#versões). O hardware necessário para o MVP e para escalas maiores está em [Requisitos de hardware](docs/requisitos-de-hardware.md).
+As versões exatas em uso, as versões de referência do backend e as alternativas consideradas estão em [Decisões tecnológicas](docs/00-decisoes-tecnologicas.md#versões). O hardware necessário para o MVP e para escalas maiores está em [Requisitos de hardware](docs/01-requisitos-de-hardware.md).
 
 **Linguagens predominantes:** Python, TypeScript e SQL. O **Node.js** serve apenas às ferramentas de build do frontend. Na distribuição local, o FastAPI servirá o build estático.
 
@@ -197,27 +197,29 @@ Os documentos são **guias** com tarefas, arquivos previstos, testes e critério
 
 ```mermaid
 flowchart LR
-    A["00 · Arquitetura e ameaças"] --> B["01 · Banco SQLite"]
-    B --> C["02 · Corte vertical: catálogo + papéis + Ollama"]
-    C --> D["03 · FastAPI + React"]
-    D --> E["04 · Testes e metas"]
-    E -. "implantação posterior" .-> F["05 · Rede privada"]
-    B -. "trilha complementar" .-> G["06 · Integridade"] -.-> H["07 · Auditoria"] -.-> I["08 · Anomalias e ML"]
+    A["02 · Arquitetura e ameaças"] --> B["03 · Banco SQLite"]
+    B --> C["04 · Corte vertical: catálogo + papéis + Ollama"]
+    C --> D["05 · FastAPI + React"]
+    D --> E["06 · Testes e metas"]
+    E -. "implantação posterior" .-> F["07 · Rede privada"]
+    B -. "trilha complementar" .-> G["08 · Integridade"] -.-> H["09 · Auditoria"] -.-> I["10 · Anomalias e ML"]
 ```
 
 | Etapa | Trilha | Objetivo | Documento |
 | --- | --- | --- | --- |
-| 00 | Principal | Arquitetura, escopo, ameaças e decisões | [Arquitetura e escopo](docs/00-arquitetura-e-escopo.md) |
-| 01 | Principal | Ambiente Python, esquema SQLite e importação validada | [Banco de dados](docs/01-ambiente-e-banco.md) |
-| 02 | Principal | **Corte vertical:** autorização por papel, catálogo somente leitura e Ollama local | [Assistente local](docs/02-assistente-local.md) |
-| 03 | Principal | FastAPI + conexão do protótipo React à API real | [Interface e relatórios](docs/03-interface-e-relatorios.md) |
-| 04 | Principal | Testes, metas numéricas, segurança e execução offline | [Testes e experimentos](docs/04-testes-e-experimentos.md) |
-| 05 | Implantação posterior | Intranet privada, PostgreSQL/RLS, identidade corporativa e prevenção de vazamentos | [Rede e segurança](docs/05-arquitetura-de-rede-e-seguranca.md) |
-| 06 | Complementar | Restrições, transações e regras de negócio | [Integridade](docs/06-integridade-e-transacoes.md) |
-| 07 | Complementar | Auditoria, hashes e backups | [Evidências e backups](docs/07-auditoria-e-backups.md) |
-| 08 | Complementar | Regras de anomalia e Isolation Forest exploratório | [Anomalias e ML](docs/08-anomalias-e-ml.md) |
+| 00 | Referência | Alternativas, riscos, versões e candidatos a modelo de cada tecnologia | [Decisões tecnológicas](docs/00-decisoes-tecnologicas.md) |
+| 01 | Referência | Hardware do MVP no notebook até a empresa com alta disponibilidade | [Requisitos de hardware](docs/01-requisitos-de-hardware.md) |
+| 02 | Principal | Arquitetura, escopo, ameaças e decisões | [Arquitetura e escopo](docs/02-arquitetura-e-escopo.md) |
+| 03 | Principal | Ambiente Python, esquema SQLite e importação validada | [Banco de dados](docs/03-ambiente-e-banco.md) |
+| 04 | Principal | **Corte vertical:** autorização por papel, catálogo somente leitura e Ollama local | [Assistente local](docs/04-assistente-local.md) |
+| 05 | Principal | FastAPI + conexão do protótipo React à API real | [Interface e relatórios](docs/05-interface-e-relatorios.md) |
+| 06 | Principal | Testes, metas numéricas, segurança e execução offline | [Testes e experimentos](docs/06-testes-e-experimentos.md) |
+| 07 | Implantação posterior | Intranet privada, PostgreSQL/RLS, identidade corporativa e prevenção de vazamentos | [Rede e segurança](docs/07-arquitetura-de-rede-e-seguranca.md) |
+| 08 | Complementar | Restrições, transações e regras de negócio | [Integridade](docs/08-integridade-e-transacoes.md) |
+| 09 | Complementar | Auditoria, hashes e backups | [Evidências e backups](docs/09-auditoria-e-backups.md) |
+| 10 | Complementar | Regras de anomalia e Isolation Forest exploratório | [Anomalias e ML](docs/10-anomalias-e-ml.md) |
 
-As etapas estão numeradas na ordem de leitura: **00–05** na trilha principal e **06–08** na complementar. Consulte o [guia de desenvolvimento](docs/README.md), que traz a equivalência com a numeração antiga.
+Os documentos estão numerados na ordem de leitura: **00–01** de referência, **02–07** na trilha principal e **08–10** na complementar. Consulte o [guia de desenvolvimento](docs/README.md), que traz a equivalência com a numeração antiga.
 
 ### Estrutura do repositório
 
@@ -259,7 +261,7 @@ dataguard-ai/
 
 Instruções recebidas pelo modelo, inclusive as vindas dos próprios dados, **não substituem essas verificações**.
 
-**Ameaças consideradas** ([etapa 00](docs/00-arquitetura-e-escopo.md)):
+**Ameaças consideradas** ([etapa 02](docs/02-arquitetura-e-escopo.md)):
 - injeção de prompt direta e indireta;
 - processos locais acessando o Ollama;
 - DNS rebinding e CSRF contra serviços em loopback;
@@ -277,4 +279,4 @@ A IA não poderá executar SQL arbitrário nem alterar o banco. Alertas de quali
 
 ## Licença
 
-Ainda **não definida**: o repositório não tem arquivo `LICENSE`, e sem ele o código não pode ser reutilizado. A escolha está registrada como decisão em aberto em [Decisões tecnológicas](docs/decisoes-tecnologicas.md#decisões-em-aberto).
+Ainda **não definida**: o repositório não tem arquivo `LICENSE`, e sem ele o código não pode ser reutilizado. A escolha está registrada como decisão em aberto em [Decisões tecnológicas](docs/00-decisoes-tecnologicas.md#decisões-em-aberto).

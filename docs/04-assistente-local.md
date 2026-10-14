@@ -1,8 +1,8 @@
-# 02 — Corte vertical: assistente local com autorização, catálogo e Ollama
+# 04 — Corte vertical: assistente local com autorização, catálogo e Ollama
 
 **Objetivo:** validar de ponta a ponta a hipótese central do projeto. Um **assistente privado** deve responder perguntas sobre dados autorizados, sem enviar conteúdo a provedores externos, sem dar ao LLM capacidade de alterar a base e **sem permitir que um usuário veja dados fora do seu escopo**. O SQLite sintético é a primeira fonte de testes.
 
-**Pré-requisito:** [etapa 01](01-ambiente-e-banco.md), com o banco importado e validado. As etapas 06–08 são **opcionais**; a intenção `resumo_alertas` só existe depois da etapa 08.
+**Pré-requisito:** [etapa 03](03-ambiente-e-banco.md), com o banco importado e validado. As etapas 08–10 são **opcionais**; a intenção `resumo_alertas` só existe depois da etapa 10.
 
 **Por que agora:** este corte vertical, feito antes da interface, valida cedo três riscos:
 - se o hardware de referência executa o modelo com latência aceitável;
@@ -69,7 +69,7 @@ Arquivos:
 | `chamados_abertos_do_setor` | Quantos chamados estão abertos no meu setor? | `setor_id` | `JOIN` chamados × equipamentos |
 | `historico_movimentacoes` | Quantas movimentações teve o patrimônio PAT-000015? | `patrimonio` | Contagem e lista limitada |
 | `custo_reparo_por_setor` | Qual o custo total de reparos do setor de Redes? | `setor_id?` | `SUM` com `GROUP BY` |
-| `resumo_alertas` | O que a última verificação encontrou? | — | Leitura do resultado armazenado (após etapa 08) |
+| `resumo_alertas` | O que a última verificação encontrou? | — | Leitura do resultado armazenado (após etapa 10) |
 
 Arquivos: `src/dataguard/assistant/query_catalog.py`, `query_service.py`, `tests/test_readonly.py`.
 
@@ -87,14 +87,14 @@ Ferramentas:
 - **Ollama** servindo modelos instalados localmente, em `127.0.0.1:11434`.
 - Cliente Python mínimo (HTTP para o loopback), com timeout.
 
-Notebook de referência: **RTX 3060 Laptop 6 GB de VRAM + 16 GB de RAM**. O dimensionamento para o MVP e para escalas maiores está em [Requisitos de hardware](requisitos-de-hardware.md).
+Notebook de referência: **RTX 3060 Laptop 6 GB de VRAM + 16 GB de RAM**. O dimensionamento para o MVP e para escalas maiores está em [Requisitos de hardware](01-requisitos-de-hardware.md).
 
-**Critério de escolha:** avaliar **2 a 3 modelos candidatos** de 3–4B parâmetros, com quantização Q4, de famílias com bom suporte a português e a saídas estruturadas (JSON). A lista de candidatos e os critérios estão em [Decisões tecnológicas](decisoes-tecnologicas.md#modelo-local). Para cada candidato, medir com as perguntas `normal` e `fora_escopo` do conjunto de avaliação:
+**Critério de escolha:** avaliar **2 a 3 modelos candidatos** de 3–4B parâmetros, com quantização Q4, de famílias com bom suporte a português e a saídas estruturadas (JSON). A lista de candidatos e os critérios estão em [Decisões tecnológicas](00-decisoes-tecnologicas.md#modelo-local). Para cada candidato, medir com as perguntas `normal` e `fora_escopo` do conjunto de avaliação:
 - acerto na classificação de intenção e na extração de parâmetros;
 - latência p50/p95 e consumo de VRAM/RAM;
 - taxa de saídas JSON inválidas.
 
-Escolher o melhor **que atinja as metas da [etapa 04](04-testes-e-experimentos.md)**. Registrar nome, tag, ID local (`ollama list`) e origem do modelo. Nenhum modelo é garantido como ideal sem esse teste.
+Escolher o melhor **que atinja as metas da [etapa 06](06-testes-e-experimentos.md)**. Registrar nome, tag, ID local (`ollama list`) e origem do modelo. Nenhum modelo é garantido como ideal sem esse teste.
 
 ```powershell
 # Confere o servidor local e os modelos instalados (depois de instalar o Ollama)
@@ -102,7 +102,7 @@ ollama --version
 ollama list
 ```
 
-Configure o bind em loopback e desabilite os recursos de nuvem conforme a [etapa 05, seção 2.1](05-arquitetura-de-rede-e-seguranca.md). **O Ollama não tem autenticação:** qualquer processo do computador pode chamá-lo em `127.0.0.1:11434`. Por isso ele nunca recebe dados que o usuário atual não poderia ver, e o React nunca o chama diretamente.
+Configure o bind em loopback e desabilite os recursos de nuvem conforme a [etapa 07, seção 2.1](07-arquitetura-de-rede-e-seguranca.md). **O Ollama não tem autenticação:** qualquer processo do computador pode chamá-lo em `127.0.0.1:11434`. Por isso ele nunca recebe dados que o usuário atual não poderia ver, e o React nunca o chama diretamente.
 
 ## Passo 4 — Integrar o LLM
 
@@ -140,7 +140,7 @@ Os testes de autorização e de política **não dependem do LLM**: rode-os com 
 ## Passo 6 — Testar a execução offline
 
 1. Baixar previamente o modelo e as dependências.
-2. Iniciar o serviço Python de consultas e o Ollama local. Quando a etapa 03 estiver pronta, iniciar também o FastAPI e servir o build React.
+2. Iniciar o serviço Python de consultas e o Ollama local. Quando a etapa 05 estiver pronta, iniciar também o FastAPI e servir o build React.
 3. Desativar o acesso à internet, mantendo o loopback local.
 4. Executar o conjunto de avaliação.
 5. Registrar RAM/VRAM, latência p50/p95 e eventuais falhas.
@@ -154,4 +154,4 @@ Os testes de autorização e de política **não dependem do LLM**: rode-os com 
 - [ ] Nenhuma dependência de inferência remota; funcionamento offline registrado.
 - [ ] Modelo escolhido documentado com tag, ID e métricas dos candidatos.
 
-**Próxima etapa:** [03 — Interface e relatórios](03-interface-e-relatorios.md), que expõe este serviço pela API FastAPI e conecta o protótipo React.
+**Próxima etapa:** [05 — Interface e relatórios](05-interface-e-relatorios.md), que expõe este serviço pela API FastAPI e conecta o protótipo React.
