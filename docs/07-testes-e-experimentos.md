@@ -1,8 +1,10 @@
 # 07 — Testes, benchmarks e demonstração reproduzível
 
-**Objetivo:** provar o que o DataGuard AI realiza, evitar alegações exageradas e preparar o projeto para apresentação no GitHub ou em portfólio acadêmico.
+**Objetivo:** avaliar se uma arquitetura de **IA privada para empresas** consegue consultar fontes autorizadas sem dependência de inferência externa, com controles de acesso, integridade, auditoria e prevenção de exposição. O protótipo e o laboratório corporativo exigem evidências separadas.
 
 **Pré-requisito:** funcionalidades das etapas anteriores que serão avaliadas.
+
+**Testes de segurança obrigatórios:** demonstrar ausência de chamadas externas em operação, inspecionando DNS e tráfego de saída; negar acesso direto do navegador ao banco e ao Ollama; tentar leitura de fonte, tabela, linha e coluna não autorizadas; testar exportações, logs, prompt injection e indisponibilidade de serviços sem fallback em nuvem. Executar testes com dados sintéticos e contas de laboratório. **Desligar a internet não comprova sozinho ausência de vazamento pela LAN.**
 
 ## Passo 1 — Criar suíte de testes
 
