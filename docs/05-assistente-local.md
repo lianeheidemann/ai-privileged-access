@@ -1,8 +1,10 @@
 # 05 — Assistente local: perguntas em português, sem API externa
 
-**Objetivo:** permitir perguntas sobre o SQLite e explicações dos resultados das auditorias, sem conceder ao LLM a capacidade de alterar a base.
+**Objetivo:** validar um **assistente privado para uso empresarial**, capaz de responder a perguntas sobre dados internos autorizados, sem enviar conteúdo a provedores externos de inferência e sem conceder ao LLM capacidade de alterar a base. O SQLite sintético é a primeira fonte de testes.
 
 **Pré-requisito:** [etapas 01, 02 e 04](README.md), com consultas e alertas já funcionando sem LLM.
+
+**Regra de implantação:** Ollama e FastAPI são serviços **internos**; não configurar chaves de APIs de inferência em nuvem nem fallback externo. Antes de processar dados reais, impor autenticação, autorização por usuário e fonte, limitação de contexto, filtragem de campos e logs sem conteúdo sensível. Uma instrução maliciosa no banco não pode ampliar privilégios nem criar novas consultas.
 
 ## Passo 1 — Instalar o runtime de inferência
 
