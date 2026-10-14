@@ -86,6 +86,14 @@ A metodologia detalhada e os critérios de avaliação estão previstos em [04 �
 
 Consultar [06 — Interface React/FastAPI](docs/06-interface-e-relatorios.md) e [08 — Rede privada e segurança](docs/08-arquitetura-de-rede-e-seguranca.md).
 
+## Arquitetura empresarial proposta
+
+A implantação futura pretende permitir que **usuários autorizados** consultem dados corporativos por meio de uma **API interna**, com inferência no ambiente da empresa e acesso ao banco por **conectores somente leitura**. Autenticação, autorização, segmentação, TLS entre serviços e bloqueio de conexões externas não autorizadas fazem parte dos requisitos de segurança.
+
+![Arquitetura empresarial planejada do DataGuard AI](assets/diagrams/arquitetura-empresarial.svg)
+
+**Diagrama conceitual, não implementado.** Os serviços internos (FastAPI e Ollama) não dependem de APIs públicas de IA. A ausência de vazamentos não é garantida pelo desenho: exigirá testes de rede, permissões, registros e tratamento de dados. A implantação está detalhada na [etapa 08 — Rede privada e segurança](docs/08-arquitetura-de-rede-e-seguranca.md).
+
 ## Linguagens e tecnologias definidas
 
 | Camada | Stack |
