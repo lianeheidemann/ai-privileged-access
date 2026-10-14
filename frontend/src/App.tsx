@@ -3,6 +3,7 @@ import { useState } from 'react'
 import DataSources from './DataSources'
 import Queries from './Queries'
 import Analytics from './Analytics'
+import Assistant from './Assistant'
 import { Activity, ArrowUpRight, BarChart3, ChevronDown, Database, FileText, LayoutDashboard, Menu, MessageSquareText, Moon, Search, Settings2, ShieldCheck, Sun, X } from 'lucide-react'
 
 type Section = 'Visão geral' | 'Fontes de dados' | 'Consultas' | 'Análises' | 'Assistente' | 'Relatórios' | 'Configurações'
@@ -41,7 +42,7 @@ export default function App() {
           <div className="section-heading datasets-heading"><div><h2>Dados de demonstração</h2><p>Exemplos do dataset sintético disponível no projeto.</p></div><span className="muted-link">Somente referência <ChevronDown size={15}/></span></div>
           <div className="data-table"><div className="table-head"><span>CONJUNTO</span><span>TIPO</span><span>VOLUME</span></div>{datasets.map(d=><div className="table-row" key={d.name}><span className="dataset-name"><Database size={17}/>{d.name}</span><span>{d.kind}</span><span>{d.count}</span></div>)}</div>
           <p className="disclaimer">Interface inicial de demonstração. Os dados exibidos são referências estáticas do dataset sintético; nenhuma API, consulta ou modelo de IA está conectado.</p>
-        </> : active === 'Fontes de dados' ? <DataSources /> : active === 'Consultas' ? <Queries /> : active === 'Análises' ? <Analytics /> : <div className="placeholder"><span className="feature-icon"><span>{(() => {const Icon = sections.find(s => s.name === active)!.icon; return <Icon size={24}/>})()}</span></span><div className="eyebrow">INTERFACE PLANEJADA</div><h1>{active}</h1><p>Esta área será desenvolvida nas próximas etapas. A primeira versão apresenta apenas a navegação e a visão geral.</p><button className="secondary" onClick={() => navigate('Visão geral')}>Voltar à visão geral</button></div>}
+        </> : active === 'Fontes de dados' ? <DataSources /> : active === 'Consultas' ? <Queries /> : active === 'Análises' ? <Analytics /> : active === 'Assistente' ? <Assistant /> : <div className="placeholder"><span className="feature-icon"><span>{(() => {const Icon = sections.find(s => s.name === active)!.icon; return <Icon size={24}/>})()}</span></span><div className="eyebrow">INTERFACE PLANEJADA</div><h1>{active}</h1><p>Esta área será desenvolvida nas próximas etapas. A primeira versão apresenta apenas a navegação e a visão geral.</p><button className="secondary" onClick={() => navigate('Visão geral')}>Voltar à visão geral</button></div>}
       </main>
     </div>
   </div>
