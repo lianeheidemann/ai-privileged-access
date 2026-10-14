@@ -1,8 +1,10 @@
 # Guia de desenvolvimento — DataGuard AI
 
-Este é o **ponto de partida** para construir o DataGuard AI em partes, sem tentar implementar toda a aplicação de uma vez.
+Este é o **ponto de partida** para construir o DataGuard AI como **proposta de IA privada para empresas**, em partes, sem tentar implementar toda a aplicação de uma vez. O inventário sintético é um caso de teste; o objetivo final é permitir análises autorizadas em bancos internos, com inferência na infraestrutura da organização e controles de prevenção de vazamento.
 
 **Situação atual:** os **seis CSVs sintéticos** e o **gabarito separado** estão disponíveis em `data/`. O banco SQLite, a aplicação Python, a API FastAPI, a interface React e a IA integrada **ainda serão implementados**.
+
+**Regra transversal:** requisitos de rede, egress, identidade, segregação, autorização e confidencialidade devem ser definidos na etapa 00 e verificados em cada etapa. A etapa 08 executa a **implantação empresarial**, não inaugura o planejamento de segurança.
 
 ## Sequência recomendada
 
@@ -15,7 +17,7 @@ flowchart LR
     E --> F["5 · IA local"]
     F --> G["6 · FastAPI + React"]
     G --> H["7 · Testes finais"]
-    H -. "Após concluir o MVP" .-> I["8 · Rede privada e segurança"]
+    H -. "Implantação empresarial posterior" .-> I["8 · Laboratório de rede privada"]
 ```
 
 | Ordem | Documento | Entrega verificável |
