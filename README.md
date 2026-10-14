@@ -6,22 +6,22 @@
 
 <p><sub><strong>BACKEND · BANCO · IA</strong></sub></p>
 <p>
-  <img alt="Python" src="https://img.shields.io/badge/Python-253346?style=flat&logo=python&logoColor=E8EFF7">
-  <img alt="FastAPI" src="https://img.shields.io/badge/FastAPI-253346?style=flat&logo=fastapi&logoColor=E8EFF7">
-  <img alt="SQLite" src="https://img.shields.io/badge/SQLite-253346?style=flat&logo=sqlite&logoColor=E8EFF7">
-  <img alt="Ollama" src="https://img.shields.io/badge/Ollama-253346?style=flat&logo=ollama&logoColor=E8EFF7">
-  <img alt="scikit-learn" src="https://img.shields.io/badge/scikit--learn-253346?style=flat&logo=scikitlearn&logoColor=E8EFF7">
+  <img alt="Python" src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=FFFFFF">
+  <img alt="FastAPI" src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=FFFFFF">
+  <img alt="SQLite" src="https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=FFFFFF">
+  <img alt="Ollama" src="https://img.shields.io/badge/Ollama-000000?style=for-the-badge&logo=ollama&logoColor=FFFFFF">
+  <img alt="scikit-learn" src="https://img.shields.io/badge/scikit--learn-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=FFFFFF">
 </p>
 
 <p><sub><strong>FRONTEND · INTERFACE</strong></sub></p>
 <p>
-  <img alt="React" src="https://img.shields.io/badge/React-283A4B?style=flat&logo=react&logoColor=E8EFF7">
-  <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-283A4B?style=flat&logo=typescript&logoColor=E8EFF7">
-  <img alt="Vite" src="https://img.shields.io/badge/Vite-283A4B?style=flat&logo=vite&logoColor=E8EFF7">
-  <img alt="Tailwind CSS" src="https://img.shields.io/badge/Tailwind%20CSS-283A4B?style=flat&logo=tailwindcss&logoColor=E8EFF7">
-  <img alt="shadcn/ui" src="https://img.shields.io/badge/shadcn%2Fui-283A4B?style=flat&logo=shadcnui&logoColor=E8EFF7">
-  <img alt="TanStack" src="https://img.shields.io/badge/TanStack-283A4B?style=flat&logo=tanstack&logoColor=E8EFF7">
-  <img alt="Recharts" src="https://img.shields.io/badge/Recharts-283A4B?style=flat&logoColor=E8EFF7">
+  <img alt="React" src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB">
+  <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=FFFFFF">
+  <img alt="Vite" src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=FFD62E">
+  <img alt="Tailwind CSS" src="https://img.shields.io/badge/Tailwind%20CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=FFFFFF">
+  <img alt="shadcn/ui" src="https://img.shields.io/badge/shadcn%2Fui-000000?style=for-the-badge&logo=shadcnui&logoColor=FFFFFF">
+  <img alt="TanStack" src="https://img.shields.io/badge/TanStack-FF4154?style=for-the-badge&logo=reactquery&logoColor=FFFFFF">
+  <img alt="Recharts" src="https://img.shields.io/badge/Recharts-22B5BF?style=for-the-badge">
 </p>
 
 **Local Database Integrity Auditing · Anomaly Detection · Private AI Assistant**
