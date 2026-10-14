@@ -34,7 +34,7 @@ A trilha complementar (etapas 08–10) separa quatro conceitos de qualidade de d
 - Definir **fronteiras de confiança** entre navegador, API, inferência e banco, com matriz de fluxos autorizados.
 - Bloquear **tráfego de saída por padrão** durante a operação. Registrar exceções justificadas e testar DNS, HTTP(S), telemetria e atualizações automáticas.
 - Diferenciar API **interna** (FastAPI/Ollama) de API **externa**: proibir chamadas a provedores de inferência em nuvem.
-- **Autorização por papel e por escopo desde o MVP**, com usuários fictícios ([`config/usuarios-ficticios.example.json`](../config/usuarios-ficticios.example.json)), aplicada no backend antes de qualquer consulta. Identidade corporativa fica para a etapa 07.
+- **Autorização por papel e por escopo desde o MVP**, com usuários fictícios ([`config/usuarios-ficticios.example.json`](../../config/usuarios-ficticios.example.json)), aplicada no backend antes de qualquer consulta. Identidade corporativa fica para a etapa 07.
 - Não encaminhar tabelas inteiras ao LLM. Limitar campos, linhas e conteúdo retornado.
 - Proteger logs, backups, relatórios, prompts e respostas contra exposição de dados sensíveis.
 - Validar com testes negativos, monitoramento de conexões e revisão de permissões. **Nenhuma topologia garante vazamento zero.**
@@ -97,7 +97,7 @@ Em desenvolvimento, Vite, FastAPI e Ollama ficam restritos ao **loopback 127.0.0
 
 ## 5. Modelo de dados existente
 
-Os arquivos de origem (dataset **v2**, ver [`dataset_info.json`](../data/dataset_info.json)) são:
+Os arquivos de origem (dataset **v2**, ver [`dataset_info.json`](../../data/dataset_info.json)) são:
 
 | Tabela futura | Arquivo | Chaves ou relacionamentos |
 | --- | --- | --- |
@@ -112,7 +112,7 @@ Os arquivos de origem (dataset **v2**, ver [`dataset_info.json`](../data/dataset
 
 Há **50 anomalias propositalmente inseridas**, descritas apenas no gabarito de avaliação, **sem violar as constraints básicas**: o esquema não deve proibir todas as situações que o detector precisa identificar. A v2 removeu os sinais que permitiam reconhecer as anomalias sem aplicar as regras (IDs contíguos, textos, horários e datas exclusivos). `scripts/dataset/validar_dataset.py` verifica isso.
 
-O conjunto [`data/avaliacao/perguntas_assistente.csv`](../data/avaliacao/perguntas_assistente.csv) define as perguntas, o usuário fictício, a intenção esperada e o resultado esperado de cada caso de teste do assistente.
+O conjunto [`data/avaliacao/perguntas_assistente.csv`](../../data/avaliacao/perguntas_assistente.csv) define as perguntas, o usuário fictício, a intenção esperada e o resultado esperado de cada caso de teste do assistente.
 
 ## 6. Modelo de ameaças
 

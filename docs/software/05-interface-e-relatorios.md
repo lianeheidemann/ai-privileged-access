@@ -1,6 +1,6 @@
 # 05 — API FastAPI e interface React conectada
 
-> **Status:** o **protótipo visual React já existe** em [`frontend/`](../frontend/README.md), com as sete telas, a stack definida e testes. O que falta nesta etapa é a **API FastAPI** e a troca da API simulada (`frontend/src/services/demo-api.ts`) por chamadas reais. Tudo roda **no próprio computador**, sem hospedagem nem APIs externas.
+> **Status:** o **protótipo visual React já existe** em [`frontend/`](../../frontend/README.md), com as sete telas, a stack definida e testes. O que falta nesta etapa é a **API FastAPI** e a troca da API simulada (`frontend/src/services/demo-api.ts`) por chamadas reais. Tudo roda **no próprio computador**, sem hospedagem nem APIs externas.
 
 **Objetivo:** expor pela API FastAPI os serviços da trilha principal (autorização, catálogo, assistente) e, quando existirem, os da trilha complementar, conectando o protótipo React a eles. A primeira execução é local. A interface corporativa posterior será acessível apenas a usuários autorizados na intranet.
 
@@ -12,7 +12,7 @@
 - Aplica limites de exportação e paginação e não retorna colunas sigilosas por padrão.
 - Identidade corporativa (OIDC/AD) fica para a etapa 07.
 
-**Guias breves por tela:** [`docs/interface/`](interface/README.md).
+**Guias breves por tela:** [`docs/software/interface/`](interface/README.md).
 
 ## 1. Stack da interface
 
@@ -85,7 +85,7 @@ dataguard-ai/
     └── test_api_authorization.py
 ~~~
 
-**Não crie um segundo motor de regras no frontend.** A política do assistente no protótipo (`src/lib/demo-assistant.ts`) é **só demonstração**: a política real fica no backend (etapa 04). Os componentes apenas solicitam dados e representam estados.
+**Não crie um segundo motor de regras no frontend.** A política do assistente no protótipo (`src/lib/demo-assistant.ts`) é **só demonstração**: a política real fica no backend (etapa 04). Os componentes apenas solicitam dados e representam estados. Os nomes de intenção usados na demonstração (`chamados_abertos`, `listar_fontes`) são simplificados e **não são o contrato**: valem os nomes do catálogo da [etapa 04](04-assistente-local.md).
 
 ## 4. Passo a passo
 

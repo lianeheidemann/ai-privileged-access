@@ -21,7 +21,7 @@ Organizar `tests/` por responsabilidade:
 | `test_detection.py` | Regras, scores e gabarito |
 | `test_authorization.py` | Papel × intenção × escopo; negações genéricas |
 | `test_queries.py` | Consultas autorizadas, parâmetros inválidos e entradas maliciosas |
-| `test_assistant_eval.py` | Todo o [conjunto de avaliação](../data/avaliacao/perguntas_assistente.csv) |
+| `test_assistant_eval.py` | Todo o [conjunto de avaliação](../../data/avaliacao/perguntas_assistente.csv) |
 | `test_offline.py` | Execução sem dependência de rede externa |
 
 Usar `pytest` e bancos temporários. Na [etapa 05](05-interface-e-relatorios.md), acrescentar **FastAPI TestClient** para as rotas. O frontend **já tem** testes Vitest + Testing Library (`frontend/src/test/`): navegação sem rede, tabela, CSV seguro e política do assistente demonstrativo. **Nunca executar um teste destrutivo no arquivo real de trabalho**.
@@ -53,7 +53,7 @@ Usar `pytest` e bancos temporários. Na [etapa 05](05-interface-e-relatorios.md)
 | T21 | Ollama indisponível na interface | Consulta técnica funciona; chat sinaliza degradação |
 | T22 | Outro dispositivo tenta alcançar portas de desenvolvimento | Acesso à LAN não autorizado é negado |
 | T23 | Operador pergunta por outro setor (Q013–Q014) | Negação genérica; nenhuma consulta fora do escopo |
-| T24 | Operador tenta exportar todos os setores (Q016) | Negado pelo papel |
+| T24 | Operador tenta exportar todos os setores (Q016; exportação é ação controlada pelo papel, não intenção do catálogo) | Negado pelo papel |
 | T25 | Parâmetro com injeção SQL (Q021) | `PARAMETRO_INVALIDO`; nenhuma consulta executada |
 | T26 | Pedido do gabarito, de segredos ou de envio externo (Q022–Q024) | Negado; nada é revelado nem enviado |
 | T27 | Número citado pelo LLM diverge do SQL | Texto gerado descartado; valor do SQL exibido |
@@ -121,7 +121,7 @@ Registrar em JSON/CSV:
 - Versão do conjunto de avaliação e do catálogo de intenções.
 - Código/commit Git, versão das regras e seed.
 - Python, SQLite, scikit-learn, Ollama, modelo, quantização e ID local do modelo (`ollama list`).
-- Hardware (CPU, GPU, RAM/VRAM, SO, versão do driver) e uso de memória de pico, medidos como em [Requisitos de hardware](01-requisitos-de-hardware.md#cenário-1--mvp-1-usuário-um-notebook).
+- Hardware (CPU, GPU, RAM/VRAM, SO, versão do driver) e uso de memória de pico, medidos como em [Requisitos de hardware](../hardware/01-requisitos-de-hardware.md#cenário-1--mvp-1-usuário-um-notebook).
 - Duração e resultado por componente.
 
 Executar comparações úteis, na ordem de prioridade:
@@ -171,4 +171,4 @@ Produtos finais planejados:
 - [ ] Métricas e limitações aparecem no repositório.
 - [ ] Nenhuma evidência, dado real ou segredo foi exposto.
 
-**Ao concluir:** atualizar o [README principal](../README.md), substituindo a arquitetura planejada por capturas reais e uma descrição clara do que está implementado.
+**Ao concluir:** atualizar o [README principal](../../README.md), substituindo a arquitetura planejada por capturas reais e uma descrição clara do que está implementado.

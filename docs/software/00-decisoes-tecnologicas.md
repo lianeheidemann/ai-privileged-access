@@ -2,7 +2,7 @@
 
 > **Última revisão:** 14/10/2026.
 
-Este documento registra **por que** cada tecnologia foi escolhida, quais alternativas foram consideradas e quais riscos permanecem. Ele complementa as tabelas de stack do [README](../README.md) e da [etapa 02](02-arquitetura-e-escopo.md).
+Este documento registra **por que** cada tecnologia foi escolhida, quais alternativas foram consideradas e quais riscos permanecem. Ele complementa as tabelas de stack do [README](../../README.md) e da [etapa 02](02-arquitetura-e-escopo.md).
 
 **Como ler:** "Situação" indica se a escolha já está em uso no repositório ou é planejada. As versões estão na seção [Versões](#versões). **Fixe versões exatas** (lockfile, hashes) ao implementar e reavalie as escolhas se uma premissa mudar. Informações que **não foram verificadas em fonte oficial** estão marcadas como tal.
 
@@ -11,7 +11,7 @@ Este documento registra **por que** cada tecnologia foi escolhida, quais alterna
 1. **Execução 100% local** depois do preparo, sem dependência de serviços externos em runtime.
 2. **Superfície de ataque pequena:** poucos serviços, bind em loopback, sem portas de banco.
 3. **Testabilidade:** cada controle de segurança precisa de teste automatizado.
-4. **Hardware de referência:** notebook Windows 11, 16 GB de RAM, RTX 3060 Laptop com 6 GB de VRAM. O dimensionamento para o MVP e para escala está em [Requisitos de hardware](01-requisitos-de-hardware.md).
+4. **Hardware de referência:** notebook Windows 11, 16 GB de RAM, RTX 3060 Laptop com 6 GB de VRAM. O dimensionamento para o MVP e para escala está em [Requisitos de hardware](../hardware/01-requisitos-de-hardware.md).
 5. **Curva de aprendizado e manutenção** compatíveis com um projeto de estudo individual.
 6. **Caminho para a empresa:** a escolha do MVP não pode impedir a etapa 07 (rede privada, outros SGBDs).
 
@@ -58,7 +58,7 @@ Versões exatas do `frontend/package-lock.json`. O `npm ci` instala exatamente e
 | Banco de validação | **SQLite** (`sqlite3`) | PostgreSQL, DuckDB | Sem servidor nem porta, arquivo único, biblioteca padrão, `mode=ro` e `set_authorizer` para leitura | **Não tem usuários, GRANT nem RLS**: a autorização do MVP fica no backend. Mitigação: papéis fictícios no backend desde o MVP; PostgreSQL + RLS na etapa 07 | Planejado (03) |
 | Banco empresarial | **PostgreSQL** para o laboratório | SQL Server, MySQL | RLS nativo, `pg_hba.conf`, TLS `verify-full`, open source | Cada SGBD corporativo tem outro modelo de permissões (o MySQL não tem RLS). Mitigação: conectores com **visões autorizadas** e contas de privilégio mínimo | Futuro (07) |
 | API | **FastAPI + Pydantic** | Flask, Django | Validação tipada na borda, OpenAPI, TestClient, servidor ASGI leve | `/docs` exposto. Mitigação: desabilitar ou proteger fora do laboratório | Planejado (05) |
-| Sessão local | **Cookie `HttpOnly` + `SameSite=Strict`**, senha com `scrypt` (`hashlib`) | JWT no navegador, Keycloak local | Sem dependência extra; o token não fica acessível a scripts da página | Não é identidade corporativa. Mitigação: OIDC/AD na etapa 07 | Planejado (02, 03) |
+| Sessão local | **Cookie `HttpOnly` + `SameSite=Strict`**, senha com `scrypt` (`hashlib`) | JWT no navegador, Keycloak local | Sem dependência extra; o token não fica acessível a scripts da página | Não é identidade corporativa. Mitigação: OIDC/AD na etapa 07 | Planejado (04, 05) |
 | Runtime de LLM | **Ollama** | llama.cpp server, vLLM, LM Studio | Instalação simples no Windows, gestão de modelos, API HTTP local, uso de GPU | **Sem autenticação** em `11434`; concorrência limitada. Mitigação: loopback e só o backend chama. **Nuvem desativada** com `OLLAMA_NO_CLOUD=1` ou `disable_ollama_cloud` em `~/.ollama/server.json`, com reinício e verificação pela mensagem `Ollama cloud disabled: true` no log (fonte: [FAQ do Ollama](https://docs.ollama.com/faq)). Contrapartida: sem modelos em nuvem e sem busca web. Na etapa 07, comparar com llama.cpp server/vLLM para multiusuário | Planejado (04) |
 | Uso do LLM | **Classificar intenção + redigir explicação** | Text-to-SQL livre, agente com ferramentas | Mantém o SQL revisado e fora do alcance do modelo; respostas verificáveis | Utilidade limitada ao catálogo. Mitigação futura: camada semântica/visões e SQL validado por parser e allowlist, **depois** das metas da etapa 06 | Planejado (04) |
 | Autorização no MVP | **Usuários e papéis fictícios no backend** | Sem autenticação até a etapa 07; Keycloak local | Testa a hipótese central desde o início, sem infraestrutura extra | Não representa identidade corporativa. Mitigação: mapear papéis para grupos OIDC/AD na etapa 07, com os mesmos testes | Planejado (04) |
@@ -96,7 +96,7 @@ Versões exatas do `frontend/package-lock.json`. O `npm ci` instala exatamente e
 
 **Antes de escolher:** consulte `ollama.com/library`, confira tag, tamanho, contexto e licença **de cada candidato**, e **registre a data da consulta** neste documento.
 
-**Procedimento:** rodar as perguntas `normal` e `fora_escopo` de [`perguntas_assistente.csv`](../data/avaliacao/perguntas_assistente.csv) em cada candidato, com o mesmo prompt e temperatura 0. Medir:
+**Procedimento:** rodar as perguntas `normal` e `fora_escopo` de [`perguntas_assistente.csv`](../../data/avaliacao/perguntas_assistente.csv) em cada candidato, com o mesmo prompt e temperatura 0. Medir:
 - acerto de intenção e parâmetros;
 - JSON inválido;
 - latência p50/p95;
@@ -122,7 +122,7 @@ Escolha o primeiro que atinja as metas da [etapa 06](06-testes-e-experimentos.md
 
 | Decisão | Motivo | Onde está |
 | --- | --- | --- |
-| Documentos numerados na ordem de leitura: **00–01** (referência), **02–07** (principal) e **08–10** (complementar) | A numeração antiga misturava as trilhas, e os dois documentos de referência ficavam soltos no fim da listagem | [Guia de desenvolvimento](README.md) |
+| Documentos numerados na ordem de leitura: **00–01** (referência), **02–07** (principal) e **08–10** (complementar) | A numeração antiga misturava as trilhas, e os dois documentos de referência ficavam soltos no fim da listagem | [Guia de desenvolvimento](../README.md) |
 | Dados em **LF** (`.gitattributes`) | Os hashes do `MANIFEST.sha256` dependem dos bytes do arquivo; `core.autocrlf` no Windows os alteraria | `.gitattributes` |
 | CI valida o dataset e confere o resumo gerado antes de publicar | Impede que a demo exiba números diferentes dos CSVs | `.github/workflows/deploy-pages.yml` |
 | Nome do repositório mantido: **`dataguard-ai`** | O nome e o endereço da demo já são conhecidos; renomear quebraria o link do Pages | — |
@@ -136,7 +136,7 @@ Escolha o primeiro que atinja as metas da [etapa 06](06-testes-e-experimentos.md
 | **Licença do repositório** | O repositório é público e **não tem arquivo `LICENSE`**: sem licença, ninguém pode reutilizar o código legalmente | Escolher uma (MIT e Apache-2.0 são comuns) ou manter todos os direitos reservados. **Nenhuma foi adicionada sem decisão** |
 | React 18 × 19 | Em uso: 18.3.1 | Avaliar a migração para o 19 e a compatibilidade das bibliotecas (shadcn/ui, Recharts, TanStack) |
 | Modelo local | Candidatos sem verificação oficial | Consultar a biblioteca do Ollama, medir e escolher (ver [Modelo local](#modelo-local)) |
-| Hardware do piloto | Só estimativas, nada medido | Definir o número de usuários simultâneos e medir o modelo escolhido antes de comprar (ver [Requisitos de hardware](01-requisitos-de-hardware.md#como-dimensionar-de-verdade)) |
+| Hardware do piloto | Só estimativas, nada medido | Definir o número de usuários simultâneos e medir o modelo escolhido antes de comprar (ver [Requisitos de hardware](../hardware/01-requisitos-de-hardware.md#como-dimensionar-de-verdade)) |
 | Python do backend | Alvo 3.12+ | Fixar a versão ao criar o `pyproject.toml` |
 | Cifragem do SQLite | BitLocker no MVP | Decidir por SQLCipher ou cifragem do SGBD antes de qualquer dado real |
 

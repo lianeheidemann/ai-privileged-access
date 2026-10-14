@@ -30,21 +30,30 @@ Isso valida cedo o hardware, a qualidade do modelo em português e os controles 
 
 | Etapa | Trilha | Documento | Entrega verificável |
 | --- | --- | --- | --- |
-| 00 | Referência | [Decisões tecnológicas](00-decisoes-tecnologicas.md) | Alternativas, riscos, versões e candidatos a modelo registrados |
-| 01 | Referência | [Requisitos de hardware](01-requisitos-de-hardware.md) | Hardware do MVP à empresa, com o que medir antes de comprar |
-| 02 | Principal | [Arquitetura e escopo](02-arquitetura-e-escopo.md) | Limites, ameaças e decisões registrados |
-| 03 | Principal | [Ambiente e banco](03-ambiente-e-banco.md) | SQLite gerado dos CSVs validados; relações conferidas |
-| 04 | Principal | [Assistente local](04-assistente-local.md) | Corte vertical com papéis, catálogo somente leitura e Ollama |
-| 05 | Principal | [Interface e relatórios](05-interface-e-relatorios.md) | API FastAPI e protótipo React conectado, local e offline |
-| 06 | Principal | [Testes e experimentos](06-testes-e-experimentos.md) | Metas numéricas medidas e teste offline |
-| 07 | Implantação posterior | [Rede e segurança](07-arquitetura-de-rede-e-seguranca.md) | Rede privada, PostgreSQL/RLS, identidade e testes de vazamento |
-| 08 | Complementar | [Integridade e transações](08-integridade-e-transacoes.md) | Verificador com testes de falha e rollback |
-| 09 | Complementar | [Auditoria e backups](09-auditoria-e-backups.md) | Evidências verificáveis e restauração testada |
-| 10 | Complementar | [Anomalias e ML](10-anomalias-e-ml.md) | Alertas com evidências; ML exploratório |
+| 00 | Referência | [Decisões tecnológicas](software/00-decisoes-tecnologicas.md) | Alternativas, riscos, versões e candidatos a modelo registrados |
+| 01 | Referência | [Requisitos de hardware](hardware/01-requisitos-de-hardware.md) | Hardware do MVP à empresa, com o que medir antes de comprar |
+| 02 | Principal | [Arquitetura e escopo](software/02-arquitetura-e-escopo.md) | Limites, ameaças e decisões registrados |
+| 03 | Principal | [Ambiente e banco](software/03-ambiente-e-banco.md) | SQLite gerado dos CSVs validados; relações conferidas |
+| 04 | Principal | [Assistente local](software/04-assistente-local.md) | Corte vertical com papéis, catálogo somente leitura e Ollama |
+| 05 | Principal | [Interface e relatórios](software/05-interface-e-relatorios.md) | API FastAPI e protótipo React conectado, local e offline |
+| 06 | Principal | [Testes e experimentos](software/06-testes-e-experimentos.md) | Metas numéricas medidas e teste offline |
+| 07 | Implantação posterior | [Rede e segurança](software/07-arquitetura-de-rede-e-seguranca.md) | Rede privada, PostgreSQL/RLS, identidade e testes de vazamento |
+| 08 | Complementar | [Integridade e transações](software/08-integridade-e-transacoes.md) | Verificador com testes de falha e rollback |
+| 09 | Complementar | [Auditoria e backups](software/09-auditoria-e-backups.md) | Evidências verificáveis e restauração testada |
+| 10 | Complementar | [Anomalias e ML](software/10-anomalias-e-ml.md) | Alertas com evidências; ML exploratório |
 
-> **Numeração alterada em 14/10/2026.** Os documentos de referência passaram a abrir a sequência (00 e 01) e as etapas foram renumeradas na ordem de leitura. Equivalência com a **numeração original**: arquitetura 00 → **02**, banco 01 → **03**, assistente 05 → **04**, interface 06 → **05**, testes 07 → **06**, rede 08 → **07**, integridade 02 → **08**, auditoria 03 → **09**, anomalias 04 → **10**. Os arquivos foram renomeados de acordo; se você tem links ou anotações antigos, use esta tabela.
+> **Numeração alterada em 14/10/2026.** Os documentos de referência passaram a abrir a sequência (00 e 01) e as etapas foram renumeradas na ordem de leitura. Equivalência com a **numeração original**: arquitetura 00 → **02**, banco 01 → **03**, assistente 05 → **04**, interface 06 → **05**, testes 07 → **06**, rede 08 → **07**, integridade 02 → **08**, auditoria 03 → **09**, anomalias 04 → **10**. Os arquivos foram renomeados de acordo e, depois, separados nas pastas `hardware/` e `software/`; se você tem links ou anotações antigos, use esta tabela.
 
-**Referência (00 e 01):** não são etapas de implementação. [Decisões tecnológicas](00-decisoes-tecnologicas.md) registra por que cada tecnologia foi escolhida, as alternativas, os riscos e as versões; [Requisitos de hardware](01-requisitos-de-hardware.md) dimensiona o MVP no notebook e as escalas maiores.
+**Organização das pastas:**
+
+| Pasta | Conteúdo |
+| --- | --- |
+| [`hardware/`](hardware/01-requisitos-de-hardware.md) | Requisitos de hardware: notebook do MVP, piloto, departamento e empresa |
+| [`software/`](software/00-decisoes-tecnologicas.md) | Decisões tecnológicas, etapas 02–10 e guias por tela em [`software/interface/`](software/interface/README.md) |
+
+A numeração é única e continua a mesma (00–10), independentemente da pasta; só os caminhos mudaram.
+
+**Referência (00 e 01):** não são etapas de implementação. [Decisões tecnológicas](software/00-decisoes-tecnologicas.md) registra por que cada tecnologia foi escolhida, as alternativas, os riscos e as versões; [Requisitos de hardware](hardware/01-requisitos-de-hardware.md) dimensiona o MVP no notebook e as escalas maiores.
 
 ## Stack e situação
 
@@ -65,10 +74,10 @@ Isso valida cedo o hardware, a qualidade do modelo em português e os controles 
 
 ## Como implementar cada etapa
 
-1. Leia o documento da etapa atual e o trecho correspondente de [decisões tecnológicas](00-decisoes-tecnologicas.md).
+1. Leia o documento da etapa atual e o trecho correspondente de [decisões tecnológicas](software/00-decisoes-tecnologicas.md).
 2. Crie os arquivos especificados, sem antecipar módulos de fases posteriores.
 3. Escreva testes para o comportamento principal, **inclusive casos negados e de falha**.
-4. Execute os testes e compare com os **critérios de aceite** e as metas da [etapa 06](06-testes-e-experimentos.md).
+4. Execute os testes e compare com os **critérios de aceite** e as metas da [etapa 06](software/06-testes-e-experimentos.md).
 5. Registre limitações e decisões no commit ou nas anotações da etapa.
 6. Só avance quando a etapa funcionar isoladamente.
 
@@ -87,6 +96,8 @@ Isso valida cedo o hardware, a qualidade do modelo em português e os controles 
 dataguard-ai/
 ├── README.md
 ├── docs/                         # Guias (esta pasta)
+│   ├── hardware/                 # Requisitos de hardware (01)
+│   └── software/                 # Decisões (00), etapas 02–10 e interface/
 ├── data/
 │   ├── csv/                      # Dados sintéticos v2
 │   ├── ground_truth/             # Gabarito, somente avaliação
@@ -109,7 +120,7 @@ dataguard-ai/
 
 ## Primeira tarefa
 
-Abra [**03 — Ambiente e banco**](03-ambiente-e-banco.md): rode `validar_dataset.py`, importe os seis CSVs, crie o SQLite e confira contagens e relações, **sem IA e sem interface**. Em seguida, vá direto para o corte vertical da [etapa 04](04-assistente-local.md).
+Abra [**03 — Ambiente e banco**](software/03-ambiente-e-banco.md): rode `validar_dataset.py`, importe os seis CSVs, crie o SQLite e confira contagens e relações, **sem IA e sem interface**. Em seguida, vá direto para o corte vertical da [etapa 04](software/04-assistente-local.md).
 
 ## Regra geral de qualidade
 

@@ -274,7 +274,7 @@ flowchart LR
 
 ### Hardware e isolamento do laboratório
 
-> Dimensionamento por número de usuários (piloto, departamento e empresa): [Requisitos de hardware](01-requisitos-de-hardware.md).
+> Dimensionamento por número de usuários (piloto, departamento e empresa): [Requisitos de hardware](../hardware/01-requisitos-de-hardware.md).
 
 O notebook de referência tem **16 GB de RAM e RTX 3060 Laptop 6 GB de VRAM**. A interface será **React + TypeScript** e a API será **FastAPI**, conforme a escolha de stack do projeto. Prefira, inicialmente, **um único host Windows 11**, com serviços isolados por processos, Docker/WSL2 ou VM, e um modelo pequeno quantizado. Isso permite estudar portas e comunicação sem necessitar de dois computadores físicos.
 
@@ -334,7 +334,7 @@ Tarefas:
 
 **Objetivo:** permitir perguntas sobre o banco sem disponibilizar todas as linhas para todos os usuários.
 
-Partir dos **papéis fictícios definidos para o MVP** ([etapa 04](04-assistente-local.md), [`config/usuarios-ficticios.example.json`](../config/usuarios-ficticios.example.json)) e levá-los à rede corporativa: mapear cada papel a um grupo da identidade corporativa de laboratório (OIDC/AD fictício) e reforçar o escopo **também no banco**, com RLS.
+Partir dos **papéis fictícios definidos para o MVP** ([etapa 04](04-assistente-local.md), [`config/usuarios-ficticios.example.json`](../../config/usuarios-ficticios.example.json)) e levá-los à rede corporativa: mapear cada papel a um grupo da identidade corporativa de laboratório (OIDC/AD fictício) e reforçar o escopo **também no banco**, com RLS.
 
 | Papel | Pode fazer | Não pode fazer |
 | --- | --- | --- |
@@ -466,4 +466,4 @@ Medir:
 
 ---
 
-**Voltar para [o roteiro principal](README.md)** · **[README do projeto](../README.md)**
+**Voltar para [o roteiro principal](../README.md)** · **[README do projeto](../../README.md)**
