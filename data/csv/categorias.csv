@@ -1,0 +1,13 @@
+id,nome,vida_util_meses,valor_referencia_centavos
+1,Notebook,60,480000
+2,Desktop,60,350000
+3,Monitor,84,120000
+4,Impressora,72,170000
+5,Roteador,72,95000
+6,Switch de rede,84,260000
+7,Access point,60,80000
+8,Servidor,84,1800000
+9,Projetor,72,300000
+10,Tablet,48,180000
+11,Nobreak,48,100000
+12,Scanner,72,200000
