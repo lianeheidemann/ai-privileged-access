@@ -7,7 +7,6 @@
 <p>
   <a href="https://github.com/lianeheidemann/dataguard-ai/actions/workflows/deploy-pages.yml"><img alt="CI e deploy" src="https://github.com/lianeheidemann/dataguard-ai/actions/workflows/deploy-pages.yml/badge.svg?branch=main"></a>
   <a href="https://lianeheidemann.github.io/dataguard-ai/"><img alt="Demo" src="https://img.shields.io/badge/demo-GitHub%20Pages-315f7d"></a>
-  <img alt="Dados" src="https://img.shields.io/badge/dados-100%25%20sint%C3%A9ticos-3f8f7a">
 </p>
 
 <p><sub><strong>BACKEND · BANCO · IA (planejados)</strong></sub></p>
