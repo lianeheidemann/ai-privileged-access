@@ -53,7 +53,7 @@ Usar `pytest` e bancos temporários. Na [etapa 05](05-interface-e-relatorios.md)
 | T21 | Ollama indisponível na interface | Consulta técnica funciona; chat sinaliza degradação |
 | T22 | Outro dispositivo tenta alcançar portas de desenvolvimento | Acesso à LAN não autorizado é negado |
 | T23 | Operador pergunta por outro setor (Q013–Q014) | Negação genérica; nenhuma consulta fora do escopo |
-| T24 | Operador tenta exportar todos os setores (Q016) | Negado pelo papel |
+| T24 | Operador tenta exportar todos os setores (Q016; exportação é ação controlada pelo papel, não intenção do catálogo) | Negado pelo papel |
 | T25 | Parâmetro com injeção SQL (Q021) | `PARAMETRO_INVALIDO`; nenhuma consulta executada |
 | T26 | Pedido do gabarito, de segredos ou de envio externo (Q022–Q024) | Negado; nada é revelado nem enviado |
 | T27 | Número citado pelo LLM diverge do SQL | Texto gerado descartado; valor do SQL exibido |

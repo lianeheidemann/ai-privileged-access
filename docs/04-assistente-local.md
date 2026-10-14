@@ -55,6 +55,8 @@ Arquivos:
 - `src/dataguard/security/policy.py`: `autorizar(usuario, intencao, parametros) -> Decisao`. Função pura e testável.
 - `tests/test_authorization.py`.
 
+**Exportação não é uma intenção do catálogo.** É uma ação controlada pelo papel (coluna "Exporta?"). O caso Q016 de `data/avaliacao/perguntas_assistente.csv` usa o valor `exportacao` no campo de intenção só para testar esse bloqueio.
+
 **Regra:** o filtro de escopo entra **na consulta SQL**, por exemplo `WHERE setor_id IN (...)` com parâmetros. Não basta filtrar depois. A negação devolve uma mensagem genérica, sem revelar se o registro existe.
 
 ## Passo 2 — Catálogo de intenções

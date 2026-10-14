@@ -85,7 +85,7 @@ dataguard-ai/
     └── test_api_authorization.py
 ~~~
 
-**Não crie um segundo motor de regras no frontend.** A política do assistente no protótipo (`src/lib/demo-assistant.ts`) é **só demonstração**: a política real fica no backend (etapa 04). Os componentes apenas solicitam dados e representam estados.
+**Não crie um segundo motor de regras no frontend.** A política do assistente no protótipo (`src/lib/demo-assistant.ts`) é **só demonstração**: a política real fica no backend (etapa 04). Os componentes apenas solicitam dados e representam estados. Os nomes de intenção usados na demonstração (`chamados_abertos`, `listar_fontes`) são simplificados e **não são o contrato**: valem os nomes do catálogo da [etapa 04](04-assistente-local.md).
 
 ## 4. Passo a passo
 

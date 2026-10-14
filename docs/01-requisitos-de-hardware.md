@@ -79,7 +79,11 @@ nvidia-smi
 Get-Counter '\Processor(_Total)\% Processor Time'
 ```
 
-Anote CPU, GPU, RAM, VRAM, sistema, versão do driver, modelo e quantização, latência p50/p95 e a memória de pico.
+Anote CPU, GPU, RAM, VRAM, sistema, versão do driver, modelo e quantização, latência p50/p95 e a memória de pico. Modelo de registro:
+
+| Hardware (CPU/GPU/RAM/VRAM) | Driver | Modelo e quantização | Latência p50 / p95 | Memória de pico | Concorrência | Data |
+| --- | --- | --- | --- | --- | --- | --- |
+| _a preencher_ | | | | | | |
 
 ## Cenário 2 — Piloto: ~5 a 10 usuários, um servidor
 
