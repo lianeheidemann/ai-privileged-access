@@ -15,7 +15,7 @@ Interface React com as **sete telas planejadas**: Visão geral, Fontes de dados,
 
 ## Executar
 
-Requer Node.js 20+ e npm.
+Requer Node.js 20+ e npm (a CI usa Node 22).
 
 ```bash
 # Instala exatamente as versões do lockfile e inicia em 127.0.0.1:5173
