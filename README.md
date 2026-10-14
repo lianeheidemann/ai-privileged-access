@@ -1,63 +1,96 @@
 # DataGuard AI
 
-**Local Database Integrity Auditing & AI-Assisted Anomaly Detection**
+**Local Database Integrity Auditing · Anomaly Detection · Private AI Assistant**
 
-Projeto experimental em Python para auditar a integridade de dados, detectar anomalias e consultar um banco SQLite em linguagem natural — **sem APIs externas de IA**.
+Projeto experimental para auditoria da integridade de dados, detecção de anomalias e consultas em português por IA **local**, com interface web no próprio computador, **sem APIs externas de inferência**.
 
-> **Status: dataset sintético disponível; implementação da aplicação planejada.** Os diagramas e módulos abaixo mostram a arquitetura pretendida, não funcionalidades já implementadas.
+> **Estado do projeto:** o dataset sintético e os guias de implementação estão disponíveis. A aplicação, os endpoints, a interface e os modelos integrados **ainda são planejados**. Os diagramas abaixo ilustram o desenho pretendido e não comprovam funcionalidades existentes.
 
-## Visão geral
+## Objetivo
 
-O DataGuard AI combina três abordagens **complementares**:
+O DataGuard AI pretende combinar três mecanismos complementares:
 
-| Camada | Responsabilidade | Tecnologia planejada |
+| Capacidade | O que será feito | Tecnologias |
 | --- | --- | --- |
-| **Integridade** | Restrições, transações, consistência, rastreabilidade e backups | SQLite, Python, SHA-256, HMAC |
-| **Detecção** | Identificar inconsistências por regras e anomalias estatísticas | SQL, pandas, scikit-learn |
-| **Assistente** | Explicar achados e responder perguntas baseadas em consultas autorizadas | Ollama + modelo de linguagem local |
-| **Interface** | Visualizar registros, alertas, evidências e relatórios | Streamlit, Plotly |
+| **Integridade** | Verificar esquema, relações, transações, regras de negócio, backups e evidências | Python, SQLite, SHA-256, HMAC |
+| **Detecção de anomalias** | Identificar comportamentos incomuns com regras e Machine Learning | Python, SQL, pandas, scikit-learn / Isolation Forest |
+| **Assistente de IA local** | Responder perguntas com consultas predefinidas de somente leitura e explicar achados | Ollama + LLM compacto quantizado, Python |
+| **Aplicação e API** | Validar parâmetros, executar serviços e controlar exposição de dados | Python + FastAPI + Pydantic |
+| **Interface web local** | Dashboard, inventário, alertas, chat e relatórios | React + TypeScript + Vite |
 
-### Arquitetura proposta
+**A IA explica achados, mas não certifica a integridade dos dados.** Confirmações técnicas dependem de regras e verificações reproduzíveis; alertas estatísticos são **suspeitas**, não prova de corrupção ou fraude.
 
-```mermaid
+## Arquitetura oficial do MVP
+
+**Execução inicial:** um único notebook Windows 11. O React abre no navegador, mas frontend, backend, banco e IA executam **localmente**, sem necessidade de hospedagem externa.
+
+~~~mermaid
 flowchart TD
-    U["Usuário"] --> UI["Interface local · Streamlit"]
-    UI --> APP["Aplicação Python"]
-    APP --> VAL["Motor de integridade"]
-    APP --> ML["Regras e detector de anomalias"]
-    APP --> Q["Consultas predefinidas · somente leitura"]
-    Q --> DB[("SQLite local")]
-    VAL --> DB
-    ML --> DB
-    Q --> IA["LLM local · Ollama"]
-    VAL --> REL["Evidências e relatórios"]
-    ML --> REL
-    IA --> UI
-    REL --> UI
-    VAL --> BACK["Backups e manifestos separados"]
-    style DB fill:#e4f0f2,stroke:#557a80,color:#21383c
-    style IA fill:#e7ebf5,stroke:#7885a2,color:#253047
-```
+    USER["Navegador no próprio notebook"] --> REACT["React + TypeScript · Vite (dev)"]
+    REACT -->|"/api (HTTP local)"| API["Python · FastAPI"]
+    API --> CORE["Serviços: integridade, auditoria, detecção"]
+    API --> Q["Catálogo de consultas autorizado"]
+    CORE --> DB[("SQLite · arquivo local")]
+    Q --> DB
+    Q --> AI["Ollama · LLM local"]
+    CORE --> E["Relatórios, backups e manifestos"]
+    AI --> API
+    E --> API
+~~~
 
-**Princípio de projeto:** as verificações programáticas determinam os resultados técnicos. O modelo de IA explica os achados, mas não é autorizado a alterar o banco nem a declarar integridade por conta própria.
+| Serviço | Desenvolvimento local | Papel |
+| --- | --- | --- |
+| Frontend | `http://127.0.0.1:5173` | Vite durante o desenvolvimento |
+| Backend | `http://127.0.0.1:8000` | FastAPI e futuras rotas `/api/` |
+| Ollama | `http://127.0.0.1:11434` | Inferência feita pelo backend |
+| SQLite | Arquivo em `runtime/` | Persistência local, **sem porta TCP** |
 
-## Dataset sintético — já disponível
+**Distribuição local planejada:** após gerar o build do React, o próprio FastAPI poderá servir a interface em **http://127.0.0.1:8000**. O servidor de desenvolvimento Vite não será necessário para executar o aplicativo normalmente.
 
-A pasta [`data/`](data/) contém arquivos CSV de um inventário fictício de TI, que servirão de matéria-prima para construir o SQLite nas primeiras etapas.
+**Segurança:** usar bind em `127.0.0.1`, aplicar acesso somente leitura às consultas do assistente, parametrizar SQL e testar firewall, isolamento e execução offline. Loopback reduz exposição à rede, mas **não substitui controles de autorização ou segurança do computador**.
 
-| Arquivo | Registros | Conteúdo |
+Consultar [06 — Interface React/FastAPI](docs/06-interface-e-relatorios.md) e [08 — Rede privada e segurança](docs/08-arquitetura-de-rede-e-seguranca.md).
+
+## Linguagens e tecnologias definidas
+
+| Camada | Stack |
+| --- | --- |
+| Frontend | **React, TypeScript, Vite** |
+| Componentes e estilos | **Tailwind CSS, shadcn/ui, Lucide React** |
+| Tabelas e dados remotos | **TanStack Table, TanStack Query** |
+| Gráficos | **Recharts** |
+| Backend/API | **Python, FastAPI, Pydantic** |
+| Banco inicial | **SQLite** (`sqlite3`) |
+| IA | **Ollama local** + modelo quantizado compatível |
+| Machine Learning | **scikit-learn**, pandas e NumPy |
+| Testes | **pytest**, Vitest e Testing Library (quando implementados) |
+| Expansão empresarial futura | **PostgreSQL**, TLS, firewall, autenticação/autorização e segmentação de rede |
+
+**Linguagens predominantes:** Python, TypeScript e SQL. HTML/CSS integram o frontend. O **Node.js** serve às ferramentas de desenvolvimento/build do frontend; não é necessário como servidor separado na distribuição local planejada.
+
+### Estilo visual
+
+Interface **dark, minimalista e responsiva**, com fundo em azul-marinho escuro, bordas discretas, textos legíveis e foco em tabelas e evidências. Gráficos serão usados quando acrescentarem informação; sem gradientes chamativos ou efeitos decorativos excessivos.
+
+**Telas planejadas:** Visão geral, Inventário, Integridade, Anomalias, Assistente local, Backups e Experimentos.
+
+## Dados sintéticos já disponíveis
+
+A pasta [`data/`](data/) contém os dados originais em CSV para gerar o SQLite local nas primeiras etapas.
+
+| Arquivo | Registros | Descrição |
 | --- | ---: | --- |
-| [`categorias.csv`](data/csv/categorias.csv) | 12 | Tipos de equipamentos e valores de referência |
-| [`setores.csv`](data/csv/setores.csv) | 18 | Setores e unidades fictícios |
-| [`responsaveis.csv`](data/csv/responsaveis.csv) | 90 | Identificadores inteiramente sintéticos |
-| [`equipamentos.csv`](data/csv/equipamentos.csv) | 750 | Patrimônio, aquisição, garantia, custo, estado |
-| [`movimentacoes.csv`](data/csv/movimentacoes.csv) | 2.095 | Histórico de transferências e movimentações |
-| [`chamados.csv`](data/csv/chamados.csv) | 1.196 | Histórico de chamados e reparos |
-| **Total** | **4.161** | **6 conjuntos de registros** |
+| [`categorias.csv`](data/csv/categorias.csv) | 12 | Categorias e valores de referência |
+| [`setores.csv`](data/csv/setores.csv) | 18 | Setores fictícios |
+| [`responsaveis.csv`](data/csv/responsaveis.csv) | 90 | Identidades sintéticas |
+| [`equipamentos.csv`](data/csv/equipamentos.csv) | 750 | Patrimônio, preço, aquisição, garantia e estado |
+| [`movimentacoes.csv`](data/csv/movimentacoes.csv) | 2.095 | Eventos de movimentação |
+| [`chamados.csv`](data/csv/chamados.csv) | 1.196 | Chamados técnicos e reparos |
+| **Total** | **4.161** | **Seis conjuntos de registros** |
 
-Há **50 anomalias intencionais** em sete categorias. O arquivo [`data/ground_truth/gabarito_anomalias.csv`](data/ground_truth/gabarito_anomalias.csv) registra os casos conhecidos para avaliação; **não deve ser utilizado como entrada do detector**.
+Há **50 anomalias intencionais**, em sete categorias, documentadas em [`data/ground_truth/gabarito_anomalias.csv`](data/ground_truth/gabarito_anomalias.csv). O gabarito é **somente para avaliação**, não para entrada do detector nem para respostas do assistente.
 
-```mermaid
+~~~mermaid
 erDiagram
     CATEGORIAS ||--o{ EQUIPAMENTOS : classifica
     SETORES ||--o{ RESPONSAVEIS : aloca
@@ -65,53 +98,61 @@ erDiagram
     RESPONSAVEIS o|--o{ EQUIPAMENTOS : assume
     EQUIPAMENTOS ||--o{ MOVIMENTACOES : possui
     EQUIPAMENTOS ||--o{ CHAMADOS : registra
-```
+~~~
 
-**Nota:** os CSVs são os dados de origem versionados. O arquivo SQLite final será **gerado localmente** durante a implementação; não há um arquivo `.db` versionado neste repositório.
+A data de referência do dataset é **13/10/2026** (arquivo [`dataset_info.json`](data/dataset_info.json)). Regras temporais devem usar essa data fixa para preservar os resultados.
 
-## Roteiro de implementação
+## Roadmap de desenvolvimento — por etapas
 
-Comece pelo [**guia de desenvolvimento em `docs/`**](docs/README.md). Cada etapa contém tarefas concretas, artefatos previstos e critérios para validar a conclusão antes de avançar.
+Os arquivos abaixo são **guias**, com tarefas, arquivos previstos, testes e critérios de aceite. Não representam módulos implementados.
 
-| Etapa | Objetivo | Guia |
+| Etapa | Objetivo | Documento |
 | --- | --- | --- |
-| 0 | Arquitetura, limites e segurança | [00 — Arquitetura](docs/00-arquitetura-e-escopo.md) |
-| 1 | Ambiente, esquema e importação dos CSVs | [01 — Preparar o banco](docs/01-ambiente-e-banco.md) |
-| 2 | Restrições, transações e verificações | [02 — Integridade](docs/02-integridade-e-transacoes.md) |
-| 3 | Auditoria criptográfica e backups | [03 — Evidências e backups](docs/03-auditoria-e-backups.md) |
-| 4 | Detecção automática de anomalias | [04 — Anomalias e ML](docs/04-anomalias-e-ml.md) |
-| 5 | Consultas em português com IA local | [05 — Assistente offline](docs/05-assistente-local.md) |
-| 6 | Dashboard e exportações | [06 — Interface](docs/06-interface-e-relatorios.md) |
-| 7 | Testes e avaliação reprodutível | [07 — Testes](docs/07-testes-e-experimentos.md) |
-| **8 (futura)** | **Rede privada, PostgreSQL, controle de acesso e prevenção de vazamentos** | [08 — Arquitetura de rede e segurança](docs/08-arquitetura-de-rede-e-seguranca.md) |
+| 00 | Arquitetura, escopo e ameaças | [Arquitetura e decisões](docs/00-arquitetura-e-escopo.md) |
+| 01 | Ambiente Python, esquema SQLite e importação | [Banco de dados](docs/01-ambiente-e-banco.md) |
+| 02 | Restrições, transações e verificações | [Integridade](docs/02-integridade-e-transacoes.md) |
+| 03 | Auditoria, hashes e backups | [Evidências e backups](docs/03-auditoria-e-backups.md) |
+| 04 | Regras de anomalia e Isolation Forest | [Anomalias e ML](docs/04-anomalias-e-ml.md) |
+| 05 | Serviço de perguntas usando Ollama local | [Assistente local](docs/05-assistente-local.md) |
+| 06 | FastAPI + interface React/TypeScript | [Interface e relatórios](docs/06-interface-e-relatorios.md) |
+| 07 | Testes, métricas, segurança e execução offline | [Testes e experimentos](docs/07-testes-e-experimentos.md) |
+| **08 (posterior)** | Intranet privada, PostgreSQL, permissões e prevenção de vazamentos | [Arquitetura de rede e segurança](docs/08-arquitetura-de-rede-e-seguranca.md) |
 
-A **etapa 08 é opcional e posterior à conclusão do MVP**. Ela inclui um segundo cenário de arquitetura, com redes privadas, PostgreSQL, papéis de usuário, TLS, firewall, auditoria de acessos e testes de segurança. Não é uma funcionalidade já implementada.
+**Comece pelo [índice de documentação](docs/README.md).** A implementação será incremental: **primeiro banco e serviços Python; depois frontend/API; por último, laboratório empresarial de rede privada**.
 
-## Stack planejada
+### Estrutura planejada de código
 
-| Item | Escolha inicial |
-| --- | --- |
-| Linguagem | Python 3.11+ |
-| Banco | SQLite / `sqlite3` |
-| Interface | Streamlit |
-| Análise | pandas, NumPy |
-| Detecção de anomalias | scikit-learn / Isolation Forest |
-| LLM local | Ollama e modelo compacto quantizado |
-| Gráficos | Plotly |
-| Testes | pytest |
+~~~text
+dataguard-ai/
+├── README.md
+├── docs/                           # Guias atuais
+├── data/                           # CSVs e gabarito atuais
+├── src/dataguard/                  # A implementar
+│   ├── db/
+│   ├── integrity/
+│   ├── audit/
+│   ├── detection/
+│   ├── assistant/
+│   ├── reports/
+│   └── api/                        # FastAPI (etapa 06)
+├── frontend/                       # React + Vite (etapa 06)
+│   └── src/
+│       ├── components/
+│       ├── pages/
+│       ├── services/
+│       └── types/
+├── tests/
+└── runtime/                        # Banco e evidências locais; ignorar no Git
+~~~
 
-**Ambiente de referência:** Windows 11, RTX 3060 Laptop com 6 GB de VRAM e 16 GB de RAM. A escolha final do modelo dependerá de testes reais de memória e latência.
+## Requisitos de segurança e limitações
 
-## Integridade ≠ confidencialidade
+- Os CSVs são **100% fictícios**; nunca usar dados empresariais reais nos experimentos publicados.
+- Após baixar pacotes, modelos, bibliotecas e assets, **o uso deve funcionar sem internet**; isso será validado por testes, não presumido.
+- O navegador **não acessa SQLite ou Ollama diretamente**: a API implementa as consultas autorizadas.
+- A IA não terá ferramenta para executar SQL arbitrário nem para editar o banco.
+- SHA-256 e HMAC **detectam alterações relativas a referências confiáveis**, mas não impedem adulteração.
+- A expansão 08 utilizará rede privada e PostgreSQL **sem substituir o MVP SQLite nem expor serviços ao público**.
+- Arquivos `.env`, segredos, bancos de produção, backups e logs privados **não devem ser versionados**.
 
-Executar um LLM local reduz a necessidade de enviar dados a terceiros, mas **não garante a integridade do banco**. Essa propriedade exige controles distintos: restrições do esquema, validação de regras, transações, backups consistentes e evidências independentes. Hashes só revelam alterações em relação a uma **referência confiável**. Nem SHA-256 nem HMAC impedem uma modificação por si mesmos.
-
-## Reproduzibilidade
-
-- Dataset **100% fictício**: nenhuma informação pessoal real.
-- Semente de geração registrada em [`data/dataset_info.json`](data/dataset_info.json).
-- A **data de referência** do dataset é **13/10/2026**; testes de datas devem usar essa referência, não a data atual da máquina.
-- O gabarito deve ser usado **apenas na avaliação** dos detectores.
-- Código, modelo, regras, métricas e screenshots serão adicionados gradualmente, conforme as etapas forem implementadas.
-
-> Este projeto está em desenvolvimento. A presença de um item no roadmap não significa que a funcionalidade exista no código.
+**Estado dos entregáveis:** dados e documentação disponíveis; implementação e benchmarks pendentes.
