@@ -1,8 +1,10 @@
 # 02 — Integridade, transações e regras de negócio
 
-**Objetivo:** impedir operações inválidas, detectar inconsistências e registrar resultados verificáveis. **Não integrar IA nesta etapa.**
+**Objetivo:** impedir operações inválidas no banco sintético, detectar inconsistências e registrar resultados verificáveis. No cenário empresarial, **o DataGuard AI não deve executar alterações no banco de origem**; usar consultas e verificações somente leitura. **Não integrar IA nesta etapa.**
 
 **Pré-requisito:** [etapa 01](01-ambiente-e-banco.md) concluída.
+
+**Fronteira de acesso:** separar o banco de testes (onde constraints e transações podem ser exercitadas) da fonte empresarial (somente leitura e permissões mínimas). Nenhum teste destrutivo, `PRAGMA` de manutenção ou escrita deve ser executado em produção. Validar privilégios também no SGBD, não apenas no código Python.
 
 ## Passo 1 — Criar o serviço de verificação
 
