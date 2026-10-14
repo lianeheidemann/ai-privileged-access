@@ -4,6 +4,12 @@
   <img src="assets/badges/badge_em-construcao.svg" alt="Em construção" height="28">
 </p>
 
+<p>
+  <a href="https://github.com/lianeheidemann/dataguard-ai/actions/workflows/deploy-pages.yml"><img alt="CI e deploy" src="https://github.com/lianeheidemann/dataguard-ai/actions/workflows/deploy-pages.yml/badge.svg?branch=main"></a>
+  <a href="https://lianeheidemann.github.io/dataguard-ai/"><img alt="Demo" src="https://img.shields.io/badge/demo-GitHub%20Pages-315f7d"></a>
+  <img alt="Dados" src="https://img.shields.io/badge/dados-100%25%20sint%C3%A9ticos-3f8f7a">
+</p>
+
 <p><sub><strong>BACKEND · BANCO · IA (planejados)</strong></sub></p>
 <p>
   <img height="21" alt="Python" src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=FFFFFF">
@@ -22,6 +28,7 @@
   <img height="21" alt="shadcn/ui" src="https://img.shields.io/badge/shadcn%2Fui-000000?style=for-the-badge&logo=shadcnui&logoColor=FFFFFF">
   <img height="21" alt="TanStack" src="https://img.shields.io/badge/TanStack-FF4154?style=for-the-badge&logo=reactquery&logoColor=FFFFFF">
   <img height="21" alt="Recharts" src="https://img.shields.io/badge/Recharts-22B5BF?style=for-the-badge">
+  <img height="21" alt="Vitest" src="https://img.shields.io/badge/Vitest-6E9F18?style=for-the-badge&logo=vitest&logoColor=FFFFFF">
 </p>
 
 **Private AI · Secure Data Access · On-Premises Processing**
@@ -45,7 +52,7 @@ O caso de uso é agilizar consultas, análises e relatórios. O protótipo usa *
 
 ### Protótipo visual
 
-Consulte o [**frontend**](frontend/README.md) ou a [**demonstração no GitHub Pages**](https://lianeheidemann.github.io/dataguard-ai/), quando publicada. As sete telas usam Tailwind CSS, componentes no padrão shadcn/ui, TanStack Table/Query e Recharts, com temas claro e escuro.
+Consulte o [**frontend**](frontend/README.md) ou a [**demonstração no GitHub Pages**](https://lianeheidemann.github.io/dataguard-ai/). As sete telas usam Tailwind CSS, componentes no padrão shadcn/ui, TanStack Table/Query e Recharts, com temas claro e escuro.
 
 O protótipo **não se conecta** a banco, backend ou IA. Os números vêm de um JSON gerado a partir dos CSVs sintéticos. O assistente demonstra a política de bloqueio (escrita, contorno de regras, segredos, SQL livre, envio externo) e responde só com números do dataset, **sem LLM**.
 
