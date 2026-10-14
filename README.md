@@ -30,7 +30,7 @@ Projeto experimental para auditoria da integridade de dados, detecção de anoma
 
 ## Status atual — levantamento de requisitos e planejamento técnico
 
-> [!NOTE]
+> [!ALERT]
 > **EM CONSTRUÇÃO — IMPLEMENTAÇÃO AINDA NÃO INICIADA.**
 >
 > O DataGuard AI está atualmente na fase de **levantamento de requisitos, definição dos pré-requisitos técnicos, escolha das tecnologias e documentação da arquitetura**. As funcionalidades descritas neste README ainda serão implementadas e testadas. Não há, neste momento, uma aplicação funcional disponível para execução.
