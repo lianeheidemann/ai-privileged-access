@@ -102,7 +102,7 @@ Comparar **regras**, **Isolation Forest** e **união/combinação dos dois**, co
 
 ## Passo 6 — Visualização simples dos resultados
 
-Antes de integrar Streamlit, gerar um CSV/JSON com:
+Antes de integrar **FastAPI e a interface React + TypeScript** (etapa 06), gerar um CSV/JSON com:
 - Quantidade de alertas por detector.
 - IDs detectados e evidências.
 - Scores e limiares.
@@ -117,5 +117,7 @@ Antes de integrar Streamlit, gerar um CSV/JSON com:
 - [ ] Modelo estatístico e regras geram saídas separadas.
 - [ ] Avaliação foi realizada sem calibrar em cima do teste final.
 - [ ] Falsos positivos não são automaticamente chamados de corrupção de dados.
+
+**Separação de camadas:** os detectores permanecem em Python e retornam resultados estruturados; a futura API FastAPI apenas os expõe, e React/Recharts apenas os apresenta. Nunca realizar cálculos de detecção dentro dos componentes de interface.
 
 **Próxima etapa:** [05 — Assistente local](05-assistente-local.md).
