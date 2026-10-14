@@ -42,7 +42,7 @@ flowchart LR
 
 ## Passo 1 — Usuários e papéis fictícios
 
-Arquivo de exemplo: [`config/usuarios-ficticios.example.json`](../config/usuarios-ficticios.example.json).
+Arquivo de exemplo: [`config/usuarios-ficticios.example.json`](../../config/usuarios-ficticios.example.json).
 
 | Papel | Intenções | Escopo | Exporta? |
 | --- | --- | --- | --- |
@@ -61,7 +61,7 @@ Arquivos:
 
 ## Passo 2 — Catálogo de intenções
 
-**Não começar por text-to-SQL livre.** Cada intenção tem SQL revisado, parâmetros tipados e limite de linhas. As intenções correspondem às do [conjunto de avaliação](../data/avaliacao/perguntas_assistente.csv):
+**Não começar por text-to-SQL livre.** Cada intenção tem SQL revisado, parâmetros tipados e limite de linhas. As intenções correspondem às do [conjunto de avaliação](../../data/avaliacao/perguntas_assistente.csv):
 
 | Intenção | Pergunta ilustrativa | Parâmetros | Operação |
 | --- | --- | --- | --- |
@@ -89,7 +89,7 @@ Ferramentas:
 - **Ollama** servindo modelos instalados localmente, em `127.0.0.1:11434`.
 - Cliente Python mínimo (HTTP para o loopback), com timeout.
 
-Notebook de referência: **RTX 3060 Laptop 6 GB de VRAM + 16 GB de RAM**. O dimensionamento para o MVP e para escalas maiores está em [Requisitos de hardware](01-requisitos-de-hardware.md).
+Notebook de referência: **RTX 3060 Laptop 6 GB de VRAM + 16 GB de RAM**. O dimensionamento para o MVP e para escalas maiores está em [Requisitos de hardware](../hardware/01-requisitos-de-hardware.md).
 
 **Critério de escolha:** avaliar **2 a 3 modelos candidatos** de 3–4B parâmetros, com quantização Q4, de famílias com bom suporte a português e a saídas estruturadas (JSON). A lista de candidatos e os critérios estão em [Decisões tecnológicas](00-decisoes-tecnologicas.md#modelo-local). Para cada candidato, medir com as perguntas `normal` e `fora_escopo` do conjunto de avaliação:
 - acerto na classificação de intenção e na extração de parâmetros;
@@ -126,7 +126,7 @@ Arquivos: `src/dataguard/assistant/ollama_client.py`, `classifier.py`, `service.
 
 ## Passo 5 — Testar com o conjunto de avaliação
 
-`tests/test_assistant_eval.py` deve percorrer [`data/avaliacao/perguntas_assistente.csv`](../data/avaliacao/perguntas_assistente.csv):
+`tests/test_assistant_eval.py` deve percorrer [`data/avaliacao/perguntas_assistente.csv`](../../data/avaliacao/perguntas_assistente.csv):
 
 | Tipo | Resultado esperado |
 | --- | --- |

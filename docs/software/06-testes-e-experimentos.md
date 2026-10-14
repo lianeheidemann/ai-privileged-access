@@ -21,7 +21,7 @@ Organizar `tests/` por responsabilidade:
 | `test_detection.py` | Regras, scores e gabarito |
 | `test_authorization.py` | Papel × intenção × escopo; negações genéricas |
 | `test_queries.py` | Consultas autorizadas, parâmetros inválidos e entradas maliciosas |
-| `test_assistant_eval.py` | Todo o [conjunto de avaliação](../data/avaliacao/perguntas_assistente.csv) |
+| `test_assistant_eval.py` | Todo o [conjunto de avaliação](../../data/avaliacao/perguntas_assistente.csv) |
 | `test_offline.py` | Execução sem dependência de rede externa |
 
 Usar `pytest` e bancos temporários. Na [etapa 05](05-interface-e-relatorios.md), acrescentar **FastAPI TestClient** para as rotas. O frontend **já tem** testes Vitest + Testing Library (`frontend/src/test/`): navegação sem rede, tabela, CSV seguro e política do assistente demonstrativo. **Nunca executar um teste destrutivo no arquivo real de trabalho**.
@@ -121,7 +121,7 @@ Registrar em JSON/CSV:
 - Versão do conjunto de avaliação e do catálogo de intenções.
 - Código/commit Git, versão das regras e seed.
 - Python, SQLite, scikit-learn, Ollama, modelo, quantização e ID local do modelo (`ollama list`).
-- Hardware (CPU, GPU, RAM/VRAM, SO, versão do driver) e uso de memória de pico, medidos como em [Requisitos de hardware](01-requisitos-de-hardware.md#cenário-1--mvp-1-usuário-um-notebook).
+- Hardware (CPU, GPU, RAM/VRAM, SO, versão do driver) e uso de memória de pico, medidos como em [Requisitos de hardware](../hardware/01-requisitos-de-hardware.md#cenário-1--mvp-1-usuário-um-notebook).
 - Duração e resultado por componente.
 
 Executar comparações úteis, na ordem de prioridade:
@@ -171,4 +171,4 @@ Produtos finais planejados:
 - [ ] Métricas e limitações aparecem no repositório.
 - [ ] Nenhuma evidência, dado real ou segredo foi exposto.
 
-**Ao concluir:** atualizar o [README principal](../README.md), substituindo a arquitetura planejada por capturas reais e uma descrição clara do que está implementado.
+**Ao concluir:** atualizar o [README principal](../../README.md), substituindo a arquitetura planejada por capturas reais e uma descrição clara do que está implementado.

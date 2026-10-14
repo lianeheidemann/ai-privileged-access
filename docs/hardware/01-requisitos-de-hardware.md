@@ -2,14 +2,14 @@
 
 > **Última revisão:** 14/10/2026.
 
-Este documento dimensiona o hardware do DataGuard AI para quatro cenários: o **MVP** em um notebook, um **piloto**, um **departamento** e uma **empresa** com alta disponibilidade. Ele complementa as [decisões tecnológicas](00-decisoes-tecnologicas.md) e a [etapa 07](07-arquitetura-de-rede-e-seguranca.md).
+Este documento dimensiona o hardware do DataGuard AI para quatro cenários: o **MVP** em um notebook, um **piloto**, um **departamento** e uma **empresa** com alta disponibilidade. Ele complementa as [decisões tecnológicas](../software/00-decisoes-tecnologicas.md) e a [etapa 07](../software/07-arquitetura-de-rede-e-seguranca.md).
 
 ## Como ler este documento
 
 **Nada aqui foi medido.** Todos os números são de dois tipos:
 
 - **Estimativa:** regra de bolso calculada ou citada de fontes secundárias (blogs e guias, listados em [Fontes](#fontes)), com qualidade irregular e divergências entre si.
-- **A medir:** valor que só existe depois dos testes da [etapa 06](06-testes-e-experimentos.md), no seu hardware e com o seu modelo.
+- **A medir:** valor que só existe depois dos testes da [etapa 06](../software/06-testes-e-experimentos.md), no seu hardware e com o seu modelo.
 
 Use este documento para **planejar e cotar**, nunca como garantia de desempenho. A comparação entre cenários é de ordem de grandeza. O custo aparece só como faixa **relativa** (baixo, médio, alto, muito alto), porque preços de GPU e servidor mudam rápido e não foram verificados.
 
@@ -57,7 +57,7 @@ Aplicada a tamanhos comuns de modelo (valores **calculados pela regra**; apenas 
 | CPU | 4 núcleos | 6 a 8 núcleos | A registrar na etapa 06 |
 | Disco | SSD com 20 GB livres | SSD com 50 GB livres | A registrar |
 | Sistema | Windows 11 | Windows 11 com BitLocker | **Windows 11** |
-| Modelo | 3–4B em Q4 | 3–4B em Q4 | A escolher (ver [Modelo local](00-decisoes-tecnologicas.md#modelo-local)) |
+| Modelo | 3–4B em Q4 | 3–4B em Q4 | A escolher (ver [Modelo local](../software/00-decisoes-tecnologicas.md#modelo-local)) |
 
 **O que cabe nos 6 GB da referência (estimativa):**
 - Um modelo de **3–4B em Q4** (pesos de ~2 a 2,5 GB) cabe com contexto de cerca de 4k tokens e folga.
@@ -68,7 +68,7 @@ Aplicada a tamanhos comuns de modelo (valores **calculados pela regra**; apenas 
 
 **Notebook:** carga contínua de GPU esquenta e reduz o desempenho. Use na tomada, com boa ventilação, e registre se houve queda de velocidade durante os testes.
 
-**Como medir** (e registrar na [etapa 06](06-testes-e-experimentos.md)):
+**Como medir** (e registrar na [etapa 06](../software/06-testes-e-experimentos.md)):
 
 ```powershell
 # Modelo carregado, tamanho em memória e quanto está na GPU
@@ -87,7 +87,7 @@ Anote CPU, GPU, RAM, VRAM, sistema, versão do driver, modelo e quantização, l
 
 ## Cenário 2 — Piloto: ~5 a 10 usuários, um servidor
 
-Para validar com um grupo pequeno de usuários autorizados. **Dados sensíveis de produção só entram depois que os controles de segurança da [etapa 07](07-arquitetura-de-rede-e-seguranca.md) estiverem implementados e testados.**
+Para validar com um grupo pequeno de usuários autorizados. **Dados sensíveis de produção só entram depois que os controles de segurança da [etapa 07](../software/07-arquitetura-de-rede-e-seguranca.md) estiverem implementados e testados.**
 
 | Item | Estimativa |
 | --- | --- |
@@ -96,7 +96,7 @@ Para validar com um grupo pequeno de usuários autorizados. **Dados sensíveis d
 | CPU | 8 a 16 núcleos |
 | Disco | NVMe de 500 GB a 1 TB; backup em **disco ou volume separado** |
 | Sistema | Linux (servidor) |
-| Topologia | Um host com banco (PostgreSQL), API e gateway em contêineres, **sem publicar portas do banco nem do Ollama** (ver [etapa 07](07-arquitetura-de-rede-e-seguranca.md)) |
+| Topologia | Um host com banco (PostgreSQL), API e gateway em contêineres, **sem publicar portas do banco nem do Ollama** (ver [etapa 07](../software/07-arquitetura-de-rede-e-seguranca.md)) |
 | Motor de inferência | Ollama, com ajuste de paralelismo |
 | Energia | Nobreak para desligar com segurança |
 
@@ -117,7 +117,7 @@ Aqui o **motor de inferência** passa a importar tanto quanto a GPU.
 | Motor de inferência | Com **processamento contínuo em lote** (vLLM ou equivalente), no lugar do Ollama |
 | Servidor de banco | PostgreSQL em servidor próprio: 8 a 16 núcleos, 32 a 64 GB de RAM, SSD/NVMe |
 | Gateway | Proxy com TLS (HTTPS) na frente da API |
-| Rede | Segmentada em redes/VLANs: o cliente alcança só o gateway; banco e IA ficam isolados (ver matriz da [etapa 07](07-arquitetura-de-rede-e-seguranca.md)) |
+| Rede | Segmentada em redes/VLANs: o cliente alcança só o gateway; banco e IA ficam isolados (ver matriz da [etapa 07](../software/07-arquitetura-de-rede-e-seguranca.md)) |
 | Operação | Monitoramento de GPU, fila, latência e disco; backup **fora do host** |
 
 **Por que trocar o motor:** comparativos de terceiros indicam que o vLLM escala melhor que o Ollama com muitos usuários simultâneos, e que o Ollama atende bem de 1 a cerca de 10. Esses comparativos têm metodologias diversas e **seus números de vazão não foram copiados aqui**; confirme com um teste de carga seu.
@@ -149,8 +149,8 @@ Os limites de usuários são **indicativos**: dependem do modelo, do tamanho do 
 ## Como dimensionar de verdade
 
 1. **Meça a concorrência, não os usuários cadastrados.** O que importa é o **pico de requisições simultâneas**. Registre-o em uso real ou em teste de carga.
-2. **Use o conjunto de avaliação** ([`perguntas_assistente.csv`](../data/avaliacao/perguntas_assistente.csv)) como carga: repita-o com 1, 5, 10 e 20 requisições simultâneas e registre latência p50/p95, tokens por segundo, fila e uso de memória da GPU.
-3. **Compare com as metas** da [etapa 06](06-testes-e-experimentos.md) (p95 ≤ 15 s como alvo inicial).
+2. **Use o conjunto de avaliação** ([`perguntas_assistente.csv`](../../data/avaliacao/perguntas_assistente.csv)) como carga: repita-o com 1, 5, 10 e 20 requisições simultâneas e registre latência p50/p95, tokens por segundo, fila e uso de memória da GPU.
+3. **Compare com as metas** da [etapa 06](../software/06-testes-e-experimentos.md) (p95 ≤ 15 s como alvo inicial).
 4. **Suba de nível quando houver sinais claros**:
 
 | Sinal | Ação provável |
@@ -163,7 +163,7 @@ Os limites de usuários são **indicativos**: dependem do modelo, do tamanho do 
 
 ## Outros requisitos
 
-- **Rede:** o gargalo é a GPU, não a banda; **1 GbE** costuma bastar entre servidores. O importante é a **segmentação** e o bloqueio de saída ([etapa 07](07-arquitetura-de-rede-e-seguranca.md)).
+- **Rede:** o gargalo é a GPU, não a banda; **1 GbE** costuma bastar entre servidores. O importante é a **segmentação** e o bloqueio de saída ([etapa 07](../software/07-arquitetura-de-rede-e-seguranca.md)).
 - **Energia e refrigeração:** nobreak nos servidores; ventilação adequada, principalmente para GPUs sob carga contínua.
 - **Drivers e compatibilidade:** confirme a compatibilidade entre GPU, driver e motor de inferência antes de comprar. Placas de fabricantes diferentes têm suporte diferente.
 - **Sistema:** Windows 11 no MVP; **Linux** nos servidores. Docker e WSL2 podem alterar a exposição de portas (etapa 07).

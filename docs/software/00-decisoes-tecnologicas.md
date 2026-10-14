@@ -2,7 +2,7 @@
 
 > **Última revisão:** 14/10/2026.
 
-Este documento registra **por que** cada tecnologia foi escolhida, quais alternativas foram consideradas e quais riscos permanecem. Ele complementa as tabelas de stack do [README](../README.md) e da [etapa 02](02-arquitetura-e-escopo.md).
+Este documento registra **por que** cada tecnologia foi escolhida, quais alternativas foram consideradas e quais riscos permanecem. Ele complementa as tabelas de stack do [README](../../README.md) e da [etapa 02](02-arquitetura-e-escopo.md).
 
 **Como ler:** "Situação" indica se a escolha já está em uso no repositório ou é planejada. As versões estão na seção [Versões](#versões). **Fixe versões exatas** (lockfile, hashes) ao implementar e reavalie as escolhas se uma premissa mudar. Informações que **não foram verificadas em fonte oficial** estão marcadas como tal.
 
@@ -11,7 +11,7 @@ Este documento registra **por que** cada tecnologia foi escolhida, quais alterna
 1. **Execução 100% local** depois do preparo, sem dependência de serviços externos em runtime.
 2. **Superfície de ataque pequena:** poucos serviços, bind em loopback, sem portas de banco.
 3. **Testabilidade:** cada controle de segurança precisa de teste automatizado.
-4. **Hardware de referência:** notebook Windows 11, 16 GB de RAM, RTX 3060 Laptop com 6 GB de VRAM. O dimensionamento para o MVP e para escala está em [Requisitos de hardware](01-requisitos-de-hardware.md).
+4. **Hardware de referência:** notebook Windows 11, 16 GB de RAM, RTX 3060 Laptop com 6 GB de VRAM. O dimensionamento para o MVP e para escala está em [Requisitos de hardware](../hardware/01-requisitos-de-hardware.md).
 5. **Curva de aprendizado e manutenção** compatíveis com um projeto de estudo individual.
 6. **Caminho para a empresa:** a escolha do MVP não pode impedir a etapa 07 (rede privada, outros SGBDs).
 
@@ -96,7 +96,7 @@ Versões exatas do `frontend/package-lock.json`. O `npm ci` instala exatamente e
 
 **Antes de escolher:** consulte `ollama.com/library`, confira tag, tamanho, contexto e licença **de cada candidato**, e **registre a data da consulta** neste documento.
 
-**Procedimento:** rodar as perguntas `normal` e `fora_escopo` de [`perguntas_assistente.csv`](../data/avaliacao/perguntas_assistente.csv) em cada candidato, com o mesmo prompt e temperatura 0. Medir:
+**Procedimento:** rodar as perguntas `normal` e `fora_escopo` de [`perguntas_assistente.csv`](../../data/avaliacao/perguntas_assistente.csv) em cada candidato, com o mesmo prompt e temperatura 0. Medir:
 - acerto de intenção e parâmetros;
 - JSON inválido;
 - latência p50/p95;
@@ -122,7 +122,7 @@ Escolha o primeiro que atinja as metas da [etapa 06](06-testes-e-experimentos.md
 
 | Decisão | Motivo | Onde está |
 | --- | --- | --- |
-| Documentos numerados na ordem de leitura: **00–01** (referência), **02–07** (principal) e **08–10** (complementar) | A numeração antiga misturava as trilhas, e os dois documentos de referência ficavam soltos no fim da listagem | [Guia de desenvolvimento](README.md) |
+| Documentos numerados na ordem de leitura: **00–01** (referência), **02–07** (principal) e **08–10** (complementar) | A numeração antiga misturava as trilhas, e os dois documentos de referência ficavam soltos no fim da listagem | [Guia de desenvolvimento](../README.md) |
 | Dados em **LF** (`.gitattributes`) | Os hashes do `MANIFEST.sha256` dependem dos bytes do arquivo; `core.autocrlf` no Windows os alteraria | `.gitattributes` |
 | CI valida o dataset e confere o resumo gerado antes de publicar | Impede que a demo exiba números diferentes dos CSVs | `.github/workflows/deploy-pages.yml` |
 | Nome do repositório mantido: **`dataguard-ai`** | O nome e o endereço da demo já são conhecidos; renomear quebraria o link do Pages | — |
@@ -136,7 +136,7 @@ Escolha o primeiro que atinja as metas da [etapa 06](06-testes-e-experimentos.md
 | **Licença do repositório** | O repositório é público e **não tem arquivo `LICENSE`**: sem licença, ninguém pode reutilizar o código legalmente | Escolher uma (MIT e Apache-2.0 são comuns) ou manter todos os direitos reservados. **Nenhuma foi adicionada sem decisão** |
 | React 18 × 19 | Em uso: 18.3.1 | Avaliar a migração para o 19 e a compatibilidade das bibliotecas (shadcn/ui, Recharts, TanStack) |
 | Modelo local | Candidatos sem verificação oficial | Consultar a biblioteca do Ollama, medir e escolher (ver [Modelo local](#modelo-local)) |
-| Hardware do piloto | Só estimativas, nada medido | Definir o número de usuários simultâneos e medir o modelo escolhido antes de comprar (ver [Requisitos de hardware](01-requisitos-de-hardware.md#como-dimensionar-de-verdade)) |
+| Hardware do piloto | Só estimativas, nada medido | Definir o número de usuários simultâneos e medir o modelo escolhido antes de comprar (ver [Requisitos de hardware](../hardware/01-requisitos-de-hardware.md#como-dimensionar-de-verdade)) |
 | Python do backend | Alvo 3.12+ | Fixar a versão ao criar o `pyproject.toml` |
 | Cifragem do SQLite | BitLocker no MVP | Decidir por SQLCipher ou cifragem do SGBD antes de qualquer dado real |
 

@@ -59,7 +59,7 @@ O arquivo inclui todos os 750 equipamentos e amostras dos 200 eventos mais recen
 
 ## Controles demonstrados
 
-- **Assistente:** os nomes de intenção da demonstração (`chamados_abertos`, `listar_fontes`) são simplificados e não são o contrato; o catálogo oficial está em `docs/04-assistente-local.md`. Bloqueia pedidos de escrita, contorno de regras, segredos, SQL livre e envio externo antes de qualquer consulta. Os números vêm do resumo sintético, sem LLM. Os casos adversariais seguem `data/avaliacao/perguntas_assistente.csv`.
+- **Assistente:** os nomes de intenção da demonstração (`chamados_abertos`, `listar_fontes`) são simplificados e não são o contrato; o catálogo oficial está em `docs/software/04-assistente-local.md`. Bloqueia pedidos de escrita, contorno de regras, segredos, SQL livre e envio externo antes de qualquer consulta. Os números vêm do resumo sintético, sem LLM. Os casos adversariais seguem `data/avaliacao/perguntas_assistente.csv`.
 - **Relatórios:** a exportação CSV neutraliza células que começam com `=`, `+`, `-` ou `@` (CSV/formula injection).
 - **Sem rede:** os testes verificam que a navegação não chama `fetch`. Não há fontes, scripts ou estilos de CDN.
 
