@@ -52,6 +52,210 @@ O diagrama é **lógico**, não uma prova de isolamento. O firewall do host, os 
 
 **Usar TLS quando serviços atravessarem hosts/redes distintas.** Para um laboratório de um computador, pode-se começar com loopback e uma rede virtual privada, sem simular TLS de forma enganosa. Contêineres na mesma máquina não são uma fronteira absoluta de segurança.
 
+### 2.1 — Cenário A: React + FastAPI + Ollama no mesmo Windows (configuração prática)
+
+**Arquitetura escolhida para o projeto:** frontend **React + TypeScript + Vite**, backend **Python + FastAPI**, modelo de IA executado no **Ollama**, banco **SQLite**. Todos executam no mesmo computador Windows 11. O navegador é apenas a interface; **não existe hospedagem externa nem necessidade de publicação na internet**.
+
+**Quando aplicar:** as configurações de rede deste cenário podem ser utilizadas assim que frontend e backend existirem nas etapas do MVP. Esta seção está registrada na etapa 08 para servir como referência; **não é necessário implantar PostgreSQL, contêineres ou uma intranet antes de concluir o MVP**.
+
+~~~mermaid
+flowchart TD
+    U["Navegador neste notebook"] -->|"127.0.0.1:5173 (desenvolvimento)"| R["React + Vite"]
+    R -->|"/api → 127.0.0.1:8000"| F["FastAPI"]
+    F -->|"127.0.0.1:11434"| O["Ollama — modelo local"]
+    F --> S[("SQLite — arquivo local")]
+    F --> A["Auditoria, verificações e relatórios"]
+    N["Outra máquina na LAN"] -.- X["Sem porta publicada na LAN"]
+    X -.- R
+~~~
+
+O endereço **127.0.0.1** designa a própria máquina (*loopback*). Se outro computador acessar seu próprio 127.0.0.1, ele **não** chegará ao notebook que executa o DataGuard AI. **SQLite não possui porta TCP própria:** o programa Python abre um arquivo de banco no disco.
+
+| Serviço | Porta de exemplo | Endereço de escuta no MVP | Quem acessa |
+| --- | ---: | --- | --- |
+| Vite (somente desenvolvimento) | 5173 | 127.0.0.1 | Navegador do próprio notebook |
+| FastAPI | 8000 | 127.0.0.1 | Proxy de desenvolvimento do Vite ou navegador na versão final |
+| Ollama | 11434 | 127.0.0.1 | Backend Python; **não** enviar requisições do React direto ao Ollama |
+| SQLite | — | Arquivo local | Somente serviços Python autorizados |
+| PostgreSQL | 5432 | **Não utilizado no MVP** | Apenas na expansão 08.3 |
+
+**Nota sobre portas:** os números são convenções de desenvolvimento; caso a porta esteja ocupada, corrigir a configuração conscientemente e registrar a mudança. Nunca resolver exposição habilitando escuta em todas as interfaces.
+
+#### A. Configurar o Vite (React + TypeScript)
+
+**Arquivo planejado:** frontend/vite.config.ts. Este arquivo só deverá ser criado quando o frontend for implementado.
+
+~~~ts
+// Restringe o Vite ao loopback e encaminha /api ao FastAPI local
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+
+export default defineConfig({
+  plugins: [react()],
+  server: {
+    host: '127.0.0.1',
+    port: 5173,
+    strictPort: true,
+    proxy: {
+      '/api': {
+        target: 'http://127.0.0.1:8000',
+        changeOrigin: true,
+      },
+    },
+  },
+});
+~~~
+
+O frontend deverá chamar caminhos **relativos**, por exemplo **/api/inventory**, **/api/audits** e **/api/chat** (nomes ilustrativos — endpoints ainda a implementar). O prefixo **/api** deve existir também nas rotas FastAPI; se a aplicação usar outra convenção, configurar a reescrita do proxy conscientemente.
+
+Executar no terminal PowerShell, dentro de **frontend/**, após instalar as dependências:
+
+~~~powershell
+# Inicia o servidor de desenvolvimento no loopback, sem acesso pela LAN
+npm run dev -- --host 127.0.0.1 --port 5173
+~~~
+
+Abrir **http://127.0.0.1:5173**. **Não usar** a opção "--host 0.0.0.0", "host: true", "allowedHosts: true" ou CORS irrestrito para tentar consertar um problema de acesso local. O Vite é **servidor de desenvolvimento**, não deve ser disponibilizado na intranet como serviço de produção.
+
+#### B. Configurar o FastAPI
+
+**Exemplo:** comando para projeto com arquivo **main.py** e variável **app** na raiz; caso o backend seja movido para um pacote em **src/dataguard/api/**, adaptar o caminho do módulo.
+
+~~~powershell
+# Inicia o FastAPI somente na interface de loopback do Windows
+python -m uvicorn main:app --host 127.0.0.1 --port 8000
+~~~
+
+Testar **http://127.0.0.1:8000/docs** apenas quando o FastAPI estiver implementado. A documentação interativa não deve ser publicada sem avaliação de autorização na expansão empresarial.
+
+**Autorização:** o FastAPI será o único serviço responsável por autenticar/autorizar solicitações, aplicar filtros de acesso e executar consultas aprovadas. **CORS e loopback não substituem autenticação/autorização nem proteção contra requisições indevidas de páginas maliciosas (CSRF/rebinding).** Evitar liberar origens coringa e nunca confiar apenas em bloquear botões na interface.
+
+#### C. Configurar Ollama no Windows e impedir o uso de nuvem
+
+O Ollama normalmente escuta em **127.0.0.1:11434**. No Windows, a configuração do aplicativo é feita por variáveis de ambiente do usuário e precisa de **reinicialização do aplicativo Ollama** para ser aplicada.
+
+1. Encerrar o Ollama pela bandeja do sistema Windows.
+2. Abrir **Configurações do Windows → Editar variáveis de ambiente da conta**.
+3. Criar/ajustar as variáveis do usuário com os valores abaixo:
+
+| Variável | Valor para o laboratório local | Motivo |
+| --- | --- | --- |
+| OLLAMA_HOST | 127.0.0.1:11434 | Vincular o servidor ao loopback |
+| OLLAMA_NO_CLOUD | 1 | Desativar as funcionalidades em nuvem do Ollama |
+
+4. Reiniciar o aplicativo Ollama pelo menu Iniciar.
+5. Confirmar que o modelo **local** já foi baixado antes de desconectar a internet.
+
+Outra maneira, em PowerShell, **persistindo valores apenas para a conta do Windows** (também requer reiniciar o Ollama):
+
+~~~powershell
+# Define bind de loopback e desativa nuvem na configuração do usuário
+[Environment]::SetEnvironmentVariable('OLLAMA_HOST', '127.0.0.1:11434', 'User')
+[Environment]::SetEnvironmentVariable('OLLAMA_NO_CLOUD', '1', 'User')
+~~~
+
+O backend consulta **http://127.0.0.1:11434**, **não** o navegador. Não definir OLLAMA_HOST como **0.0.0.0:11434** neste cenário, não publicar a porta 11434 e não instalar túneis públicos. Quando faltar um modelo, o assistente deverá apresentar erro/fallback local em vez de substituir silenciosamente a inferência por um serviço externo.
+
+#### D. Versão final local: uma só origem no navegador
+
+Depois da criação do frontend, executar o **build** do React e servir os arquivos gerados em **frontend/dist/** pelo FastAPI, usando **StaticFiles** ou equivalente e tratamento apropriado de rotas SPA.
+
+~~~powershell
+# Compila o React para arquivos estáticos locais (executar dentro de frontend)
+npm run build
+~~~
+
+Na distribuição local final, **Vite não precisa ficar em execução**. O usuário abre a interface no navegador pelo **http://127.0.0.1:8000**, com **FastAPI** servindo interface e rotas **/api/** na mesma origem; **Ollama** continua em loopback. Não carregar scripts, CSS, fontes, gráficos ou ícones de CDNs externas em tempo de execução.
+
+### 2.2 — Confirmar a configuração real no Windows 11
+
+Execute os testes **com os serviços já iniciados**. Todos os comandos abaixo são de **consulta**, não criam regras de firewall e não alteram a configuração da máquina.
+
+~~~powershell
+# Mostra IP local, porta e processo dos serviços em escuta
+Get-NetTCPConnection -State Listen -LocalPort 5173,8000,11434 |
+    Select-Object LocalAddress,LocalPort,State,OwningProcess |
+    Sort-Object LocalPort
+~~~
+
+**Resultado esperado no MVP:** nas portas em funcionamento, **LocalAddress = 127.0.0.1**. Serviços que ainda não foram iniciados não aparecem. Investigar qualquer resultado em **0.0.0.0**, **::** (todas as interfaces IPv6), ou endereço da LAN antes de prosseguir. **::1** também indica loopback IPv6, mas esta documentação configura IPv4 de modo explícito.
+
+~~~powershell
+# Verifica a conectividade local das três portas após iniciar seus serviços
+Test-NetConnection -ComputerName 127.0.0.1 -Port 5173
+Test-NetConnection -ComputerName 127.0.0.1 -Port 8000
+Test-NetConnection -ComputerName 127.0.0.1 -Port 11434
+~~~
+
+**Resultado esperado:** TcpTestSucceeded = True para cada serviço iniciado. Isso prova apenas conexão **local**, não que o endpoint está autenticado ou que o aplicativo não envia dados externos.
+
+~~~powershell
+# Confere a resposta do Ollama e os modelos locais já instalados
+Invoke-RestMethod -Uri http://127.0.0.1:11434/api/tags
+ollama list
+~~~
+
+**Teste de exposição:** em **outro dispositivo seu e autorizado na mesma rede**, tentar acessar o **IP de LAN do notebook** na porta do frontend ou backend durante o MVP; a conexão deve falhar. O teste local em 127.0.0.1 **sozinho não comprova** que não exista outra interface publicada. Revisar também regras do firewall do Windows, configurações de proxy/reverso, WSL2 e Docker se utilizados.
+
+**Teste offline:** após instalar e baixar tudo, desligar o Wi-Fi/conectividade externa, manter os processos locais ativos e verificar que o navegador, as consultas SQLite, os detectores e o Ollama continuam operando. Registrar quais ações falharam e verificar tráfego de saída se o experimento tiver como objetivo demonstrar ausência de comunicação externa.
+
+### 2.3 — Firewall: política do MVP e limites do loopback
+
+- **Primeiro controle:** bind estrito em **127.0.0.1** em Vite, FastAPI e Ollama. Evita que serviços escutem diretamente na interface de rede.
+- **Segundo controle:** verificar política de entrada do **Microsoft Defender Firewall**; não criar liberação geral para Python, Node ou Ollama em redes públicas/privadas.
+- **Terceiro controle:** o experimento offline pode acrescentar **regras de saída específicas e reversíveis** para processos/serviços de laboratório, documentando o efeito observado. A regra não deve prejudicar atualizações ou outros programas do Windows.
+- **Quarto controle:** mesmo em localhost, autenticação, permissões, escopo das consultas, limites de taxa e logs continuam necessários para proteção contra código local não confiável e interação do navegador com sites potencialmente maliciosos.
+- Não desabilitar completamente o firewall do Windows. Não modificar regras globais sem documentar e permitir reversão.
+
+**Critério de aceite local:** serviços acessíveis no notebook, porta de escuta restrita a loopback, sem acesso direto a partir da LAN, e funcionamento sem conexão externa depois da preparação. Estes são **resultados a medir**, não garantias automáticas de segurança.
+
+### 2.4 — Cenário B futuro: rede corporativa privada (sem reutilizar 127.0.0.1 entre computadores)
+
+**Quando aplicar:** somente na expansão 08.2–08.8. Não transformar o servidor de desenvolvimento do Vite em endpoint público.
+
+Em uma LAN empresarial, computadores distintos **não compartilham o mesmo 127.0.0.1**. O navegador do cliente acessaria um **nome DNS interno via HTTPS** em um gateway/proxy da rede autorizada. Se gateway e FastAPI estiverem no mesmo servidor, o FastAPI pode **continuar em 127.0.0.1:8000** e ser acessado apenas pelo proxy local. Entre hosts distintos, usar endereços privados reais, regras de firewall específicas e TLS quando aplicável.
+
+~~~mermaid
+flowchart LR
+    C["Estação autorizada"] -->|"HTTPS / TCP 443"| G["Gateway de intranet — endereço privado"]
+    G -->|"127.0.0.1:8000 no mesmo host"| API["FastAPI"]
+    API -->|"TLS + conta limitada"| PG[("PostgreSQL privado")]
+    API -->|"Canal interno restrito"| O["Ollama privado"]
+    N["Internet e outras VLANs"] -.- B["Firewall / bloqueio de acesso direto"]
+    B -.- PG
+    B -.- O
+~~~
+
+| Item | Cenário A — notebook | Cenário B — empresa |
+| --- | --- | --- |
+| Interface | Vite local (dev) / FastAPI estático (uso) | Frontend compilado servido no gateway interno |
+| Entrada do usuário | 127.0.0.1:8000 | DNS privado + HTTPS/TLS |
+| Banco | SQLite no disco | PostgreSQL interno com conta e escopo restritos |
+| LLM | Ollama em 127.0.0.1:11434 | Servidor/serviço interno, acessível **somente ao backend** |
+| Segurança de rede | Bind loopback e firewall do Windows | Segmentação, firewall, TLS e autorização por serviço |
+| Teste principal | LAN não alcança portas do notebook | Cliente alcança gateway, mas **não** banco/LLM |
+
+**PostgreSQL:** quando migrar na etapa 08.3, configurar **listen_addresses**, **pg_hba.conf**, permissões SQL e TLS conforme os IPs privados de aplicação. Não disponibilizar a porta 5432 para toda a LAN. Se usado Docker Compose, **não publicar portas do PostgreSQL/Ollama no host** quando apenas os contêineres internos precisarem comunicar-se. Caso uma publicação temporária seja indispensável para administrar o laboratório local, usar vínculo explícito (exemplo **127.0.0.1:5432:5432**) e **confirmar** o comportamento da versão do Docker/WSL2 em uso.
+
+**Não usar 0.0.0.0 como solução genérica de conectividade.** Quando algum gateway precisar escutar em uma interface de rede, configurar IP específico da LAN e controle de acesso; a interface exposta deve ser a **única entrada prevista**. Verificar se a política e as regras realmente bloqueiam as demais rotas.
+
+### 2.5 — Checklist de rede antes de considerar a expansão segura
+
+- [ ] Frontend local vinculado a 127.0.0.1:5173 apenas durante desenvolvimento.
+- [ ] FastAPI vinculado a 127.0.0.1:8000 no notebook.
+- [ ] Ollama vinculado a 127.0.0.1:11434 e funcionalidades cloud desativadas.
+- [ ] Navegador acessa apenas frontend/backend; **não chama Ollama diretamente**.
+- [ ] SQLite permanece arquivo local sem porta de rede.
+- [ ] Endereços de escuta verificados com Get-NetTCPConnection.
+- [ ] Ausência de acesso pela LAN verificada com cliente autorizado.
+- [ ] Sem CDN, fontes externas ou provedor de LLM remoto em tempo de execução.
+- [ ] Teste offline concluído após baixar os modelos.
+- [ ] Na expansão corporativa, entrada restrita a gateway HTTPS e banco/LLM inacessíveis diretamente.
+- [ ] Regras de firewall e autenticação foram testadas, registradas e podem ser revertidas.
+
+**Documentos oficiais:** [Vite: server.host/server.proxy](https://vite.dev/config/server-options), [FastAPI: servidor ASGI](https://fastapi.tiangolo.com/deployment/manually/), [Ollama: configuração Windows, OLLAMA_HOST, modo local](https://docs.ollama.com/faq), [Microsoft: Get-NetTCPConnection](https://learn.microsoft.com/en-us/powershell/module/nettcpip/get-nettcpconnection), [Docker: publicação de portas](https://docs.docker.com/engine/network/port-publishing/).
+
+
 ## 3. Condições antes de iniciar a expansão
 
 - [ ] Etapas 00–07 concluídas, ou suas limitações documentadas.
@@ -64,7 +268,7 @@ O diagrama é **lógico**, não uma prova de isolamento. O firewall do host, os 
 
 ### Hardware e isolamento do laboratório
 
-O notebook de referência tem **16 GB de RAM e RTX 3060 Laptop 6 GB de VRAM**. Prefira, inicialmente, **um único host Windows 11**, com serviços isolados por processos, Docker/WSL2 ou VM, e um modelo pequeno quantizado. Isso permite estudar portas e comunicação sem necessitar de dois computadores físicos.
+O notebook de referência tem **16 GB de RAM e RTX 3060 Laptop 6 GB de VRAM**. A interface será **React + TypeScript** e a API será **FastAPI**, conforme a escolha de stack do projeto. Prefira, inicialmente, **um único host Windows 11**, com serviços isolados por processos, Docker/WSL2 ou VM, e um modelo pequeno quantizado. Isso permite estudar portas e comunicação sem necessitar de dois computadores físicos.
 
 **Importante:** em Docker Compose, publicar `5432:5432` ou `11434:11434` sem endereço explícito pode expor as portas em interfaces do host. Para teste apenas no host, prefira bind em `127.0.0.1` quando for necessário publicar uma porta. Para comunicação entre serviços no Compose, prefira rede interna com nomes de serviços e sem publicação dessas portas. Verifique a exposição efetiva do Windows/WSL/Docker, não apenas o arquivo de configuração.
 
@@ -75,7 +279,7 @@ O notebook de referência tem **16 GB de RAM e RTX 3060 Laptop 6 GB de VRAM**. P
 **Objetivo:** descobrir quais serviços se comunicam e quais portas realmente escutam.
 
 Tarefas:
-1. Inventariar processos: Streamlit/backend, Ollama e SQLite.
+1. Inventariar processos: React/Vite (somente desenvolvimento), FastAPI, Ollama e SQLite; acrescentar PostgreSQL apenas quando a fase 08.3 começar.
 2. Registrar portas, protocolos, endereços de bind e fluxos autorizados.
 3. Verificar se o endpoint do Ollama é acessível apenas pelo processo previsto.
 4. Criar o primeiro diagrama de fluxo e uma tabela de riscos.
@@ -183,9 +387,9 @@ Implementar autenticação no backend, sessões protegidas e **autorização no 
 
 Executar a mesma bateria de consultas sintéticas em:
 
-**Cenário A: single-host** — SQLite + Ollama local (etapas 00–07).
+**Cenário A: single-host** — React compilado, FastAPI, SQLite e Ollama em loopback (etapas 00–07).
 
-**Cenário B: serviços privados** — backend + PostgreSQL + Ollama em rede virtual privada, com permissões explícitas.
+**Cenário B: serviços privados** — React servido por gateway HTTPS interno + FastAPI + PostgreSQL + Ollama em rede privada, com permissões explícitas.
 
 Medir:
 - Latência mediana/p95 por consulta, auditoria e geração de resposta.
