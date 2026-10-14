@@ -43,7 +43,7 @@ export default function Queries() {
         </CardHeader>
         <CardContent><Resultado key={fonte} fonte={fonte} pageSize={pageSize} /></CardContent>
       </Card>
-      <Notice title="Somente leitura, sem banco conectado.">Os registros vêm do JSON gerado a partir dos CSVs sintéticos. Na etapa 03, esta tela consumirá a API FastAPI, que aplicará autorização por papel e limites de linhas antes de responder.</Notice>
+      <Notice title="Somente leitura, sem banco conectado.">Os registros vêm do JSON gerado a partir dos CSVs sintéticos. Na etapa 05, esta tela consumirá a API FastAPI, que aplicará autorização por papel e limites de linhas antes de responder.</Notice>
     </>
   )
 }

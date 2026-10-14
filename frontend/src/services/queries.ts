@@ -1,4 +1,4 @@
-// Hooks TanStack Query sobre a API simulada; trocar demo-api por chamadas fetch('/api/...') na etapa 03.
+// Hooks TanStack Query sobre a API simulada; trocar demo-api por chamadas fetch('/api/...') na etapa 05.
 import { useQuery } from '@tanstack/react-query'
 import { getResumo, getTabela } from './demo-api'
 import type { NomeTabela } from '@/types'

@@ -1,10 +1,10 @@
-# 07 — Auditoria, hashes e backups consistentes
+# 09 — Auditoria, hashes e backups consistentes
 
-> **Trilha complementar (qualidade dos dados).** Esta etapa não bloqueia a trilha principal de segurança da IA local (00 → 01 → 02 → 03 → 04). Ela pode ser feita em paralelo ou depois do corte vertical da [etapa 02](02-assistente-local.md).
+> **Trilha complementar (qualidade dos dados).** Esta etapa não bloqueia a trilha principal de segurança da IA local (02 → 03 → 04 → 05 → 06). Ela pode ser feita em paralelo ou depois do corte vertical da [etapa 04](04-assistente-local.md).
 
 **Objetivo:** registrar operações e acessos do **DataGuard AI**, produzir evidências e verificar/restaurar backups **sem destruir o banco principal**. O sistema não substitui o mecanismo corporativo de backup nem deve assumir permissão de escrita no banco de origem.
 
-**Pré-requisito:** [etapa 06](06-integridade-e-transacoes.md).
+**Pré-requisito:** [etapa 08](08-integridade-e-transacoes.md).
 
 **Confidencialidade empresarial:** logs de prompts, consultas, erros, respostas, exports e backups podem conter dados sigilosos. Registrar por padrão apenas IDs, identidades autorizadas, contagens, resultados e timestamps; aplicar mascaramento, retenção limitada, criptografia conforme a política da organização e controle de acesso aos arquivos. Não usar logs de aplicação como cópia de dados do cliente.
 
@@ -116,4 +116,4 @@ Arquivos previstos: `src/dataguard/audit/events.py`, `hash_chain.py`, `backup.py
 - [ ] Falta de evidências é relatada como inconclusiva.
 - [ ] Segredos, backups e manifestos privados ficam fora do GitHub.
 
-**Próxima etapa da trilha complementar:** [08 — Anomalias e ML](08-anomalias-e-ml.md).
+**Próxima etapa da trilha complementar:** [10 — Anomalias e ML](10-anomalias-e-ml.md).

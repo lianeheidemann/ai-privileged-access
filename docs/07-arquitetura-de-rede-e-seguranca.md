@@ -1,6 +1,6 @@
-# 05 — Arquitetura de rede privada e segurança corporativa
+# 07 — Arquitetura de rede privada e segurança corporativa
 
-> **IMPLANTAÇÃO EMPRESARIAL FUTURA.** O laboratório de rede será implementado após validar o protótipo 00–04. **Os requisitos de confidencialidade, ausência de inferência externa, permissões e controle de tráfego devem ser definidos desde a etapa 00 e testados ao longo do MVP.** Este documento descreve uma implantação proposta, não recursos já existentes.
+> **IMPLANTAÇÃO EMPRESARIAL FUTURA.** O laboratório de rede será implementado após validar o protótipo 02–06. **Os requisitos de confidencialidade, ausência de inferência externa, permissões e controle de tráfego devem ser definidos desde a etapa 02 e testados ao longo do MVP.** Este documento descreve uma implantação proposta, não recursos já existentes.
 >
 > **Propósito:** demonstrar como uma empresa pode usar IA local para consultar e analisar um banco em rede privada, reduzindo o risco de vazamento por exposição de serviços, permissões inadequadas, logs ou respostas do modelo.
 
@@ -60,7 +60,7 @@ O diagrama é **lógico**, não uma prova de isolamento. O firewall do host, os 
 
 **Arquitetura escolhida para o projeto:** frontend **React + TypeScript + Vite**, backend **Python + FastAPI**, modelo de IA executado no **Ollama**, banco **SQLite**. Todos executam no mesmo computador Windows 11. O navegador é apenas a interface; **não existe hospedagem externa nem necessidade de publicação na internet**.
 
-**Quando aplicar:** as configurações de rede deste cenário podem ser utilizadas assim que frontend e backend existirem nas etapas do MVP. Esta seção está registrada na etapa 05 para servir como referência; **não é necessário implantar PostgreSQL, contêineres ou uma intranet antes de concluir o MVP**.
+**Quando aplicar:** as configurações de rede deste cenário podem ser utilizadas assim que frontend e backend existirem nas etapas do MVP. Esta seção está registrada na etapa 07 para servir como referência; **não é necessário implantar PostgreSQL, contêineres ou uma intranet antes de concluir o MVP**.
 
 ~~~mermaid
 flowchart TD
@@ -81,13 +81,13 @@ O endereço **127.0.0.1** designa a própria máquina (*loopback*). Se outro com
 | FastAPI | 8000 | 127.0.0.1 | Proxy de desenvolvimento do Vite ou navegador na versão final |
 | Ollama | 11434 | 127.0.0.1 | Backend Python; **não** enviar requisições do React direto ao Ollama |
 | SQLite | — | Arquivo local | Somente serviços Python autorizados |
-| PostgreSQL | 5432 | **Não utilizado no MVP** | Apenas na expansão 05.3 |
+| PostgreSQL | 5432 | **Não utilizado no MVP** | Apenas na expansão 07.3 |
 
 **Nota sobre portas:** os números são convenções de desenvolvimento; caso a porta esteja ocupada, corrigir a configuração conscientemente e registrar a mudança. Nunca resolver exposição habilitando escuta em todas as interfaces.
 
 #### A. Configurar o Vite (React + TypeScript)
 
-**Arquivo existente:** `frontend/vite.config.ts` já restringe o Vite a `127.0.0.1` com `strictPort`. Na etapa 03, acrescente o proxy `/api` como no exemplo abaixo (o arquivo real também contém o plugin do Tailwind, o alias `@` e a configuração de testes).
+**Arquivo existente:** `frontend/vite.config.ts` já restringe o Vite a `127.0.0.1` com `strictPort`. Na etapa 05, acrescente o proxy `/api` como no exemplo abaixo (o arquivo real também contém o plugin do Tailwind, o alias `@` e a configuração de testes).
 
 ~~~ts
 // Restringe o Vite ao loopback e encaminha /api ao FastAPI local
@@ -216,7 +216,7 @@ ollama list
 
 ### 2.4 — Cenário B futuro: rede corporativa privada (sem reutilizar 127.0.0.1 entre computadores)
 
-**Quando aplicar:** somente na expansão 05.2–05.8. Não transformar o servidor de desenvolvimento do Vite em endpoint público.
+**Quando aplicar:** somente na expansão 07.2–07.8. Não transformar o servidor de desenvolvimento do Vite em endpoint público.
 
 Em uma LAN empresarial, computadores distintos **não compartilham o mesmo 127.0.0.1**. O navegador do cliente acessaria um **nome DNS interno via HTTPS** em um gateway/proxy da rede autorizada. Se gateway e FastAPI estiverem no mesmo servidor, o FastAPI pode **continuar em 127.0.0.1:8000** e ser acessado apenas pelo proxy local. Entre hosts distintos, usar endereços privados reais, regras de firewall específicas e TLS quando aplicável.
 
@@ -240,7 +240,7 @@ flowchart LR
 | Segurança de rede | Bind loopback e firewall do Windows | Segmentação, firewall, TLS e autorização por serviço |
 | Teste principal | LAN não alcança portas do notebook | Cliente alcança gateway, mas **não** banco/LLM |
 
-**PostgreSQL:** quando migrar na etapa 05.3, configurar **listen_addresses**, **pg_hba.conf**, permissões SQL e TLS conforme os IPs privados de aplicação. Não disponibilizar a porta 5432 para toda a LAN. Se usado Docker Compose, **não publicar portas do PostgreSQL/Ollama no host** quando apenas os contêineres internos precisarem comunicar-se. Caso uma publicação temporária seja indispensável para administrar o laboratório local, usar vínculo explícito (exemplo **127.0.0.1:5432:5432**) e **confirmar** o comportamento da versão do Docker/WSL2 em uso.
+**PostgreSQL:** quando migrar na etapa 07.3, configurar **listen_addresses**, **pg_hba.conf**, permissões SQL e TLS conforme os IPs privados de aplicação. Não disponibilizar a porta 5432 para toda a LAN. Se usado Docker Compose, **não publicar portas do PostgreSQL/Ollama no host** quando apenas os contêineres internos precisarem comunicar-se. Caso uma publicação temporária seja indispensável para administrar o laboratório local, usar vínculo explícito (exemplo **127.0.0.1:5432:5432**) e **confirmar** o comportamento da versão do Docker/WSL2 em uso.
 
 **Não usar 0.0.0.0 como solução genérica de conectividade.** Quando algum gateway precisar escutar em uma interface de rede, configurar IP específico da LAN e controle de acesso; a interface exposta deve ser a **única entrada prevista**. Verificar se a política e as regras realmente bloqueiam as demais rotas.
 
@@ -263,18 +263,18 @@ flowchart LR
 
 ## 3. Condições antes de iniciar a expansão
 
-- [ ] Etapas 00–04 concluídas, ou suas limitações documentadas.
+- [ ] Etapas 02–06 concluídas, ou suas limitações documentadas.
 - [ ] Auditorias determinísticas executam independentemente do LLM.
 - [ ] O catálogo de consultas em leitura está funcional e testado.
 - [ ] Backups e a restauração em destino temporário funcionam.
 - [ ] Dataset continua **100% sintético**; não importar bancos reais.
 - [ ] Testes não dependem do gabarito das 50 anomalias durante a inferência.
-- [ ] Metas da etapa 04 medidas no cenário A (single-host), para servir de base de comparação.
+- [ ] Metas da etapa 06 medidas no cenário A (single-host), para servir de base de comparação.
 - [ ] Fazer um baseline com SQLite para comparar custo e latência depois.
 
 ### Hardware e isolamento do laboratório
 
-> Dimensionamento por número de usuários (piloto, departamento e empresa): [Requisitos de hardware](requisitos-de-hardware.md).
+> Dimensionamento por número de usuários (piloto, departamento e empresa): [Requisitos de hardware](01-requisitos-de-hardware.md).
 
 O notebook de referência tem **16 GB de RAM e RTX 3060 Laptop 6 GB de VRAM**. A interface será **React + TypeScript** e a API será **FastAPI**, conforme a escolha de stack do projeto. Prefira, inicialmente, **um único host Windows 11**, com serviços isolados por processos, Docker/WSL2 ou VM, e um modelo pequeno quantizado. Isso permite estudar portas e comunicação sem necessitar de dois computadores físicos.
 
@@ -282,12 +282,12 @@ O notebook de referência tem **16 GB de RAM e RTX 3060 Laptop 6 GB de VRAM**. A
 
 ## 4. Plano de implementação, em partes
 
-### 05.1 — Mapear o tráfego do projeto atual
+### 07.1 — Mapear o tráfego do projeto atual
 
 **Objetivo:** descobrir quais serviços se comunicam e quais portas realmente escutam.
 
 Tarefas:
-1. Inventariar processos: React/Vite (somente desenvolvimento), FastAPI, Ollama e SQLite; acrescentar PostgreSQL apenas quando a fase 05.3 começar.
+1. Inventariar processos: React/Vite (somente desenvolvimento), FastAPI, Ollama e SQLite; acrescentar PostgreSQL apenas quando a fase 07.3 começar.
 2. Registrar portas, protocolos, endereços de bind e fluxos autorizados.
 3. Verificar se o endpoint do Ollama é acessível apenas pelo processo previsto.
 4. Criar o primeiro diagrama de fluxo e uma tabela de riscos.
@@ -297,7 +297,7 @@ Tarefas:
 
 **Aceite:** todos os listeners estão documentados; nenhuma porta desnecessária fica exposta à LAN.
 
-### 05.2 — Separar serviços e criar rede privada de laboratório
+### 07.2 — Separar serviços e criar rede privada de laboratório
 
 **Objetivo:** manter a interface como única porta de entrada autorizada.
 
@@ -313,7 +313,7 @@ Tarefas:
 
 **Aceite:** o frontend/backend autorizado consulta o serviço necessário; um cliente não autorizado não conecta diretamente ao banco nem ao LLM. A ausência de exposição é verificada no **host e na rede**, não só por nomes de serviço.
 
-### 05.3 — Migrar o laboratório para PostgreSQL
+### 07.3 — Migrar o laboratório para PostgreSQL
 
 **Objetivo:** estudar o modelo cliente-servidor sem abandonar o SQLite original.
 
@@ -330,11 +330,11 @@ Tarefas:
 
 **Aceite:** contagens e regras produzem resultados equivalentes; acesso negado fora das origens/contas autorizadas; a conta de consulta não consegue executar escrita.
 
-### 05.4 — Implementar identidades, papéis e controle de acesso
+### 07.4 — Implementar identidades, papéis e controle de acesso
 
 **Objetivo:** permitir perguntas sobre o banco sem disponibilizar todas as linhas para todos os usuários.
 
-Partir dos **papéis fictícios definidos para o MVP** ([etapa 02](02-assistente-local.md), [`config/usuarios-ficticios.example.json`](../config/usuarios-ficticios.example.json)) e levá-los à rede corporativa: mapear cada papel a um grupo da identidade corporativa de laboratório (OIDC/AD fictício) e reforçar o escopo **também no banco**, com RLS.
+Partir dos **papéis fictícios definidos para o MVP** ([etapa 04](04-assistente-local.md), [`config/usuarios-ficticios.example.json`](../config/usuarios-ficticios.example.json)) e levá-los à rede corporativa: mapear cada papel a um grupo da identidade corporativa de laboratório (OIDC/AD fictício) e reforçar o escopo **também no banco**, com RLS.
 
 | Papel | Pode fazer | Não pode fazer |
 | --- | --- | --- |
@@ -350,7 +350,7 @@ Substituir a autenticação local do MVP pela identidade corporativa de laborat�
 
 **Aceite:** um usuário restrito não obtém linhas de outro setor, mesmo alterando URL, filtros, IDs ou o texto do prompt.
 
-### 05.5 — Criptografar comunicação e proteger credenciais
+### 07.5 — Criptografar comunicação e proteger credenciais
 
 **Objetivo:** evitar exposição em trânsito e diminuir o impacto de comprometimento de uma conta.
 
@@ -363,11 +363,11 @@ Substituir a autenticação local do MVP pela identidade corporativa de laborat�
 
 **Aceite:** falhas de certificado são rejeitadas; segredos não aparecem em commits, mensagens de erro ou logs; serviços não aceitam acesso anônimo fora da zona prevista.
 
-### 05.6 — Prevenir vazamento por perguntas e respostas
+### 07.6 — Prevenir vazamento por perguntas e respostas
 
 **Objetivo:** impedir que o LLM e a interface sejam atalhos para obter dados não autorizados.
 
-1. Preservar o catálogo de **consultas SQL predefinidas e parametrizadas** da etapa 02.
+1. Preservar o catálogo de **consultas SQL predefinidas e parametrizadas** da etapa 04.
 2. Associar cada requisição a uma identidade autenticada e política de escopo.
 3. Limitar linhas, paginação, campos sensíveis, frequência e duração de consultas.
 4. **Filtrar e minimizar os dados antes de enviá-los ao modelo.** O LLM recebe apenas resultados que o usuário pode ver.
@@ -378,7 +378,7 @@ Substituir a autenticação local do MVP pela identidade corporativa de laborat�
 
 **Aceite:** respostas, tabelas, exports, logs e mensagens de erro não exibem dados fora do escopo; tentativas maliciosas não provocam `UPDATE`, `DELETE` ou acesso a outros setores.
 
-### 05.7 — Logs, firewall, auditoria e backups
+### 07.7 — Logs, firewall, auditoria e backups
 
 **Objetivo:** observar tentativas de acesso sem criar um novo repositório de informações sensíveis.
 
@@ -391,11 +391,11 @@ Substituir a autenticação local do MVP pela identidade corporativa de laborat�
 
 **Aceite:** ações autorizadas e negadas geram eventos verificáveis; os logs não incluem material confidencial desnecessário; restaurar backup não sobrescreve banco de produção no laboratório.
 
-### 05.8 — Comparar as arquiteturas e finalizar a documentação
+### 07.8 — Comparar as arquiteturas e finalizar a documentação
 
 Executar a mesma bateria de consultas sintéticas em:
 
-**Cenário A: single-host** — React compilado, FastAPI, SQLite e Ollama em loopback (etapas 00–04).
+**Cenário A: single-host** — React compilado, FastAPI, SQLite e Ollama em loopback (etapas 02–06).
 
 **Cenário B: serviços privados** — React servido por gateway HTTPS interno + FastAPI + PostgreSQL + Ollama em rede privada, com permissões explícitas.
 
@@ -433,14 +433,14 @@ Medir:
 
 | Etapa | Branch sugerida | Entrega |
 | --- | --- | --- |
-| 05.1 | `feat/network-inventory` | Inventário de serviços, portas e ameaças |
-| 05.2 | `feat/private-network-lab` | Rede de laboratório e restrições de conectividade |
-| 05.3 | `feat/postgres-lab` | Migração reproduzível para PostgreSQL |
-| 05.4 | `feat/access-control` | RBAC/RLS e testes de autorização |
-| 05.5 | `feat/transport-security` | TLS e proteção de credenciais |
-| 05.6 | `feat/data-leak-prevention` | Políticas para prompts, resultados e exports |
-| 05.7 | `feat/security-audit` | Logs, bloqueios e backups |
-| 05.8 | `research/architecture-comparison` | Métricas, diagramas e relatório comparativo |
+| 07.1 | `feat/network-inventory` | Inventário de serviços, portas e ameaças |
+| 07.2 | `feat/private-network-lab` | Rede de laboratório e restrições de conectividade |
+| 07.3 | `feat/postgres-lab` | Migração reproduzível para PostgreSQL |
+| 07.4 | `feat/access-control` | RBAC/RLS e testes de autorização |
+| 07.5 | `feat/transport-security` | TLS e proteção de credenciais |
+| 07.6 | `feat/data-leak-prevention` | Políticas para prompts, resultados e exports |
+| 07.7 | `feat/security-audit` | Logs, bloqueios e backups |
+| 07.8 | `research/architecture-comparison` | Métricas, diagramas e relatório comparativo |
 
 ## 7. Critério final de conclusão
 

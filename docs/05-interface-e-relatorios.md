@@ -1,16 +1,16 @@
-# 03 — API FastAPI e interface React conectada
+# 05 — API FastAPI e interface React conectada
 
 > **Status:** o **protótipo visual React já existe** em [`frontend/`](../frontend/README.md), com as sete telas, a stack definida e testes. O que falta nesta etapa é a **API FastAPI** e a troca da API simulada (`frontend/src/services/demo-api.ts`) por chamadas reais. Tudo roda **no próprio computador**, sem hospedagem nem APIs externas.
 
 **Objetivo:** expor pela API FastAPI os serviços da trilha principal (autorização, catálogo, assistente) e, quando existirem, os da trilha complementar, conectando o protótipo React a eles. A primeira execução é local. A interface corporativa posterior será acessível apenas a usuários autorizados na intranet.
 
-**Pré-requisitos:** etapas [01](01-ambiente-e-banco.md) e [02](02-assistente-local.md). As etapas 06–08 são opcionais: telas e rotas que dependem delas mostram "ainda não disponível".
+**Pré-requisitos:** etapas [03](03-ambiente-e-banco.md) e [04](04-assistente-local.md). As etapas 08–10 são opcionais: telas e rotas que dependem delas mostram "ainda não disponível".
 
 **Fronteira de segurança:**
 - A interface nunca recebe credenciais de banco, tokens de serviço ou acesso direto ao Ollama.
-- A API verifica identidade e papel **a cada requisição**, com os usuários fictícios da etapa 02.
+- A API verifica identidade e papel **a cada requisição**, com os usuários fictícios da etapa 04.
 - Aplica limites de exportação e paginação e não retorna colunas sigilosas por padrão.
-- Identidade corporativa (OIDC/AD) fica para a etapa 05.
+- Identidade corporativa (OIDC/AD) fica para a etapa 07.
 
 **Guias breves por tela:** [`docs/interface/`](interface/README.md).
 
@@ -57,7 +57,7 @@ flowchart TD
 | Ollama | 127.0.0.1:11434 | Backend Python |
 | SQLite | Sem porta de rede | Processo Python |
 
-Bind, proxy, firewall e validação offline: [05 — Rede e segurança, seção 2.1](05-arquitetura-de-rede-e-seguranca.md).
+Bind, proxy, firewall e validação offline: [07 — Rede e segurança, seção 2.1](07-arquitetura-de-rede-e-seguranca.md).
 
 ## 3. Estrutura
 
@@ -85,11 +85,11 @@ dataguard-ai/
     └── test_api_authorization.py
 ~~~
 
-**Não crie um segundo motor de regras no frontend.** A política do assistente no protótipo (`src/lib/demo-assistant.ts`) é **só demonstração**: a política real fica no backend (etapa 02). Os componentes apenas solicitam dados e representam estados.
+**Não crie um segundo motor de regras no frontend.** A política do assistente no protótipo (`src/lib/demo-assistant.ts`) é **só demonstração**: a política real fica no backend (etapa 04). Os componentes apenas solicitam dados e representam estados.
 
 ## 4. Passo a passo
 
-### 03.1 — API FastAPI mínima
+### 05.1 — API FastAPI mínima
 
 1. Adicionar FastAPI, Uvicorn e Pydantic às dependências Python, com versões fixadas e hashes.
 2. Criar `src/dataguard/api/main.py`.
@@ -115,33 +115,33 @@ Rotas **planejadas**, organizadas pelas sete telas:
 
 As operações administrativas (auditoria, backup) ficam fora do assistente e exigem o papel adequado.
 
-**Aceite 03.1:**
+**Aceite 05.1:**
 - `GET /api/health`, a sessão e ao menos uma consulta real funcionam e têm testes;
 - `test_api_authorization.py` cobre os casos `acesso_negado` do conjunto de avaliação;
 - nenhum dado é enviado a provedor externo.
 
-### 03.2 — Conectar o protótipo à API
+### 05.2 — Conectar o protótipo à API
 
-1. Configurar o proxy do Vite `/api` → `http://127.0.0.1:8000` (ver etapa 05, seção 2.1). Manter `host: '127.0.0.1'` e `strictPort: true`.
+1. Configurar o proxy do Vite `/api` → `http://127.0.0.1:8000` (ver etapa 07, seção 2.1). Manter `host: '127.0.0.1'` e `strictPort: true`.
 2. Substituir `src/services/demo-api.ts` por um cliente `fetch('/api/...')` com o **mesmo formato de retorno**. Os hooks de `services/queries.ts` e as telas não devem precisar mudar.
 3. Levar paginação e filtros da `DataTable` para o servidor (`manualPagination`, `manualFiltering`, `manualSorting`).
 4. Tela de login simples para escolher o usuário fictício. Exibir o papel na barra superior.
 5. Assistente: chamar `POST /api/chat` e exibir separadamente o valor do SQL, o texto do LLM e a origem.
 6. Remover `src/data/demo-summary.json` do build de produção local; manter só para a demonstração no GitHub Pages, se desejado.
 
-**Aceite 03.2:**
+**Aceite 05.2:**
 - a interface abre em `http://127.0.0.1:5173` e consome `/api` pelo proxy;
 - um operador não vê dados de outro setor em nenhuma tela;
 - a LAN não alcança a porta do Vite.
 
-### 03.3 — Sistema visual
+### 05.3 — Sistema visual
 
 Já definido no protótipo: tema escuro e claro com tokens em `frontend/src/index.css` (padrão shadcn/ui, identidade azul-marinho), sem neon nem gradientes chamativos. Ao conectar a API, acrescentar:
 - estados `loading`, `empty`, `error` e `forbidden` em todas as telas;
 - selo "ainda não verificado" quando não houver execução;
 - nenhum número, status online ou resultado fictício apresentado como real.
 
-### 03.4 — Conteúdo das sete telas com dados reais
+### 05.4 — Conteúdo das sete telas com dados reais
 
 | Tela | Conteúdo mínimo |
 | --- | --- |
@@ -153,7 +153,7 @@ Já definido no protótipo: tema escuro e claro com tokens em `frontend/src/inde
 | Relatórios | Prévia e exportação com a mesma autorização das consultas |
 | Configurações | Tema, linhas por página, saúde da API, modelo local em uso |
 
-### 03.5 — Relatórios e exportações
+### 05.5 — Relatórios e exportações
 
 Preferir CSV e JSON; PDF fica como melhoria posterior. O relatório contém:
 - usuário/papel (pseudônimo) e data UTC;
@@ -162,7 +162,7 @@ Preferir CSV e JSON; PDF fica como melhoria posterior. O relatório contém:
 
 Os endpoints de exportação aplicam **a mesma autorização** da consulta exibida, neutralizam fórmulas (como já faz `frontend/src/lib/csv.ts`) e **nunca incluem o gabarito**.
 
-### 03.6 — Empacotar a versão local offline
+### 05.6 — Empacotar a versão local offline
 
 ~~~powershell
 # Gera os arquivos de produção do React (executar dentro de frontend)
@@ -190,4 +190,4 @@ npm run build
 - [ ] Os serviços não ficam expostos à LAN.
 - [ ] Layout legível em notebook e em telas estreitas; teclado e contraste adequados.
 
-**Próxima etapa:** [04 — Testes e experimentos](04-testes-e-experimentos.md). A etapa [05 — Rede e segurança](05-arquitetura-de-rede-e-seguranca.md) é uma **expansão posterior**.
+**Próxima etapa:** [06 — Testes e experimentos](06-testes-e-experimentos.md). A etapa [07 — Rede e segurança](07-arquitetura-de-rede-e-seguranca.md) é uma **expansão posterior**.

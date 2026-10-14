@@ -1,10 +1,10 @@
-# 06 — Integridade, transações e regras de negócio
+# 08 — Integridade, transações e regras de negócio
 
-> **Trilha complementar (qualidade dos dados).** Esta etapa não bloqueia a trilha principal de segurança da IA local (00 → 01 → 02 → 03 → 04). Ela pode ser feita em paralelo ou depois do corte vertical da [etapa 02](02-assistente-local.md).
+> **Trilha complementar (qualidade dos dados).** Esta etapa não bloqueia a trilha principal de segurança da IA local (02 → 03 → 04 → 05 → 06). Ela pode ser feita em paralelo ou depois do corte vertical da [etapa 04](04-assistente-local.md).
 
 **Objetivo:** impedir operações inválidas no banco sintético, detectar inconsistências e registrar resultados verificáveis. No cenário empresarial, **o DataGuard AI não deve executar alterações no banco de origem**; usar consultas e verificações somente leitura. **Não integrar IA nesta etapa.**
 
-**Pré-requisito:** [etapa 01](01-ambiente-e-banco.md) concluída.
+**Pré-requisito:** [etapa 03](03-ambiente-e-banco.md) concluída.
 
 **Fronteira de acesso:** separar o banco de testes (onde constraints e transações podem ser exercitadas) da fonte empresarial (somente leitura e permissões mínimas). Nenhum teste destrutivo, `PRAGMA` de manutenção ou escrita deve ser executado em produção. Validar privilégios também no SGBD, não apenas no código Python.
 
@@ -92,7 +92,7 @@ A execução deve ter:
 - Lista de achados com justificativa e IDs de origem.
 - Resultado final `pass`/`warnings`/`fail`/`error`.
 
-Gravar resultados inicialmente como JSON em `runtime/reports/`, ignorado no Git. O mecanismo criptográfico virá na etapa 07.
+Gravar resultados inicialmente como JSON em `runtime/reports/`, ignorado no Git. O mecanismo criptográfico virá na etapa 09.
 
 ### Critérios para concluir
 
@@ -103,4 +103,4 @@ Gravar resultados inicialmente como JSON em `runtime/reports/`, ignorado no Git.
 - [ ] Falha de auditoria retorna estado `error`, nunca "tudo íntegro".
 - [ ] Execução gera relatório JSON reproduzível e sem LLM.
 
-**Próxima etapa da trilha complementar:** [07 — Auditoria e backups](07-auditoria-e-backups.md).
+**Próxima etapa da trilha complementar:** [09 — Auditoria e backups](09-auditoria-e-backups.md).
