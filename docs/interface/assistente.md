@@ -2,4 +2,4 @@
 
 Oferecer uma experiência simples para perguntas em linguagem natural sobre dados autorizados.
 
-Mostrar respostas claras e, quando possível, a origem dos resultados. O modelo não decide permissões nem executa consultas arbitrárias.
+Mostrar separadamente o **valor vindo da consulta**, a explicação gerada pelo modelo local e a origem dos resultados. Indicar quando a pergunta foi negada pela política ou está fora do catálogo. O modelo não decide permissões nem executa consultas arbitrárias.

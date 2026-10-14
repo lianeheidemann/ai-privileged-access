@@ -1,5 +1,7 @@
 # 02 — Integridade, transações e regras de negócio
 
+> **Trilha complementar (qualidade dos dados).** Esta etapa não bloqueia a trilha principal de segurança da IA local (00 → 01 → 05 → 06 → 07). Ela pode ser feita em paralelo ou depois do corte vertical da [etapa 05](05-assistente-local.md).
+
 **Objetivo:** impedir operações inválidas no banco sintético, detectar inconsistências e registrar resultados verificáveis. No cenário empresarial, **o DataGuard AI não deve executar alterações no banco de origem**; usar consultas e verificações somente leitura. **Não integrar IA nesta etapa.**
 
 **Pré-requisito:** [etapa 01](01-ambiente-e-banco.md) concluída.
@@ -72,11 +74,11 @@ Separar da camada de constraints as regras que devem ser **detectadas** no datas
 | R02 | `garantia_fim < data_aquisicao` | Duas datas |
 | R03 | Movimentação posterior a `data_descarte` | Datas e ID da movimentação |
 | R04 | Chamado ainda aberto há mais de 365 dias na data de referência | Datas e status |
-| R05 | Movimentações excessivas em uma janela de 30 dias | Quantidade e intervalo |
-| R06 | Pelo menos seis chamados de reparo em 30 dias | Quantidade e intervalo |
-| R07 | Preço muito superior ao valor de referência da categoria | Valores em centavos e razão |
+| R05 | Pelo menos 14 movimentações em uma janela móvel de 30 dias | Quantidade, intervalo e IDs |
+| R06 | Pelo menos seis chamados (qualquer tipo de problema) em uma janela móvel de 30 dias | Quantidade, intervalo e IDs |
+| R07 | Preço muito superior ao valor de referência da categoria (limiar parametrizável) | Valores em centavos e razão |
 
-**Não chamar R07 de corrupção comprovada:** é um indicador a revisar. Não colocar a resposta do gabarito na lógica de detecção; derivar regras do domínio, parâmetros e observações.
+**Não chamar R07 de corrupção comprovada:** é um indicador a revisar. Não colocar a resposta do gabarito na lógica de detecção; derivar regras do domínio, parâmetros e observações. `scripts/dataset/comum.py` contém uma versão de referência dessas regras **usada só para validar o dataset**; implemente o verificador de forma independente e compare os resultados nos testes.
 
 Para regras de janela temporal, verificar intervalos móveis reais (não apenas mês do calendário). Para R03, comparar timestamps da movimentação com a data de descarte mediante convenção documentada de horário. Para R04, usar a **data de referência fixa** do dataset.
 
@@ -101,4 +103,4 @@ Gravar resultados inicialmente como JSON em `runtime/reports/`, ignorado no Git.
 - [ ] Falha de auditoria retorna estado `error`, nunca "tudo íntegro".
 - [ ] Execução gera relatório JSON reproduzível e sem LLM.
 
-**Próxima etapa:** [03 — Auditoria e backups](03-auditoria-e-backups.md).
+**Próxima etapa da trilha complementar:** [03 — Auditoria e backups](03-auditoria-e-backups.md).

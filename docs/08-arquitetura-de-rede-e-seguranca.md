@@ -87,7 +87,7 @@ O endereço **127.0.0.1** designa a própria máquina (*loopback*). Se outro com
 
 #### A. Configurar o Vite (React + TypeScript)
 
-**Arquivo planejado:** frontend/vite.config.ts. Este arquivo só deverá ser criado quando o frontend for implementado.
+**Arquivo existente:** `frontend/vite.config.ts` já restringe o Vite a `127.0.0.1` com `strictPort`. Na etapa 06, acrescente o proxy `/api` como no exemplo abaixo (o arquivo real também contém o plugin do Tailwind, o alias `@` e a configuração de testes).
 
 ~~~ts
 // Restringe o Vite ao loopback e encaminha /api ao FastAPI local
@@ -268,6 +268,7 @@ flowchart LR
 - [ ] Backups e a restauração em destino temporário funcionam.
 - [ ] Dataset continua **100% sintético**; não importar bancos reais.
 - [ ] Testes não dependem do gabarito das 50 anomalias durante a inferência.
+- [ ] Metas da etapa 07 medidas no cenário A (single-host), para servir de base de comparação.
 - [ ] Fazer um baseline com SQLite para comparar custo e latência depois.
 
 ### Hardware e isolamento do laboratório
@@ -330,15 +331,15 @@ Tarefas:
 
 **Objetivo:** permitir perguntas sobre o banco sem disponibilizar todas as linhas para todos os usuários.
 
-Criar identidades **fictícias**, com três papéis exemplares:
+Partir dos **papéis fictícios definidos para o MVP** ([etapa 05](05-assistente-local.md), [`config/usuarios-ficticios.example.json`](../config/usuarios-ficticios.example.json)) e levá-los à rede corporativa: mapear cada papel a um grupo da identidade corporativa de laboratório (OIDC/AD fictício) e reforçar o escopo **também no banco**, com RLS.
 
 | Papel | Pode fazer | Não pode fazer |
 | --- | --- | --- |
 | Operador | Consultar inventário do setor autorizado | Ver setores de terceiros e administrar usuários |
 | Auditor | Ver resultados de auditoria e evidências conforme política | Alterar dados da operação |
-| Administrador de laboratório | Configurar controles, aprovar manutenção | Contornar logging sem evidência |
+| Administrador de laboratório | Configurar controles, aprovar manutenção | Consultar dados de negócio pelo assistente; contornar logging sem evidência |
 
-Implementar autenticação no backend, sessões protegidas e **autorização no servidor a cada consulta**. A interface não é o local confiável para aplicar permissões. Para escopo por setor, avaliar **Row-Level Security (RLS)** do PostgreSQL com política explícita e testes, evitando papéis com `BYPASSRLS`, superusuários e exceções indevidas do proprietário da tabela.
+Substituir a autenticação local do MVP pela identidade corporativa de laboratório, mantendo sessões protegidas e **autorização no servidor a cada consulta**. Os testes de autorização do MVP (`test_authorization.py`, casos `acesso_negado`) devem continuar passando sem alteração. A interface não é o local confiável para aplicar permissões. Para escopo por setor, avaliar **Row-Level Security (RLS)** do PostgreSQL com política explícita e testes, evitando papéis com `BYPASSRLS`, superusuários e exceções indevidas do proprietário da tabela.
 
 **Não basta esconder botões ou instruir o LLM a não responder.** O serviço de consulta deve filtrar os dados antes de enviá-los à IA.
 

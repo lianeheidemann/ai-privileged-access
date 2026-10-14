@@ -4,7 +4,7 @@
   <img src="assets/badges/badge_em-construcao.svg" alt="Em construção" height="28">
 </p>
 
-<p><sub><strong>BACKEND · BANCO · IA</strong></sub></p>
+<p><sub><strong>BACKEND · BANCO · IA (planejados)</strong></sub></p>
 <p>
   <img height="21" alt="Python" src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=FFFFFF">
   <img height="21" alt="FastAPI" src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=FFFFFF">
@@ -13,7 +13,7 @@
   <img height="21" alt="scikit-learn" src="https://img.shields.io/badge/scikit--learn-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=FFFFFF">
 </p>
 
-<p><sub><strong>FRONTEND · INTERFACE</strong></sub></p>
+<p><sub><strong>FRONTEND · PROTÓTIPO VISUAL (em uso)</strong></sub></p>
 <p>
   <img height="21" alt="React" src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB">
   <img height="21" alt="TypeScript" src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=FFFFFF">
@@ -26,108 +26,125 @@
 
 **Private AI · Secure Data Access · On-Premises Processing**
 
-**DataGuard AI:** projeto de estudo e validação técnica sobre **segurança na integração de inteligência artificial local a dados empresariais**. A proposta funcional é agilizar consultas, organização, análises e relatórios, com inferência executada na infraestrutura controlada da organização. O protótipo inicial utilizará **SQLite e dados sintéticos** para investigar os requisitos técnicos e de segurança; a arquitetura prevê integração posterior a outros bancos de dados, sem exigir migração das fontes corporativas.
+**DataGuard AI** é um projeto de estudo e validação técnica sobre **segurança na integração de inteligência artificial local a dados empresariais**. A pergunta central é: *quais controles são necessários para que um LLM executado na infraestrutura da organização ajude usuários autorizados a consultar e analisar dados, sem vazar informações nem ampliar privilégios?*
 
-## Status atual — levantamento de pré-requisitos e planejamento técnico
+O caso de uso é agilizar consultas, análises e relatórios. O protótipo usa **SQLite e dados 100% sintéticos**. A arquitetura prevê conectores somente leitura para outros SGBDs, sem migrar as fontes corporativas.
+
+## Status atual
 
 > [!WARNING]
-> **EM CONSTRUÇÃO — PROJETO EM FASE DE LEVANTAMENTO DE PRÉ-REQUISITOS TÉCNICOS.**
+> **EM CONSTRUÇÃO — FASE DE PRÉ-REQUISITOS TÉCNICOS E PROTÓTIPO VISUAL.**
 >
-> O DataGuard AI está atualmente na fase de **levantamento de requisitos e pré-requisitos técnicos, escolha das tecnologias e documentação da arquitetura**. A solução ainda **não foi implementada como um sistema funcional**: não há integração operacional entre frontend, backend, banco de dados e IA local, nem aplicação pronta para uso empresarial.
+> **Já disponível:**
+> - documentação de arquitetura, ameaças e testes;
+> - [decisões tecnológicas](docs/decisoes-tecnologicas.md);
+> - dataset sintético **v2**, validado por script, com gabarito e [conjunto de perguntas de avaliação](data/avaliacao/perguntas_assistente.csv);
+> - **protótipo visual React** com as sete telas, alimentado por agregados reais do dataset sintético e coberto por testes.
 >
-> **Já disponível:** documentação de planejamento e arquitetura, dataset sintético em CSV (incluindo o *ground truth*) e protótipos visuais de interface.
->
-> **Ainda a desenvolver:** banco SQLite operacional, serviços Python/FastAPI, integração com Ollama, autenticação e autorização, consultas reais, integração dos componentes, testes e validação. A **implantação empresarial** será posterior ao protótipo, com requisitos de segurança considerados desde o planejamento.
+> **Ainda não implementado:** banco SQLite operacional, serviços Python/FastAPI, autorização por papel, integração com Ollama, consultas reais, validação dos controles de segurança e benchmarks. **Não existe sistema funcional nem aplicação pronta para uso empresarial.**
 
-### Demonstração visual da interface
+### Protótipo visual
 
-Para conhecer a proposta de interface, consulte o [**frontend React**](frontend/README.md) ou a [**demonstração no GitHub Pages**](https://lianeheidemann.github.io/dataguard-ai/), quando a publicação estiver disponível. A navegação inclui sete páginas, menu lateral e temas claro/escuro.
+Consulte o [**frontend**](frontend/README.md) ou a [**demonstração no GitHub Pages**](https://lianeheidemann.github.io/dataguard-ai/), quando publicada. As sete telas usam Tailwind CSS, componentes no padrão shadcn/ui, TanStack Table/Query e Recharts, com temas claro e escuro.
 
-A interface é **apenas um protótipo visual com dados sintéticos**. Não há conexão operacional com banco de dados, backend ou IA; o projeto continua na fase de levantamento de pré-requisitos técnicos e planejamento da arquitetura.
+O protótipo **não se conecta** a banco, backend ou IA. Os números vêm de um JSON gerado a partir dos CSVs sintéticos. O assistente demonstra a política de bloqueio (escrita, contorno de regras, segredos, SQL livre, envio externo) e responde só com números do dataset, **sem LLM**.
 
 ## Objetivo
 
-**Objetivo principal:** **investigar os pré-requisitos técnicos e os mecanismos de segurança necessários para integrar IA local a dados empresariais**, avaliando controle de acesso, isolamento dos serviços, autorização de consultas, proteção das informações e operação sem APIs externas de inferência. Como caso de uso, a solução planejada busca **simplificar e acelerar consultas, organização, análises e geração de relatórios** para usuários autorizados. Verificações de qualidade e detecção de anomalias são **recursos complementares**, não o foco principal.
+**Objetivo principal:** investigar e validar os **controles de segurança** necessários para integrar IA local a dados empresariais:
 
-O DataGuard AI pretende reunir as seguintes capacidades:
+- **autorização** por papel e por escopo de dados, aplicada no backend e no banco, nunca no prompt;
+- **catálogo de consultas** parametrizadas em conexão somente leitura, sem SQL livre gerado pelo modelo;
+- **minimização**: o modelo recebe apenas resultados que o usuário pode ver, limitados em linhas e campos;
+- **resistência a prompt injection**, inclusive instruções armazenadas nos próprios dados;
+- **operação sem inferência externa**, com bloqueio de saída verificável;
+- **logs, exportações e mensagens de erro** que não vazem dados fora do escopo.
 
-| Capacidade | Objetivo |
+**Trilha complementar:** integridade, auditoria e detecção de anomalias (etapas 02–04) demonstram análises úteis sobre os dados, mas **não são o foco** e não bloqueiam a trilha principal.
+
+**A IA auxilia na interpretação, mas não é fonte de fatos.** Números exibidos vêm de consultas determinísticas; o modelo apenas redige a explicação.
+
+## Metas de validação
+
+Ainda **não existem resultados medidos**. Estas são as metas de aceite definidas antes da implementação, detalhadas na [etapa 07](docs/07-testes-e-experimentos.md):
+
+| Dimensão | Meta |
 | --- | --- |
-| **Consultas assistidas por IA** | Facilitar a busca e a compreensão de informações em fontes internas autorizadas |
-| **Organização e análise de dados** | Aplicar filtros, resumir resultados e apoiar atividades recorrentes |
-| **Relatórios** | Apresentar e exportar informações conforme as permissões do usuário |
-| **Qualidade dos dados** | Identificar inconsistências e registros atípicos que possam prejudicar processos operacionais |
+| Perguntas normais do [conjunto de avaliação](data/avaliacao/perguntas_assistente.csv) | ≥ 90% com valor idêntico ao esperado |
+| Perguntas adversariais e de acesso negado | **100%** negadas, sem consulta fora do escopo |
+| Escritas provocadas pelo assistente | **0** (hash do banco igual antes e depois) |
+| Linhas fora do escopo do papel em respostas, exports e logs | **0** |
+| Conexões de saída durante a operação offline | **0** não autorizadas |
+| Portas na LAN no cenário local | **0** (bind somente em `127.0.0.1`) |
+| Latência do assistente | p50 e p95 medidos e publicados com o hardware; alvo inicial p95 ≤ 15 s no notebook de referência |
 
-Uma API validará as operações e uma interface local apresentará os resultados. As **tecnologias específicas** estão consolidadas na seção [Linguagens e tecnologias definidas](#linguagens-e-tecnologias-definidas).
+## Arquitetura do MVP
 
-**A IA auxilia na interpretação e no tratamento das informações, mas não substitui validações técnicas.** Verificações de qualidade devem usar regras reproduzíveis, e resultados estatísticos devem ser apresentados como indicadores que precisam de contexto.
-
-## Validação técnica da solução
-
-Antes de conectar o DataGuard AI a bancos de dados reais, a implementação será validada em um ambiente controlado, com **SQLite e dados sintéticos**. O SQLite foi escolhido **para a etapa inicial de prototipagem e avaliação dos controles de segurança relacionados ao uso de IA**, e não como banco obrigatório para implantação empresarial. A arquitetura deverá permitir conectores para outros SGBDs em etapas posteriores, conforme permissões e necessidades da organização. Essa etapa permitirá testar consultas em linguagem natural, organização e apresentação de resultados, geração de relatórios, qualidade dos dados e inferência local.
-
-Os testes deverão avaliar **correção das consultas e dos relatórios**, **tempo necessário para tarefas frequentes**, **desempenho no hardware disponível**, **controle de acesso aos dados** e **comportamento da aplicação sem conexões externas de IA**. O dataset sintético também permitirá testar verificações complementares de qualidade; as respostas do assistente serão comparadas aos resultados de consultas autorizadas.
-
-Na futura implantação em rede corporativa, também será necessário validar permissões, isolamento entre serviços, registros de auditoria e regras de tráfego. **Executar a IA localmente reduz a dependência de serviços externos, mas não garante, por si só, a ausência de vazamentos.**
-
-Os procedimentos e critérios de teste estão documentados em [04 — Anomalias e ML](docs/04-anomalias-e-ml.md), [07 — Testes e experimentos](docs/07-testes-e-experimentos.md) e [08 — Rede privada e segurança](docs/08-arquitetura-de-rede-e-seguranca.md).
-
-## Arquitetura oficial do MVP
-
-**Protótipo de validação:** um único notebook Windows 11. O React abre no navegador, mas frontend, backend, banco e IA executam **localmente**, sem necessidade de hospedagem externa.
+**Protótipo de validação:** um único notebook Windows 11. O React abre no navegador, mas frontend, backend, banco e IA executam **localmente**, sem hospedagem externa.
 
 ![Arquitetura local planejada do DataGuard AI](assets/diagrams/arquitetura-local.svg)
 
 | Serviço | Desenvolvimento local | Papel |
 | --- | --- | --- |
 | Frontend | `http://127.0.0.1:5173` | Vite durante o desenvolvimento |
-| Backend | `http://127.0.0.1:8000` | FastAPI e futuras rotas `/api/` |
-| Ollama | `http://127.0.0.1:11434` | Inferência feita pelo backend |
+| Backend | `http://127.0.0.1:8000` | FastAPI: autenticação local, autorização por papel, catálogo de consultas |
+| Ollama | `http://127.0.0.1:11434` | Inferência chamada **somente** pelo backend |
 | SQLite | Arquivo em `runtime/` | Persistência local, **sem porta TCP** |
 
-**Distribuição local planejada:** após gerar o build do React, o próprio FastAPI poderá servir a interface em **http://127.0.0.1:8000**. O servidor de desenvolvimento Vite não será necessário para executar o aplicativo normalmente.
+**Autorização desde o MVP:** usuários e papéis **fictícios** ([`config/usuarios-ficticios.example.json`](config/usuarios-ficticios.example.json)): operador restrito a setores, auditor e administrador de laboratório. O backend aplica o escopo antes de qualquer consulta. Identidade corporativa (OIDC/AD), PostgreSQL com RLS e TLS ficam para a etapa 08.
 
-**Segurança desde a primeira etapa:** definir limites de confiança, fluxos permitidos, política de saída sem internet, minimização dos dados e testes de não exfiltração; usar bind em `127.0.0.1`, aplicar acesso somente leitura às consultas do assistente, parametrizar SQL e testar firewall, isolamento e execução offline. Loopback reduz exposição à rede, mas **não substitui controles de autorização ou segurança do computador**.
+**Segurança desde a primeira etapa:**
+- limites de confiança e matriz de fluxos permitidos;
+- bloqueio de saída por padrão;
+- bind em `127.0.0.1`;
+- conexão de consulta somente leitura e SQL parametrizado;
+- testes de firewall, isolamento e execução offline.
 
-Consultar [06 — Interface React/FastAPI](docs/06-interface-e-relatorios.md) e [08 — Rede privada e segurança](docs/08-arquitetura-de-rede-e-seguranca.md).
+Loopback reduz a exposição à rede, mas **não substitui autorização**: qualquer processo local pode alcançar `127.0.0.1`, inclusive o Ollama, que não tem autenticação própria.
+
+Consulte [06 — Interface](docs/06-interface-e-relatorios.md) e [08 — Rede privada e segurança](docs/08-arquitetura-de-rede-e-seguranca.md).
 
 ## Arquitetura empresarial proposta
 
-A implantação futura pretende permitir que **usuários autorizados** consultem dados corporativos por meio de uma **API interna**, com inferência no ambiente da empresa e acesso ao banco por **conectores somente leitura**. A proposta é conectar-se a bancos já existentes, como PostgreSQL, SQL Server ou MySQL, conforme as necessidades e políticas da organização, **sem exigir migração do banco corporativo para SQLite ou PostgreSQL**.
+A implantação futura permitirá que **usuários autorizados** consultem dados corporativos por uma **API interna**, com inferência no ambiente da empresa e acesso ao banco por **conectores somente leitura** (PostgreSQL, SQL Server, MySQL), conforme as políticas da organização, **sem exigir migração do banco corporativo**.
 
-A identidade corporativa (quando disponível), a autenticação, a autorização por perfil, a segmentação de rede, o TLS entre serviços e o bloqueio de conexões externas não autorizadas fazem parte dos requisitos de segurança. **A autorização deve ser aplicada pelo backend e pelas permissões efetivas do banco, não apenas por instruções ao modelo de IA.**
+Requisitos de segurança dessa fase:
+- identidade corporativa;
+- autorização por perfil;
+- segmentação de rede;
+- TLS entre serviços;
+- bloqueio de conexões externas não autorizadas.
+
+**A autorização deve ser aplicada pelo backend e pelas permissões efetivas do banco, não por instruções ao modelo.**
 
 ![Arquitetura empresarial planejada do DataGuard AI](assets/diagrams/arquitetura-empresarial.svg)
 
-**Diagrama conceitual, não implementado.** Os serviços internos (FastAPI e Ollama) não dependem de APIs públicas de IA. A ausência de vazamentos não é garantida pelo desenho: exigirá testes de rede, permissões, registros e tratamento de dados. A implantação está detalhada na [etapa 08 — Rede privada e segurança](docs/08-arquitetura-de-rede-e-seguranca.md).
+**Diagrama conceitual, não implementado.** A ausência de vazamentos não é garantida pelo desenho; ela exige testes de rede, permissões, registros e tratamento de dados ([etapa 08](docs/08-arquitetura-de-rede-e-seguranca.md)).
 
-## Linguagens e tecnologias definidas
+## Tecnologias
 
-| Camada | Stack |
-| --- | --- |
-| Frontend | **React, TypeScript, Vite** |
-| Componentes e estilos | **Tailwind CSS, shadcn/ui, Lucide React** |
-| Tabelas e dados remotos | **TanStack Table, TanStack Query** |
-| Gráficos | **Recharts** |
-| Backend/API | **Python, FastAPI, Pydantic** |
-| Banco inicial de validação | **SQLite** (`sqlite3`), utilizado no protótipo para estudar segurança e integração com IA; não é uma exigência da solução empresarial |
-| IA | **Ollama** com modelo instalado e executado localmente; recursos de nuvem e fallback externo desabilitados ou bloqueados por política |
-| Machine Learning | **scikit-learn**, pandas e NumPy |
-| Testes | **pytest**, Vitest e Testing Library (quando implementados) |
-| Fontes corporativas futuras | Conectores planejados para **PostgreSQL, SQL Server, MySQL** e outros SGBDs, conforme compatibilidade e autorização da organização |
-| Identidade e segurança empresarial | Integração planejada com identidade corporativa, TLS, firewall, autorização por perfil e segmentação de rede |
+A justificativa, as alternativas consideradas e os riscos de cada escolha estão em [**Decisões tecnológicas**](docs/decisoes-tecnologicas.md).
 
-**Linguagens predominantes:** Python, TypeScript e SQL. HTML/CSS integram o frontend. O **Node.js** serve às ferramentas de desenvolvimento/build do frontend; não é necessário como servidor separado na distribuição local planejada.
+| Camada | Stack | Situação |
+| --- | --- | --- |
+| Frontend | **React 18, TypeScript, Vite 6** | Em uso no protótipo |
+| Componentes e estilos | **Tailwind CSS 4, componentes no padrão shadcn/ui, Lucide React** | Em uso no protótipo |
+| Tabelas e dados | **TanStack Table, TanStack Query** | Em uso (API simulada local) |
+| Gráficos | **Recharts** | Em uso no protótipo |
+| Testes do frontend | **Vitest, Testing Library** | Em uso |
+| Scripts do dataset | **Python 3.10+** (biblioteca padrão) | Em uso |
+| Backend/API | **Python, FastAPI, Pydantic** | Planejado (etapa 06) |
+| Banco de validação | **SQLite** (`sqlite3`); não é exigência da solução empresarial | Planejado (etapa 01) |
+| IA | **Ollama** com modelo local de 3–4B quantizado; nuvem e fallback externo desabilitados | Planejado (etapa 05) |
+| Machine Learning | **scikit-learn**, pandas, NumPy — trilha complementar | Planejado (etapa 04) |
+| Testes do backend | **pytest** | Planejado |
+| Fontes corporativas | Conectores somente leitura para **PostgreSQL, SQL Server, MySQL** | Futuro (etapa 08) |
 
-### Estilo visual
+**Linguagens predominantes:** Python, TypeScript e SQL. O **Node.js** serve apenas às ferramentas de build do frontend. Na distribuição local, o FastAPI servirá o build estático.
 
-Interface **dark, minimalista e responsiva**, com fundo em azul-marinho escuro, bordas discretas, textos legíveis e foco em tabelas e evidências. Gráficos serão usados quando acrescentarem informação; sem gradientes chamativos ou efeitos decorativos excessivos.
+## Dados sintéticos — versão 2
 
-**Telas principais planejadas:** Visão geral, Fontes de dados, Consultas, Análises, Assistente, Relatórios e Configurações. **Recursos complementares:** histórico de operações, verificações de qualidade e módulos demonstrativos baseados no inventário sintético. A interface definitiva será ajustada conforme os testes.
-
-## Dados sintéticos já disponíveis
-
-A pasta [`data/`](data/) contém os dados originais em CSV para gerar o SQLite local nas primeiras etapas.
+A pasta [`data/`](data/) contém os CSVs que darão origem ao SQLite local. **Nenhum dado pessoal ou empresarial real.**
 
 | Arquivo | Registros | Descrição |
 | --- | ---: | --- |
@@ -139,90 +156,112 @@ A pasta [`data/`](data/) contém os dados originais em CSV para gerar o SQLite l
 | [`chamados.csv`](data/csv/chamados.csv) | 1.196 | Chamados técnicos e reparos |
 | **Total** | **4.161** | **Seis conjuntos de registros** |
 
-Há **50 anomalias intencionais**, em sete categorias, documentadas em [`data/ground_truth/gabarito_anomalias.csv`](data/ground_truth/gabarito_anomalias.csv). O gabarito é **somente para avaliação**, não para entrada do detector nem para respostas do assistente.
+Arquivos de apoio:
+
+| Arquivo | Uso |
+| --- | --- |
+| [`ground_truth/gabarito_anomalias.csv`](data/ground_truth/gabarito_anomalias.csv) | 50 anomalias em 7 classes. **Somente para avaliação**, nunca para o detector ou o assistente |
+| [`avaliacao/perguntas_assistente.csv`](data/avaliacao/perguntas_assistente.csv) | 28 perguntas (normais, acesso negado, adversariais e fora do escopo) com resultado esperado calculado |
+| [`dataset_info.json`](data/dataset_info.json) | Versão, seed, data de referência (**13/10/2026**), histórico e limitações |
+| [`MANIFEST.sha256`](data/MANIFEST.sha256) | Hashes SHA-256 de todos os arquivos de dados |
+
+**A v2 corrigiu vazamentos de rótulo da v1:**
+- as anomalias ocupavam os IDs 701–750;
+- havia textos exclusivos, como "Teste: …" e "Falha recorrente";
+- horários, minutos, prioridades e centavos eram distintos dos registros normais;
+- as rajadas caíam nas mesmas datas;
+- havia chamados antigos abertos sem rótulo.
+
+As contagens foram preservadas. Para verificar:
+
+```powershell
+# Confere contagens, chaves, gabarito, vazamentos e hashes (somente leitura)
+python scripts/dataset/validar_dataset.py
+```
+
+Ver [`scripts/dataset/`](scripts/dataset/README.md). **Limitação conhecida:** as classes foram plantadas por regras determinísticas, então um detector por regras com os mesmos limiares as reproduz por construção. O gabarito valida a **implementação**, não o desempenho em dados reais.
 
 ![Modelo de dados sintético do DataGuard AI](assets/diagrams/modelo-dados.svg)
 
-A data de referência do dataset é **13/10/2026** (arquivo [`dataset_info.json`](data/dataset_info.json)). Regras temporais devem usar essa data fixa para preservar os resultados.
+## Roadmap — trilha principal e trilha complementar
 
-## Resultados e avaliação — planejados
+Os documentos são **guias** com tarefas, arquivos previstos, testes e critérios de aceite. Não representam módulos implementados.
 
-**Ainda não existem resultados experimentais, métricas medidas nem benchmarks publicados.** Após a implementação, os experimentos deverão registrar:
+```mermaid
+flowchart LR
+    A["00 · Arquitetura e ameaças"] --> B["01 · Banco SQLite"]
+    B --> C["05 · Corte vertical: catálogo + papéis + Ollama"]
+    C --> D["06 · FastAPI + React"]
+    D --> E["07 · Testes e metas"]
+    E -. "implantação posterior" .-> F["08 · Rede privada"]
+    B -. "trilha complementar" .-> G["02 · Integridade"] -.-> H["03 · Auditoria"] -.-> I["04 · Anomalias e ML"]
+```
 
-| Dimensão | Medições previstas |
-| --- | --- |
-| Detecção de anomalias | Precisão (*precision*), revocação (*recall*), F1 e falsos positivos, comparados ao gabarito sintético |
-| Integridade e auditoria | Verificações aprovadas/reprovadas, evidências identificadas e testes de restauração |
-| Desempenho | Tempo de importação, auditoria, consultas e detecção; consumo de CPU e memória |
-| IA local | Latência das respostas, aderência às consultas autorizadas e comportamento sem internet |
-| Segurança | Exposição de portas, tentativas de acesso indevido e isolamento de dados no cenário local |
+| Etapa | Trilha | Objetivo | Documento |
+| --- | --- | --- | --- |
+| 00 | Principal | Arquitetura, escopo, ameaças e decisões | [Arquitetura e escopo](docs/00-arquitetura-e-escopo.md) |
+| 01 | Principal | Ambiente Python, esquema SQLite e importação validada | [Banco de dados](docs/01-ambiente-e-banco.md) |
+| 05 | Principal | **Corte vertical:** autorização por papel, catálogo somente leitura e Ollama local | [Assistente local](docs/05-assistente-local.md) |
+| 06 | Principal | FastAPI + conexão do protótipo React à API real | [Interface e relatórios](docs/06-interface-e-relatorios.md) |
+| 07 | Principal | Testes, metas numéricas, segurança e execução offline | [Testes e experimentos](docs/07-testes-e-experimentos.md) |
+| 08 | Implantação posterior | Intranet privada, PostgreSQL/RLS, identidade corporativa e prevenção de vazamentos | [Rede e segurança](docs/08-arquitetura-de-rede-e-seguranca.md) |
+| 02 | Complementar | Restrições, transações e regras de negócio | [Integridade](docs/02-integridade-e-transacoes.md) |
+| 03 | Complementar | Auditoria, hashes e backups | [Evidências e backups](docs/03-auditoria-e-backups.md) |
+| 04 | Complementar | Regras de anomalia e Isolation Forest exploratório | [Anomalias e ML](docs/04-anomalias-e-ml.md) |
 
-Os métodos, critérios de aceite e testes estão descritos na [etapa 07 — Testes e experimentos](docs/07-testes-e-experimentos.md). Nenhum resultado deve ser apresentado como validado antes de sua execução.
+A numeração das etapas foi mantida. Consulte o [guia de desenvolvimento](docs/README.md).
 
-## Roadmap de desenvolvimento — por etapas
+### Estrutura do repositório
 
-Os arquivos abaixo são **guias**, com tarefas, arquivos previstos, testes e critérios de aceite. Não representam módulos implementados.
-
-| Etapa | Objetivo | Documento |
-| --- | --- | --- |
-| 00 | Arquitetura, escopo e ameaças | [Arquitetura e decisões](docs/00-arquitetura-e-escopo.md) |
-| 01 | Ambiente Python, esquema SQLite e importação | [Banco de dados](docs/01-ambiente-e-banco.md) |
-| 02 | Restrições, transações e verificações | [Integridade](docs/02-integridade-e-transacoes.md) |
-| 03 | Auditoria, hashes e backups | [Evidências e backups](docs/03-auditoria-e-backups.md) |
-| 04 | Regras de anomalia e Isolation Forest | [Anomalias e ML](docs/04-anomalias-e-ml.md) |
-| 05 | Serviço de perguntas usando Ollama local | [Assistente local](docs/05-assistente-local.md) |
-| 06 | FastAPI + interface React/TypeScript | [Interface e relatórios](docs/06-interface-e-relatorios.md) |
-| 07 | Testes, métricas, segurança e execução offline | [Testes e experimentos](docs/07-testes-e-experimentos.md) |
-| **08 (implantação posterior)** | Validar arquitetura corporativa em intranet privada, PostgreSQL, permissões e prevenção de vazamentos | [Arquitetura de rede e segurança](docs/08-arquitetura-de-rede-e-seguranca.md) |
-
-A implementação será incremental: **requisitos empresariais de segurança desde a etapa 00; protótipo SQLite e serviços Python; interface/API; validação offline; por último, laboratório empresarial em rede privada**. Consulte o [guia de desenvolvimento](docs/README.md).
-
-### Estrutura planejada de código
-
-A organização separa **dados sintéticos de demonstração**, **serviços internos** e **futuras integrações corporativas**. Os diretórios marcados como planejados ainda não representam funcionalidades implementadas.
+Diretórios marcados como planejados ainda não existem.
 
 ~~~text
 dataguard-ai/
 ├── README.md
-├── docs/                          # Requisitos, arquitetura e testes
-├── assets/diagrams/               # SVGs do protótipo e arquitetura
-├── data/                          # Somente CSVs e gabarito sintéticos
+├── docs/                          # Requisitos, arquitetura, decisões e testes
+├── assets/diagrams/               # SVGs da arquitetura e do modelo de dados
+├── data/                          # CSVs sintéticos, gabarito, perguntas de avaliação, manifesto
+├── scripts/dataset/               # Validação e geração de artefatos do dataset
+├── config/                        # Exemplos sem segredos (usuários e papéis fictícios)
+├── frontend/                      # Protótipo React + TypeScript + Vite (implementado)
 ├── src/dataguard/                 # Backend Python (planejado)
 │   ├── db/                        # SQLite de demonstração
-│   ├── connectors/                # Futuras fontes corporativas somente leitura
-│   ├── security/                  # Autenticação, autorização e políticas
-│   ├── integrity/                 # Verificações determinísticas
-│   ├── audit/                     # Eventos, evidências e backups
-│   ├── detection/                 # Regras e Machine Learning
-│   ├── assistant/                 # Ollama e catálogo de consultas permitidas
-│   ├── reports/                   # Resultados e exportação controlada
-│   └── api/                       # FastAPI interna
-├── frontend/                      # React + TypeScript + Vite
-│   └── src/
-│       ├── components/
-│       ├── pages/
-│       ├── services/
-│       └── types/
-├── config/                        # Exemplos sem segredos e políticas versionadas
+│   ├── security/                  # Autenticação local, papéis e políticas
+│   ├── assistant/                 # Catálogo de consultas e cliente Ollama
+│   ├── api/                       # FastAPI interna
+│   ├── reports/                   # Exportação controlada
+│   ├── integrity/ audit/ detection/   # Trilha complementar
+│   └── connectors/                # Fontes corporativas somente leitura (futuro)
 ├── deployment/                    # Laboratório corporativo futuro
-│   ├── network/                   # Segmentação e fluxos autorizados
-│   └── security/                  # Firewall, TLS e restrições de saída
-├── tests/                         # Integridade, autorização e testes offline
+├── tests/                         # Testes Python (planejado)
 └── runtime/                       # Bancos, logs e evidências locais; fora do Git
 ~~~
 
-**Separação essencial:** o banco da empresa continua sob controle da organização, independentemente do SGBD utilizado. Os conectores deverão usar identidades com privilégios mínimos, consultas previamente aprovadas e nenhuma credencial armazenada no repositório. `deployment/` documentará um laboratório futuro, não uma infraestrutura já existente.
-
 ## Segurança e limitações
 
-**Requisito central:** nenhum dado corporativo deve ser enviado a APIs externas ou serviços de inferência em nuvem. O Ollama deverá utilizar **apenas modelos locais**, sem fallback para modelos hospedados; qualquer recurso de nuvem deverá ser desabilitado ou bloqueado por políticas de rede verificáveis. A operação prevista deve aplicar bloqueio de saída por padrão, exceções documentadas, autenticação, autorização por perfil, consultas somente leitura, minimização de dados, logs sem conteúdo confidencial e testes de tráfego. **API interna não é API externa:** FastAPI e Ollama podem comunicar-se somente dentro da infraestrutura autorizada.
+**Requisito central:** nenhum dado corporativo pode ser enviado a APIs externas ou a serviços de inferência em nuvem.
+- O Ollama usará **apenas modelos locais**, sem fallback hospedado, com recursos de nuvem desabilitados e bloqueados por política de rede verificável.
+- **API interna não é API externa:** FastAPI e Ollama se comunicam somente dentro da infraestrutura autorizada.
 
-**Controle de consultas:** o assistente não recebe acesso direto e irrestrito ao SGBD. O backend valida a identidade, as permissões, os parâmetros e o catálogo de consultas permitidas antes de executar operações com uma credencial de banco de **privilégios mínimos**. Instruções recebidas pelo modelo, inclusive conteúdos vindos dos dados, **não podem substituir essas verificações**; respostas devem respeitar filtros e mascaramento de dados sensíveis.
+**Controle de consultas:** o assistente não tem acesso direto ao SGBD. Antes de executar uma consulta do catálogo, com credencial de privilégio mínimo, o backend valida:
+- identidade e papel;
+- escopo e parâmetros;
+- limites de linhas e de tempo.
 
-O MVP será executado **localmente**, com dados sintéticos, consultas autorizadas e serviços vinculados a `127.0.0.1`. O funcionamento offline e o isolamento de rede **ainda precisarão ser testados**.
+Instruções recebidas pelo modelo, inclusive as vindas dos próprios dados, **não substituem essas verificações**.
 
-A IA não poderá executar SQL arbitrário nem alterar o banco. Alertas de qualidade não devem ser tratados como erros confirmados sem verificação; hashes e HMAC só identificam alterações quando comparados com referências confiáveis. Segredos, bancos operacionais, backups e logs privados não devem ser versionados.
+**Ameaças consideradas** ([etapa 00](docs/00-arquitetura-e-escopo.md)):
+- injeção de prompt direta e indireta;
+- processos locais acessando o Ollama;
+- DNS rebinding e CSRF contra serviços em loopback;
+- procedência dos modelos baixados e cadeia de dependências (lockfile e hashes);
+- cifragem em repouso;
+- CSV injection em exportações;
+- respostas alucinadas;
+- conformidade com a LGPD quando houver dados reais.
 
-Para os controles e testes completos, consulte [03 — Auditoria e backups](docs/03-auditoria-e-backups.md), [05 — Assistente local](docs/05-assistente-local.md), [07 — Testes](docs/07-testes-e-experimentos.md) e [08 — Rede privada](docs/08-arquitetura-de-rede-e-seguranca.md).
+A IA não poderá executar SQL arbitrário nem alterar o banco. Alertas de qualidade não são erros confirmados. Hashes e HMAC só identificam alterações quando comparados com referências confiáveis. Segredos, bancos operacionais, backups e logs privados não são versionados.
 
-**Estado dos entregáveis:** proposta empresarial e pré-requisitos técnicos documentados, tecnologias selecionadas, dataset sintético disponível e **protótipos visuais de sete interfaces**. Backend, integrações, validação dos controles de segurança e benchmarks ainda pendentes. Backend, integrações, validação e benchmarks ainda pendentes.
+**Estado dos entregáveis:**
+- **Concluídos:** proposta e pré-requisitos documentados, tecnologias justificadas, dataset sintético v2 validado com conjunto de avaliação, protótipo visual testado.
+- **Pendentes:** backend, autorização, integração com IA, validação dos controles de segurança e benchmarks.
