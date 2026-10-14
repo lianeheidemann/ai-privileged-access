@@ -39,14 +39,6 @@ Projeto experimental para auditoria da integridade de dados, detecção de anoma
 >
 > **Ainda a desenvolver:** banco SQLite operacional, serviços Python, verificações de integridade, detecção de anomalias, integração com Ollama, API FastAPI, interface React/TypeScript, testes e experimentos. A arquitetura empresarial de rede privada está prevista para uma fase posterior.
 
-## Como começar
-
-O projeto está em **planejamento técnico**. Ainda não há aplicativo executável; o material disponível permite conhecer os requisitos e preparar a implementação.
-
-1. Consulte o **[guia de desenvolvimento](docs/README.md)** para entender a sequência de etapas.
-2. Comece pela **[etapa 01 — ambiente e banco de dados](docs/01-ambiente-e-banco.md)**, utilizando os [CSVs sintéticos](data/csv/) já disponibilizados.
-3. Avance pelas etapas 02–07, validando cada módulo antes de iniciar o seguinte. A [etapa 08 — arquitetura de rede](docs/08-arquitetura-de-rede-e-seguranca.md) é uma expansão posterior.
-
 ## Objetivo
 
 O DataGuard AI pretende reunir três capacidades complementares:
