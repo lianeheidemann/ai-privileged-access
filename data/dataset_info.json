@@ -1,6 +1,8 @@
 {
   "dataset": "DataGuard AI — inventário fictício de TI",
+  "versao": "2.0",
   "gerado_em": "2026-10-13",
+  "revisado_em": "2026-10-14",
   "data_de_referencia": "2026-10-13",
   "seed": 20261013,
   "sintetico": true,
@@ -13,6 +15,7 @@
     "chamados": 1196
   },
   "anomalias_plantadas": 50,
+  "taxa_de_anomalias_equipamentos": 0.0667,
   "tipos_anomalias": {
     "preco_extremo": 8,
     "aquisicao_futura": 7,
@@ -22,10 +25,24 @@
     "movimentacao_excessiva": 7,
     "reparos_repetidos": 7
   },
+  "avaliacao_assistente": "avaliacao/perguntas_assistente.csv",
+  "historico": [
+    {
+      "versao": "1.0",
+      "descricao": "Versão inicial. Continha vazamentos de rótulo: anomalias nos IDs 701–750, textos exclusivos ('Teste: ...', 'Falha recorrente'), horários, prioridades, minutos e centavos distintos dos registros normais, e 62 chamados antigos abertos não rotulados."
+    },
+    {
+      "versao": "2.0",
+      "descricao": "Correção por scripts/dataset/migrar_v2.py: IDs de equipamentos permutados (seed fixa), textos e distribuições das linhas anômalas igualados aos registros normais, chamados antigos fora da classe chamado_antigo_aberto encerrados, movimentações e chamados renumerados em ordem cronológica. Contagens preservadas."
+    }
+  ],
   "observacoes": [
     "Nenhum dado pessoal real.",
-    "As anomalias de negocio e estatisticas nao violam restricoes do SQLite.",
-    "O gabarito das anomalias fica separado da base operacional.",
-    "A auditoria e a IA ainda nao foram implementadas."
+    "As anomalias de negócio e estatísticas não violam restrições do SQLite.",
+    "O gabarito das anomalias fica separado da base operacional e serve somente para avaliação.",
+    "As sete classes foram plantadas segundo regras determinísticas; um detector por regras com os mesmos limiares as reproduz por construção. Use o gabarito para validar implementação, não para afirmar desempenho em dados reais.",
+    "A taxa de 6,7% de equipamentos anômalos é alta em relação a ambientes reais; resultados de Machine Learning não devem ser generalizados.",
+    "Validar com: python scripts/dataset/validar_dataset.py",
+    "A auditoria e a IA ainda não foram implementadas."
   ]
 }

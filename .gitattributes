@@ -1,0 +1,3 @@
+# Mantém LF nos dados versionados para que os hashes de data/MANIFEST.sha256 confiram em qualquer sistema.
+data/** text eol=lf
+*.py text eol=lf

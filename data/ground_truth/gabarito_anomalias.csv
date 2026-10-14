@@ -1,51 +1,51 @@
 equipamento_id,patrimonio,tipo_anomalia,descricao
-701,PAT-000701,preco_extremo,Preço de compra 5 a 10 vezes o valor de referência da categoria
-702,PAT-000702,preco_extremo,Preço de compra 5 a 10 vezes o valor de referência da categoria
-703,PAT-000703,preco_extremo,Preço de compra 5 a 10 vezes o valor de referência da categoria
-704,PAT-000704,preco_extremo,Preço de compra 5 a 10 vezes o valor de referência da categoria
+334,PAT-000334,aquisicao_futura,Data de aquisição posterior à data de referência de 2026-10-13
+348,PAT-000348,aquisicao_futura,Data de aquisição posterior à data de referência de 2026-10-13
+407,PAT-000407,aquisicao_futura,Data de aquisição posterior à data de referência de 2026-10-13
+428,PAT-000428,aquisicao_futura,Data de aquisição posterior à data de referência de 2026-10-13
+600,PAT-000600,aquisicao_futura,Data de aquisição posterior à data de referência de 2026-10-13
+624,PAT-000624,aquisicao_futura,Data de aquisição posterior à data de referência de 2026-10-13
+719,PAT-000719,aquisicao_futura,Data de aquisição posterior à data de referência de 2026-10-13
+107,PAT-000107,chamado_antigo_aberto,Chamado em aberto há mais de 365 dias
+133,PAT-000133,chamado_antigo_aberto,Chamado em aberto há mais de 365 dias
+206,PAT-000206,chamado_antigo_aberto,Chamado em aberto há mais de 365 dias
+256,PAT-000256,chamado_antigo_aberto,Chamado em aberto há mais de 365 dias
+463,PAT-000463,chamado_antigo_aberto,Chamado em aberto há mais de 365 dias
+502,PAT-000502,chamado_antigo_aberto,Chamado em aberto há mais de 365 dias
+615,PAT-000615,chamado_antigo_aberto,Chamado em aberto há mais de 365 dias
+48,PAT-000048,garantia_anterior_compra,Data final da garantia anterior à data da compra
+143,PAT-000143,garantia_anterior_compra,Data final da garantia anterior à data da compra
+157,PAT-000157,garantia_anterior_compra,Data final da garantia anterior à data da compra
+185,PAT-000185,garantia_anterior_compra,Data final da garantia anterior à data da compra
+230,PAT-000230,garantia_anterior_compra,Data final da garantia anterior à data da compra
+689,PAT-000689,garantia_anterior_compra,Data final da garantia anterior à data da compra
+694,PAT-000694,garantia_anterior_compra,Data final da garantia anterior à data da compra
+20,PAT-000020,movimentacao_apos_descarte,Movimentação registrada após o descarte
+76,PAT-000076,movimentacao_apos_descarte,Movimentação registrada após o descarte
+227,PAT-000227,movimentacao_apos_descarte,Movimentação registrada após o descarte
+243,PAT-000243,movimentacao_apos_descarte,Movimentação registrada após o descarte
+570,PAT-000570,movimentacao_apos_descarte,Movimentação registrada após o descarte
+588,PAT-000588,movimentacao_apos_descarte,Movimentação registrada após o descarte
+602,PAT-000602,movimentacao_apos_descarte,Movimentação registrada após o descarte
+55,PAT-000055,movimentacao_excessiva,Pelo menos 14 movimentações dentro de 30 dias
+100,PAT-000100,movimentacao_excessiva,Pelo menos 14 movimentações dentro de 30 dias
+425,PAT-000425,movimentacao_excessiva,Pelo menos 14 movimentações dentro de 30 dias
+609,PAT-000609,movimentacao_excessiva,Pelo menos 14 movimentações dentro de 30 dias
+634,PAT-000634,movimentacao_excessiva,Pelo menos 14 movimentações dentro de 30 dias
+638,PAT-000638,movimentacao_excessiva,Pelo menos 14 movimentações dentro de 30 dias
+729,PAT-000729,movimentacao_excessiva,Pelo menos 14 movimentações dentro de 30 dias
+406,PAT-000406,preco_extremo,Preço de compra 5 a 10 vezes o valor de referência da categoria
+442,PAT-000442,preco_extremo,Preço de compra 5 a 10 vezes o valor de referência da categoria
+470,PAT-000470,preco_extremo,Preço de compra 5 a 10 vezes o valor de referência da categoria
+482,PAT-000482,preco_extremo,Preço de compra 5 a 10 vezes o valor de referência da categoria
+487,PAT-000487,preco_extremo,Preço de compra 5 a 10 vezes o valor de referência da categoria
+575,PAT-000575,preco_extremo,Preço de compra 5 a 10 vezes o valor de referência da categoria
+606,PAT-000606,preco_extremo,Preço de compra 5 a 10 vezes o valor de referência da categoria
 705,PAT-000705,preco_extremo,Preço de compra 5 a 10 vezes o valor de referência da categoria
-706,PAT-000706,preco_extremo,Preço de compra 5 a 10 vezes o valor de referência da categoria
-707,PAT-000707,preco_extremo,Preço de compra 5 a 10 vezes o valor de referência da categoria
-708,PAT-000708,preco_extremo,Preço de compra 5 a 10 vezes o valor de referência da categoria
-709,PAT-000709,aquisicao_futura,Data de aquisição posterior à data de referência de 2026-10-13
-710,PAT-000710,aquisicao_futura,Data de aquisição posterior à data de referência de 2026-10-13
-711,PAT-000711,aquisicao_futura,Data de aquisição posterior à data de referência de 2026-10-13
-712,PAT-000712,aquisicao_futura,Data de aquisição posterior à data de referência de 2026-10-13
-713,PAT-000713,aquisicao_futura,Data de aquisição posterior à data de referência de 2026-10-13
-714,PAT-000714,aquisicao_futura,Data de aquisição posterior à data de referência de 2026-10-13
-715,PAT-000715,aquisicao_futura,Data de aquisição posterior à data de referência de 2026-10-13
-716,PAT-000716,garantia_anterior_compra,Data final da garantia anterior à data da compra
-717,PAT-000717,garantia_anterior_compra,Data final da garantia anterior à data da compra
-718,PAT-000718,garantia_anterior_compra,Data final da garantia anterior à data da compra
-719,PAT-000719,garantia_anterior_compra,Data final da garantia anterior à data da compra
-720,PAT-000720,garantia_anterior_compra,Data final da garantia anterior à data da compra
-721,PAT-000721,garantia_anterior_compra,Data final da garantia anterior à data da compra
-722,PAT-000722,garantia_anterior_compra,Data final da garantia anterior à data da compra
-723,PAT-000723,chamado_antigo_aberto,Chamado em aberto há mais de 365 dias
-724,PAT-000724,chamado_antigo_aberto,Chamado em aberto há mais de 365 dias
-725,PAT-000725,chamado_antigo_aberto,Chamado em aberto há mais de 365 dias
-726,PAT-000726,chamado_antigo_aberto,Chamado em aberto há mais de 365 dias
-727,PAT-000727,chamado_antigo_aberto,Chamado em aberto há mais de 365 dias
-728,PAT-000728,chamado_antigo_aberto,Chamado em aberto há mais de 365 dias
-729,PAT-000729,chamado_antigo_aberto,Chamado em aberto há mais de 365 dias
-730,PAT-000730,movimentacao_apos_descarte,Movimentação registrada após o descarte
-731,PAT-000731,movimentacao_apos_descarte,Movimentação registrada após o descarte
-732,PAT-000732,movimentacao_apos_descarte,Movimentação registrada após o descarte
-733,PAT-000733,movimentacao_apos_descarte,Movimentação registrada após o descarte
-734,PAT-000734,movimentacao_apos_descarte,Movimentação registrada após o descarte
-735,PAT-000735,movimentacao_apos_descarte,Movimentação registrada após o descarte
-736,PAT-000736,movimentacao_apos_descarte,Movimentação registrada após o descarte
-737,PAT-000737,movimentacao_excessiva,Pelo menos 14 movimentações dentro de 30 dias
-738,PAT-000738,movimentacao_excessiva,Pelo menos 14 movimentações dentro de 30 dias
-739,PAT-000739,movimentacao_excessiva,Pelo menos 14 movimentações dentro de 30 dias
-740,PAT-000740,movimentacao_excessiva,Pelo menos 14 movimentações dentro de 30 dias
-741,PAT-000741,movimentacao_excessiva,Pelo menos 14 movimentações dentro de 30 dias
-742,PAT-000742,movimentacao_excessiva,Pelo menos 14 movimentações dentro de 30 dias
-743,PAT-000743,movimentacao_excessiva,Pelo menos 14 movimentações dentro de 30 dias
-744,PAT-000744,reparos_repetidos,Pelo menos 6 chamados de manutenção no intervalo de 30 dias
-745,PAT-000745,reparos_repetidos,Pelo menos 6 chamados de manutenção no intervalo de 30 dias
-746,PAT-000746,reparos_repetidos,Pelo menos 6 chamados de manutenção no intervalo de 30 dias
-747,PAT-000747,reparos_repetidos,Pelo menos 6 chamados de manutenção no intervalo de 30 dias
-748,PAT-000748,reparos_repetidos,Pelo menos 6 chamados de manutenção no intervalo de 30 dias
-749,PAT-000749,reparos_repetidos,Pelo menos 6 chamados de manutenção no intervalo de 30 dias
-750,PAT-000750,reparos_repetidos,Pelo menos 6 chamados de manutenção no intervalo de 30 dias
+199,PAT-000199,reparos_repetidos,Pelo menos 6 chamados de manutenção no intervalo de 30 dias
+336,PAT-000336,reparos_repetidos,Pelo menos 6 chamados de manutenção no intervalo de 30 dias
+469,PAT-000469,reparos_repetidos,Pelo menos 6 chamados de manutenção no intervalo de 30 dias
+485,PAT-000485,reparos_repetidos,Pelo menos 6 chamados de manutenção no intervalo de 30 dias
+589,PAT-000589,reparos_repetidos,Pelo menos 6 chamados de manutenção no intervalo de 30 dias
+625,PAT-000625,reparos_repetidos,Pelo menos 6 chamados de manutenção no intervalo de 30 dias
+723,PAT-000723,reparos_repetidos,Pelo menos 6 chamados de manutenção no intervalo de 30 dias

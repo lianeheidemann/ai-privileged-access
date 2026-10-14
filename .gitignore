@@ -1,0 +1,23 @@
+# Dependências e builds
+node_modules/
+frontend/dist/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Dados operacionais, segredos e evidências locais (nunca versionar)
+runtime/
+*.db
+*.sqlite3
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+
+# Sistema/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
