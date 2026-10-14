@@ -1,6 +1,6 @@
 # 00 — Arquitetura, escopo e decisões
 
-**Objetivo:** definir uma **arquitetura de IA privada empresarial**, com consultas autorizadas a bancos internos, inferência hospedada na infraestrutura controlada e redução de vias de vazamento. O inventário sintético é o primeiro caso de validação, não o limite do produto.
+**Objetivo:** definir a arquitetura de uma **IA privada para agilizar processos cotidianos de tratamento de dados**, com consultas autorizadas, organização de resultados, apoio a análises e relatórios. A inferência permanece na infraestrutura controlada; o inventário sintético é apenas o primeiro caso de validação.
 
 **Pré-requisito:** nenhum. **Não implementar código nesta etapa.**
 
