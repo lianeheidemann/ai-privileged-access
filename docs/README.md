@@ -15,6 +15,7 @@ flowchart LR
     E --> F["5 · IA local"]
     F --> G["6 · Interface"]
     G --> H["7 · Testes finais"]
+    H -. "Após concluir o MVP" .-> I["8 · Rede privada e segurança"]
 ```
 
 | Ordem | Documento | Entrega verificável |
@@ -27,6 +28,9 @@ flowchart LR
 | 5 | [Assistente local](05-assistente-local.md) | Perguntas em português com consulta somente leitura |
 | 6 | [Interface e relatórios](06-interface-e-relatorios.md) | Painel navegável e exportação |
 | 7 | [Testes e experimentos](07-testes-e-experimentos.md) | Resultados reproduzíveis e teste offline |
+| 8 **(futura)** | [Arquitetura de rede e segurança](08-arquitetura-de-rede-e-seguranca.md) | Rede privada, PostgreSQL, acesso restrito e testes de vazamento |
+
+> **Etapa 08 é uma expansão posterior.** Não substitui nem altera a sequência do MVP (00–07). O guia inclui arquitetura cliente-servidor, laboratório isolado, RBAC/RLS, TLS, firewall, Ollama e testes de proteção contra vazamento.
 
 ## Como estudar e implementar cada etapa
 
