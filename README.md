@@ -39,17 +39,25 @@ Projeto experimental para auditoria da integridade de dados, detecção de anoma
 >
 > **Ainda a desenvolver:** banco SQLite operacional, serviços Python, verificações de integridade, detecção de anomalias, integração com Ollama, API FastAPI, interface React/TypeScript, testes e experimentos. A arquitetura empresarial de rede privada está prevista para uma fase posterior.
 
+## Como começar
+
+O projeto está em **planejamento técnico**. Ainda não há aplicativo executável; o material disponível permite conhecer os requisitos e preparar a implementação.
+
+1. Consulte o **[guia de desenvolvimento](docs/README.md)** para entender a sequência de etapas.
+2. Comece pela **[etapa 01 — ambiente e banco de dados](docs/01-ambiente-e-banco.md)**, utilizando os [CSVs sintéticos](data/csv/) já disponibilizados.
+3. Avance pelas etapas 02–07, validando cada módulo antes de iniciar o seguinte. A [etapa 08 — arquitetura de rede](docs/08-arquitetura-de-rede-e-seguranca.md) é uma expansão posterior.
+
 ## Objetivo
 
-O DataGuard AI pretende combinar três mecanismos complementares:
+O DataGuard AI pretende reunir três capacidades complementares:
 
-| Capacidade | O que será feito | Tecnologias |
-| --- | --- | --- |
-| **Integridade** | Verificar esquema, relações, transações, regras de negócio, backups e evidências | Python, SQLite, SHA-256, HMAC |
-| **Detecção de anomalias** | Identificar comportamentos incomuns com regras e Machine Learning | Python, SQL, pandas, scikit-learn / Isolation Forest |
-| **Assistente de IA local** | Responder perguntas com consultas predefinidas de somente leitura e explicar achados | Ollama + LLM compacto quantizado, Python |
-| **Aplicação e API** | Validar parâmetros, executar serviços e controlar exposição de dados | Python + FastAPI + Pydantic |
-| **Interface web local** | Dashboard, inventário, alertas, chat e relatórios | React + TypeScript + Vite |
+| Capacidade | Objetivo |
+| --- | --- |
+| **Integridade de dados** | Verificar relações, transações, regras de negócio, evidências e backups de forma reproduzível |
+| **Detecção de anomalias** | Identificar registros e comportamentos incomuns, distinguindo suspeitas de falhas comprovadas |
+| **Assistente de IA local** | Explicar resultados e responder perguntas por meio de consultas predefinidas de somente leitura |
+
+Uma API validará as operações e uma interface local apresentará os resultados. As **tecnologias específicas** estão consolidadas na seção [Linguagens e tecnologias definidas](#linguagens-e-tecnologias-definidas).
 
 **A IA explica achados, mas não certifica a integridade dos dados.** Confirmações técnicas dependem de regras e verificações reproduzíveis; alertas estatísticos são **suspeitas**, não prova de corrupção ou fraude.
 
@@ -115,6 +123,20 @@ Há **50 anomalias intencionais**, em sete categorias, documentadas em [`data/gr
 
 A data de referência do dataset é **13/10/2026** (arquivo [`dataset_info.json`](data/dataset_info.json)). Regras temporais devem usar essa data fixa para preservar os resultados.
 
+## Resultados e avaliação — planejados
+
+**Ainda não existem resultados experimentais, métricas medidas nem benchmarks publicados.** Após a implementação, os experimentos deverão registrar:
+
+| Dimensão | Medições previstas |
+| --- | --- |
+| Detecção de anomalias | Precisão (*precision*), revocação (*recall*), F1 e falsos positivos, comparados ao gabarito sintético |
+| Integridade e auditoria | Verificações aprovadas/reprovadas, evidências identificadas e testes de restauração |
+| Desempenho | Tempo de importação, auditoria, consultas e detecção; consumo de CPU e memória |
+| IA local | Latência das respostas, aderência às consultas autorizadas e comportamento sem internet |
+| Segurança | Exposição de portas, tentativas de acesso indevido e isolamento de dados no cenário local |
+
+Os métodos, critérios de aceite e testes estão descritos na [etapa 07 — Testes e experimentos](docs/07-testes-e-experimentos.md). Nenhum resultado deve ser apresentado como validado antes de sua execução.
+
 ## Roadmap de desenvolvimento — por etapas
 
 Os arquivos abaixo são **guias**, com tarefas, arquivos previstos, testes e critérios de aceite. Não representam módulos implementados.
@@ -131,7 +153,7 @@ Os arquivos abaixo são **guias**, com tarefas, arquivos previstos, testes e cri
 | 07 | Testes, métricas, segurança e execução offline | [Testes e experimentos](docs/07-testes-e-experimentos.md) |
 | **08 (posterior)** | Intranet privada, PostgreSQL, permissões e prevenção de vazamentos | [Arquitetura de rede e segurança](docs/08-arquitetura-de-rede-e-seguranca.md) |
 
-**Comece pelo [índice de documentação](docs/README.md).** A implementação será incremental: **primeiro banco e serviços Python; depois frontend/API; por último, laboratório empresarial de rede privada**.
+A implementação será incremental: **primeiro banco e serviços Python; depois frontend/API; por último, laboratório empresarial de rede privada**. Para iniciar, consulte [Como começar](#como-começar).
 
 ### Estrutura planejada de código
 
@@ -158,14 +180,12 @@ dataguard-ai/
 └── runtime/                        # Banco e evidências locais; ignorar no Git
 ~~~
 
-## Requisitos de segurança e limitações
+## Segurança e limitações
 
-- Os CSVs são **100% fictícios**; nunca usar dados empresariais reais nos experimentos publicados.
-- Após baixar pacotes, modelos, bibliotecas e assets, **o uso deve funcionar sem internet**; isso será validado por testes, não presumido.
-- O navegador **não acessa SQLite ou Ollama diretamente**: a API implementa as consultas autorizadas.
-- A IA não terá ferramenta para executar SQL arbitrário nem para editar o banco.
-- SHA-256 e HMAC **detectam alterações relativas a referências confiáveis**, mas não impedem adulteração.
-- A expansão 08 utilizará rede privada e PostgreSQL **sem substituir o MVP SQLite nem expor serviços ao público**.
-- Arquivos `.env`, segredos, bancos de produção, backups e logs privados **não devem ser versionados**.
+O MVP será executado **localmente**, com dados sintéticos, consultas autorizadas e serviços vinculados a `127.0.0.1`. O funcionamento offline e o isolamento de rede **ainda precisarão ser testados**.
+
+A IA não poderá executar SQL arbitrário nem alterar o banco. **Anomalias não são prova de fraude**; hashes e HMAC só identificam alterações quando comparados com referências confiáveis. Segredos, bancos operacionais, backups e logs privados não devem ser versionados.
+
+Para os controles e testes completos, consulte [03 — Auditoria e backups](docs/03-auditoria-e-backups.md), [05 — Assistente local](docs/05-assistente-local.md), [07 — Testes](docs/07-testes-e-experimentos.md) e [08 — Rede privada](docs/08-arquitetura-de-rede-e-seguranca.md).
 
 **Estado dos entregáveis:** requisitos e pré-requisitos técnicos documentados, tecnologias selecionadas e dataset sintético disponível. **Desenvolvimento da aplicação, validação e benchmarks ainda pendentes.**
