@@ -24,9 +24,9 @@
   <img height="21" alt="Recharts" src="https://img.shields.io/badge/Recharts-22B5BF?style=for-the-badge">
 </p>
 
-**Local Database Integrity Auditing · Anomaly Detection · Private AI Assistant**
+**Private AI · Secure Data Access · On-Premises Processing**
 
-**Proposta de IA privada para empresas:** arquitetura para consultar e analisar bancos de dados corporativos dentro da infraestrutura controlada da organização, sem depender de APIs externas de inferência. O protótipo inicial utiliza dados sintéticos e execução local para validar segurança, integridade e detecção de anomalias.
+**DataGuard AI:** solução planejada para consultar e analisar dados internos com IA executada na infraestrutura controlada da organização. O núcleo combina acesso autorizado às fontes de dados, processamento privado e consultas rastreáveis, sem depender de serviços externos de inferência. O primeiro protótipo usa dados sintéticos para validar a arquitetura e funcionalidades como integridade e detecção de anomalias.
 
 ## Status atual — levantamento de requisitos e planejamento técnico
 
@@ -41,7 +41,7 @@
 
 ## Objetivo
 
-**Objetivo principal:** propor e avaliar uma solução de IA privada para empresas, permitindo acesso controlado a bancos internos e processamento local de informações, com restrição de tráfego externo, permissões mínimas e evidências de segurança. Auditoria e detecção de anomalias são **casos de uso para validar essa arquitetura**, não sua finalidade exclusiva.
+**Objetivo principal:** desenvolver uma solução de IA privada que permita a usuários autorizados consultar e analisar informações de bancos internos, mantendo o processamento sob controle da organização. A arquitetura prevê permissões mínimas, consultas rastreáveis e restrição de conexões externas. Auditoria e detecção de anomalias são **funcionalidades e casos de uso demonstrativos**, não a finalidade exclusiva do sistema.
 
 O DataGuard AI pretende reunir três capacidades demonstrativas:
 
@@ -86,7 +86,9 @@ Consultar [06 — Interface React/FastAPI](docs/06-interface-e-relatorios.md) e 
 
 ## Arquitetura empresarial proposta
 
-A implantação futura pretende permitir que **usuários autorizados** consultem dados corporativos por meio de uma **API interna**, com inferência no ambiente da empresa e acesso ao banco por **conectores somente leitura**. Autenticação, autorização, segmentação, TLS entre serviços e bloqueio de conexões externas não autorizadas fazem parte dos requisitos de segurança.
+A implantação futura pretende permitir que **usuários autorizados** consultem dados corporativos por meio de uma **API interna**, com inferência no ambiente da empresa e acesso ao banco por **conectores somente leitura**. A proposta é conectar-se a bancos já existentes, como PostgreSQL, SQL Server ou MySQL, conforme as necessidades e políticas da organização, **sem exigir migração do banco corporativo para SQLite ou PostgreSQL**.
+
+A identidade corporativa (quando disponível), a autenticação, a autorização por perfil, a segmentação de rede, o TLS entre serviços e o bloqueio de conexões externas não autorizadas fazem parte dos requisitos de segurança. **A autorização deve ser aplicada pelo backend e pelas permissões efetivas do banco, não apenas por instruções ao modelo de IA.**
 
 ![Arquitetura empresarial planejada do DataGuard AI](assets/diagrams/arquitetura-empresarial.svg)
 
@@ -102,10 +104,11 @@ A implantação futura pretende permitir que **usuários autorizados** consultem
 | Gráficos | **Recharts** |
 | Backend/API | **Python, FastAPI, Pydantic** |
 | Banco inicial | **SQLite** (`sqlite3`) |
-| IA | **Ollama local** + modelo quantizado compatível |
+| IA | **Ollama** com modelo instalado e executado localmente; recursos de nuvem e fallback externo desabilitados ou bloqueados por política |
 | Machine Learning | **scikit-learn**, pandas e NumPy |
 | Testes | **pytest**, Vitest e Testing Library (quando implementados) |
-| Expansão empresarial futura | **PostgreSQL**, TLS, firewall, autenticação/autorização e segmentação de rede |
+| Fontes corporativas futuras | Conectores planejados para **PostgreSQL, SQL Server, MySQL** e outros SGBDs, conforme compatibilidade e autorização da organização |
+| Identidade e segurança empresarial | Integração planejada com identidade corporativa, TLS, firewall, autorização por perfil e segmentação de rede |
 
 **Linguagens predominantes:** Python, TypeScript e SQL. HTML/CSS integram o frontend. O **Node.js** serve às ferramentas de desenvolvimento/build do frontend; não é necessário como servidor separado na distribuição local planejada.
 
@@ -113,7 +116,7 @@ A implantação futura pretende permitir que **usuários autorizados** consultem
 
 Interface **dark, minimalista e responsiva**, com fundo em azul-marinho escuro, bordas discretas, textos legíveis e foco em tabelas e evidências. Gráficos serão usados quando acrescentarem informação; sem gradientes chamativos ou efeitos decorativos excessivos.
 
-**Telas planejadas:** Visão geral, Inventário, Integridade, Anomalias, Assistente local, Backups e Experimentos.
+**Telas principais planejadas:** Visão geral, Fontes de dados, Consultas, Análises, Assistente, Auditoria e Configurações. **Módulos demonstrativos:** Inventário, Integridade, Anomalias e Backups, usando o dataset sintético inicial. A interface definitiva será ajustada conforme os testes.
 
 ## Dados sintéticos já disponíveis
 
@@ -201,11 +204,13 @@ dataguard-ai/
 └── runtime/                       # Bancos, logs e evidências locais; fora do Git
 ~~~
 
-**Separação essencial:** o banco da empresa continua sob controle da organização. Os conectores deverão usar identidades com privilégios mínimos, consultas previamente aprovadas e nenhuma credencial armazenada no repositório. `deployment/` documentará um laboratório futuro, não uma infraestrutura já existente.
+**Separação essencial:** o banco da empresa continua sob controle da organização, independentemente do SGBD utilizado. Os conectores deverão usar identidades com privilégios mínimos, consultas previamente aprovadas e nenhuma credencial armazenada no repositório. `deployment/` documentará um laboratório futuro, não uma infraestrutura já existente.
 
 ## Segurança e limitações
 
-**Requisito central:** nenhum dado corporativo deve ser enviado a APIs externas ou serviços de inferência em nuvem. A operação prevista deve aplicar bloqueio de saída por padrão, exceções documentadas, autenticação, autorização por perfil, consultas somente leitura, minimização de dados, logs sem conteúdo confidencial e testes de tráfego. **API interna não é API externa:** FastAPI e Ollama podem comunicar-se somente dentro da infraestrutura autorizada.
+**Requisito central:** nenhum dado corporativo deve ser enviado a APIs externas ou serviços de inferência em nuvem. O Ollama deverá utilizar **apenas modelos locais**, sem fallback para modelos hospedados; qualquer recurso de nuvem deverá ser desabilitado ou bloqueado por políticas de rede verificáveis. A operação prevista deve aplicar bloqueio de saída por padrão, exceções documentadas, autenticação, autorização por perfil, consultas somente leitura, minimização de dados, logs sem conteúdo confidencial e testes de tráfego. **API interna não é API externa:** FastAPI e Ollama podem comunicar-se somente dentro da infraestrutura autorizada.
+
+**Controle de consultas:** o assistente não recebe acesso direto e irrestrito ao SGBD. O backend valida a identidade, as permissões, os parâmetros e o catálogo de consultas permitidas antes de executar operações com uma credencial de banco de **privilégios mínimos**. Instruções recebidas pelo modelo, inclusive conteúdos vindos dos dados, **não podem substituir essas verificações**; respostas devem respeitar filtros e mascaramento de dados sensíveis.
 
 O MVP será executado **localmente**, com dados sintéticos, consultas autorizadas e serviços vinculados a `127.0.0.1`. O funcionamento offline e o isolamento de rede **ainda precisarão ser testados**.
 
