@@ -6,7 +6,7 @@
 
 ## 1. O problema que o projeto resolve
 
-A aplicação deverá receber um banco local, executar verificações reproduzíveis, apontar inconsistências e explicar resultados em português. O conjunto inicial retrata um inventário **inteiramente fictício**.
+A aplicação deverá receber um banco local, executar verificações reproduzíveis, apontar inconsistências e explicar resultados em português. O MVP usará **React + TypeScript em um navegador local**, conectado por **FastAPI** aos serviços Python. O conjunto inicial retrata um inventário **inteiramente fictício**.
 
 Separar quatro conceitos:
 
@@ -37,21 +37,20 @@ Separar quatro conceitos:
 
 ## 3. Princípios de arquitetura
 
-```mermaid
+~~~mermaid
 flowchart TD
-    UI["Interface local"] --> S["Serviços Python"]
+    U["Navegador local"] --> R["React + TypeScript · Vite (dev)"]
+    R -->|"/api"| F["FastAPI · Python"]
+    F --> S["Serviços Python"]
     S --> I["Verificações determinísticas"]
     S --> A["Detector de anomalias"]
-    S --> R["Catálogo de consultas RO"]
-    I --> DB[("SQLite")]
+    S --> Q["Consultas autorizadas em leitura"]
+    I --> DB[("SQLite local")]
     A --> DB
-    R --> DB
-    R --> LLM["Ollama · LLM local"]
-    I --> E["Logs / backups / manifestos"]
-    LLM --> UI
-    A --> UI
-    E --> UI
-```
+    Q --> DB
+    Q --> LLM["Ollama · LLM local"]
+    S --> E["Logs, backups e manifestos"]
+~~~
 
 1. **O banco é a fonte de fatos; o LLM não é.**
 2. **Leitura e escrita são serviços distintos.** A interface de perguntas não ganha credenciais de escrita.
@@ -59,6 +58,22 @@ flowchart TD
 4. **Os dados de teste precisam permanecer auditáveis.** Gabarito separado e semente fixa.
 5. **A aplicação funciona offline após o preparo.** Não enviar prompts nem arquivos a provedores externos.
 6. **Toda ação relevante produz um resultado testável.**
+
+### 3.1 — Tecnologias e limites da rede local
+
+| Camada | Tecnologia definida | Quando implementar |
+| --- | --- | --- |
+| Banco e verificações | Python + SQLite | Etapas 01–04 |
+| Assistente | Python + Ollama local | Etapa 05 |
+| API e contratos de dados | Python + FastAPI + Pydantic | Etapa 06 |
+| Interface web local | React + TypeScript + Vite | Etapa 06 |
+| Estilo e componentes | Tailwind CSS, shadcn/ui, Lucide React | Etapa 06 |
+| Gráficos e tabelas | Recharts, TanStack Table e TanStack Query | Etapa 06 |
+| Rede corporativa | PostgreSQL, TLS, autorização e segmentação | Etapa 08, **somente após o MVP** |
+
+Em desenvolvimento, Vite, FastAPI e Ollama estarão restritos ao **loopback 127.0.0.1**. Em uso local após o build, o FastAPI poderá servir os arquivos React compilados, sem Vite nem hospedagem externa. O **SQLite não tem porta de rede**; o frontend não deve chamar o banco nem o Ollama diretamente.
+
+Ver as etapas [06 — Interface](06-interface-e-relatorios.md) e [08 — Rede](08-arquitetura-de-rede-e-seguranca.md).
 
 ## 4. Modelo de dados existente
 
@@ -90,9 +105,10 @@ Há **50 anomalias propositalmente inseridas**, descritas apenas no gabarito de 
 
 ## 6. Decisões a registrar antes de codificar
 
-- [ ] Repositório continua público, com **apenas dados sintéticos**.
+- [ ] Repositório permanece privado durante o desenvolvimento; se a visibilidade mudar, somente código e dados sintéticos podem ser públicos, nunca segredos ou bancos empresariais.
 - [ ] Pasta de trabalho local: `runtime/`, ignorada no Git.
 - [ ] SQLite criado a partir de CSVs, sem versionar um banco operacional.
+- [ ] React é interface local e FastAPI é o único ponto de acesso ao banco e ao Ollama.
 - [ ] Dataset tem data de referência fixa.
 - [ ] Assistente sem operações de escrita e sem SQL arbitrário.
 - [ ] O usuário da aplicação confirma manualmente revisões de alertas.
