@@ -8,6 +8,8 @@
 
 **Fronteira de segurança:** a interface nunca deve receber credenciais de banco, tokens de serviço ou acesso direto ao Ollama. A API deve verificar identidade e permissão **a cada requisição**, aplicar limites de exportação e paginação e não retornar colunas sigilosas por padrão. No MVP local, autenticação corporativa é uma exigência de desenho e teste para a etapa 08, não algo já implementado.
 
+**Guias breves por tela:** consulte a pasta [`docs/interface/`](interface/README.md). Eles orientam a experiência e a organização das informações sem impor layouts detalhados.
+
 ## 1. Stack oficial da interface
 
 | Responsabilidade | Escolha | Observação |
