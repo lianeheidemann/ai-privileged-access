@@ -31,13 +31,13 @@
 ## Status atual — levantamento de requisitos e planejamento técnico
 
 > [!WARNING]
-> **EM CONSTRUÇÃO — IMPLEMENTAÇÃO AINDA NÃO INICIADA.**
+> **EM CONSTRUÇÃO — PRIMEIRA INTERFACE VISUAL DISPONÍVEL.**
 >
-> O DataGuard AI está atualmente na fase de **levantamento de requisitos, definição dos pré-requisitos técnicos, escolha das tecnologias e documentação da arquitetura**. As funcionalidades descritas neste README ainda serão implementadas e testadas. Não há, neste momento, uma aplicação funcional disponível para execução.
+> O DataGuard AI está atualmente na fase de **levantamento de requisitos, definição dos pré-requisitos técnicos, escolha das tecnologias e documentação da arquitetura**. A primeira interface React já possui uma tela de visão geral demonstrativa, mas os serviços de dados e IA ainda não foram implementados. Não há, neste momento, uma aplicação completa disponível para uso empresarial.
 >
-> **Já disponível:** documentação do planejamento e dataset sintético em CSV, incluindo o *ground truth* para avaliação.
+> **Já disponível:** documentação do planejamento, dataset sintético em CSV (incluindo o *ground truth*) e [primeira interface React de demonstração](frontend/README.md), com navegação e temas claro/escuro.
 >
-> **Ainda a desenvolver:** banco SQLite operacional, serviços Python, verificações de integridade, detecção de anomalias, integração com Ollama, API FastAPI, interface React/TypeScript, testes e experimentos. A **implantação empresarial** será posterior ao protótipo, mas seus **requisitos de segurança orientam todas as etapas**.
+> **Ainda a desenvolver:** banco SQLite operacional, serviços Python, verificações de integridade, detecção de anomalias, integração com Ollama, API FastAPI, demais telas e integração de dados, testes e experimentos. A **implantação empresarial** será posterior ao protótipo, mas seus **requisitos de segurança orientam todas as etapas**.
 
 ## Objetivo
 
@@ -219,4 +219,4 @@ A IA não poderá executar SQL arbitrário nem alterar o banco. Alertas de quali
 
 Para os controles e testes completos, consulte [03 — Auditoria e backups](docs/03-auditoria-e-backups.md), [05 — Assistente local](docs/05-assistente-local.md), [07 — Testes](docs/07-testes-e-experimentos.md) e [08 — Rede privada](docs/08-arquitetura-de-rede-e-seguranca.md).
 
-**Estado dos entregáveis:** proposta empresarial e pré-requisitos técnicos documentados, tecnologias selecionadas e dataset sintético disponível. **Desenvolvimento da aplicação, validação e benchmarks ainda pendentes.**
+**Estado dos entregáveis:** proposta empresarial e pré-requisitos técnicos documentados, tecnologias selecionadas, dataset sintético disponível e **primeira tela React demonstrativa criada**. Backend, integrações, validação e benchmarks ainda pendentes.
