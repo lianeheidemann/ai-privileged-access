@@ -1,11 +1,11 @@
-# Publica a demonstração HTML offline no GitHub Pages, sem expor dados empresariais.
-name: Deploy DataGuard AI demo to GitHub Pages
+# Publica o frontend React original com navegação lateral no GitHub Pages.
+name: Deploy DataGuard AI frontend to GitHub Pages
 
 on:
   push:
     branches: [main]
     paths:
-      - 'demo/**'
+      - 'frontend/**'
       - '.github/workflows/deploy-pages.yml'
   workflow_dispatch:
 
@@ -19,20 +19,36 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install dependencies
+        working-directory: frontend
+        run: npm install --no-audit --no-fund
+      - name: Build React frontend
+        working-directory: frontend
+        env:
+          GITHUB_PAGES: 'true'
+        run: npm run build
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Upload React build
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: frontend/dist
   deploy:
     runs-on: ubuntu-latest
+    needs: build
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
-      - name: Upload HTML demo
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: demo
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
