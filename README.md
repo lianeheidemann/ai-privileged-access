@@ -61,6 +61,18 @@ Uma API validará as operações e uma interface local apresentará os resultado
 
 **A IA explica achados, mas não certifica a integridade dos dados.** Confirmações técnicas dependem de regras e verificações reproduzíveis; alertas estatísticos são **suspeitas**, não prova de corrupção ou fraude.
 
+## Questão de pesquisa e abordagem experimental
+
+**Problema investigado:** como combinar verificações determinísticas de integridade, detecção de anomalias e um assistente de IA executado localmente para apoiar a análise de um banco de dados, **sem enviar os registros a serviços externos de inferência**?
+
+O projeto pretende estudar a viabilidade técnica dessa combinação em um ambiente controlado, considerando quatro aspectos: **confiabilidade dos resultados**, **capacidade de detectar inconsistências**, **desempenho em hardware local** e **redução da exposição dos dados à rede**.
+
+A avaliação será conduzida com dados **inteiramente sintéticos** e um gabarito separado de anomalias conhecidas. As regras e os modelos serão comparados com esse gabarito; as respostas da IA serão verificadas quanto à correspondência com consultas autorizadas e evidências do banco. Também serão medidos tempos de execução e uso de recursos, além de realizados testes de operação offline e de exposição de serviços.
+
+**Hipótese de trabalho, ainda não validada:** é possível oferecer uma ferramenta útil de apoio à auditoria com processamento local, mantendo separadas as evidências verificáveis, as suspeitas estatísticas e as explicações geradas por IA.
+
+A metodologia detalhada e os critérios de avaliação estão previstos em [04 — Anomalias e ML](docs/04-anomalias-e-ml.md) e [07 — Testes e experimentos](docs/07-testes-e-experimentos.md). **Nenhum ganho de segurança, precisão ou desempenho é afirmado antes dos testes.**
+
 ## Arquitetura oficial do MVP
 
 **Execução inicial:** um único notebook Windows 11. O React abre no navegador, mas frontend, backend, banco e IA executam **localmente**, sem necessidade de hospedagem externa.
