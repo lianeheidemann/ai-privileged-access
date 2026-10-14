@@ -1,10 +1,18 @@
 # 01 — Preparar o ambiente e criar o SQLite
 
-**Objetivo:** transformar os seis CSVs já existentes em um banco relacional SQLite com relações e tipos definidos. **Nesta etapa, não há IA nem interface gráfica.**
+**Objetivo:** construir uma base sintética de teste para uma futura solução de **IA privada empresarial**, sem utilizar nem copiar bancos reais de organizações. Transformar os seis CSVs já existentes em SQLite com relações e tipos definidos. **Nesta etapa, não há IA nem interface gráfica.**
 
 **Entrada:** `data/csv/*.csv`. **Saída esperada:** `runtime/databases/inventario.db` e testes de importação.
 
 **Decisão técnica:** nesta etapa, **Python + biblioteca padrão sqlite3** são suficientes. A interface **React + TypeScript + Vite** e a API **FastAPI** só serão implementadas na [etapa 06](06-interface-e-relatorios.md). Separar desde já a persistência da apresentação para não misturar código de UI com consultas SQL.
+
+## Decisão sobre o banco de dados empresarial
+
+**Não é necessário alterar os seis CSVs nem as seis tabelas de domínio agora.** O inventário é um *fixture* sintético de validação; não deve ser apresentado como esquema universal de bancos empresariais. Para a implantação real, não substituir nem migrar automaticamente o banco da empresa: planejar **conector de leitura**, usuário de banco dedicado com permissões mínimas e **visões autorizadas**. PostgreSQL é uma opção para o laboratório de rede da etapa 08, não uma exigência para todos os clientes.
+
+Separar conceitualmente **banco de origem** (dados empresariais, mantidos sob controle da organização) e **banco operacional do DataGuard AI** (configuração, execução, resultados e auditoria, com retenção mínima). Nunca copiar uma base completa para inferência por conveniência.
+
+**Evoluções de metadados a planejar, sem criar agora:** `fontes_dados` (identificador lógico, tipo de SGBD, endpoint interno referenciado sem segredo), `politicas_acesso` (perfil, fonte, conjunto autorizado), `consultas_permitidas` (ID, versão, parâmetros e limites), `execucoes_consulta` (quem, quando, finalidade, status, volume, sem SQL sensível), `politicas_retencao` e `versoes_conectores`. Não armazenar senhas em tabelas; usar mecanismo de segredos da implantação.
 
 ## Passo 1 — Preparar o Python no Windows
 
