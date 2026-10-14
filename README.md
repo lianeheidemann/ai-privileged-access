@@ -30,15 +30,14 @@ Projeto experimental para auditoria da integridade de dados, detecção de anoma
 
 ## Status atual — levantamento de requisitos e planejamento técnico
 
+> [!NOTE]
 > **EM CONSTRUÇÃO — IMPLEMENTAÇÃO AINDA NÃO INICIADA.**
 >
-> O DataGuard AI está atualmente na fase de **levantamento de requisitos, definição dos pré-requisitos técnicos, escolha das tecnologias e documentação da arquitetura**. **As funcionalidades descritas neste README ainda serão implementadas e testadas.** Não há, neste momento, uma aplicação funcional disponível para execução.
+> O DataGuard AI está atualmente na fase de **levantamento de requisitos, definição dos pré-requisitos técnicos, escolha das tecnologias e documentação da arquitetura**. As funcionalidades descritas neste README ainda serão implementadas e testadas. Não há, neste momento, uma aplicação funcional disponível para execução.
 >
-> **Já disponível:** documentação do planejamento e dataset sintético em CSV, incluindo o _ground truth_ para avaliação.
+> **Já disponível:** documentação do planejamento e dataset sintético em CSV, incluindo o *ground truth* para avaliação.
 >
 > **Ainda a desenvolver:** banco SQLite operacional, serviços Python, verificações de integridade, detecção de anomalias, integração com Ollama, API FastAPI, interface React/TypeScript, testes e experimentos. A arquitetura empresarial de rede privada está prevista para uma fase posterior.
-
-**Importante:** as badges de tecnologias indicam a **stack escolhida para implementação futura**; diagramas, mockups, endpoints e etapas do roadmap representam **propostas de desenvolvimento**, não funcionalidades prontas.
 
 ## Objetivo
 
@@ -58,19 +57,7 @@ O DataGuard AI pretende combinar três mecanismos complementares:
 
 **Execução inicial:** um único notebook Windows 11. O React abre no navegador, mas frontend, backend, banco e IA executam **localmente**, sem necessidade de hospedagem externa.
 
-~~~mermaid
-flowchart TD
-    USER["Navegador no próprio notebook"] --> REACT["React + TypeScript · Vite (dev)"]
-    REACT -->|"/api (HTTP local)"| API["Python · FastAPI"]
-    API --> CORE["Serviços: integridade, auditoria, detecção"]
-    API --> Q["Catálogo de consultas autorizado"]
-    CORE --> DB[("SQLite · arquivo local")]
-    Q --> DB
-    Q --> AI["Ollama · LLM local"]
-    CORE --> E["Relatórios, backups e manifestos"]
-    AI --> API
-    E --> API
-~~~
+![Arquitetura local planejada do DataGuard AI](assets/diagrams/arquitetura-local.svg)
 
 | Serviço | Desenvolvimento local | Papel |
 | --- | --- | --- |
@@ -124,15 +111,7 @@ A pasta [`data/`](data/) contém os dados originais em CSV para gerar o SQLite l
 
 Há **50 anomalias intencionais**, em sete categorias, documentadas em [`data/ground_truth/gabarito_anomalias.csv`](data/ground_truth/gabarito_anomalias.csv). O gabarito é **somente para avaliação**, não para entrada do detector nem para respostas do assistente.
 
-~~~mermaid
-erDiagram
-    CATEGORIAS ||--o{ EQUIPAMENTOS : classifica
-    SETORES ||--o{ RESPONSAVEIS : aloca
-    SETORES ||--o{ EQUIPAMENTOS : localiza
-    RESPONSAVEIS o|--o{ EQUIPAMENTOS : assume
-    EQUIPAMENTOS ||--o{ MOVIMENTACOES : possui
-    EQUIPAMENTOS ||--o{ CHAMADOS : registra
-~~~
+![Modelo de dados sintético do DataGuard AI](assets/diagrams/modelo-dados.svg)
 
 A data de referência do dataset é **13/10/2026** (arquivo [`dataset_info.json`](data/dataset_info.json)). Regras temporais devem usar essa data fixa para preservar os resultados.
 
