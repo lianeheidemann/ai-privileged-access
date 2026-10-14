@@ -28,30 +28,22 @@
 
 **DataGuard AI:** solução planejada para **agilizar o trabalho diário com dados nas empresas**, permitindo consultar informações, organizar resultados, apoiar análises e gerar relatórios por meio de IA executada na infraestrutura controlada da organização. O protótipo inicial utiliza dados sintéticos para desenvolver e testar essas funcionalidades, sem depender de serviços externos de inferência.
 
-## Status atual — protótipo visual disponível
+## Status atual — levantamento de pré-requisitos e planejamento técnico
 
 > [!WARNING]
-> **EM CONSTRUÇÃO — DEMONSTRAÇÃO DE INTERFACE DISPONÍVEL.**
+> **EM CONSTRUÇÃO — PROJETO EM FASE DE LEVANTAMENTO DE PRÉ-REQUISITOS TÉCNICOS.**
 >
-> O DataGuard AI ainda está em desenvolvimento. As sete telas do frontend React já foram estruturadas, mas os serviços de dados, autenticação e IA local não estão conectados. A demonstração utiliza apenas informações sintéticas e exemplos ilustrativos; **não é uma aplicação empresarial pronta para produção**.
+> O DataGuard AI está atualmente na fase de **levantamento de requisitos e pré-requisitos técnicos, escolha das tecnologias e documentação da arquitetura**. A solução ainda **não foi implementada como um sistema funcional**: não há integração operacional entre frontend, backend, banco de dados e IA local, nem aplicação pronta para uso empresarial.
+>
+> **Já disponível:** documentação de planejamento e arquitetura, dataset sintético em CSV (incluindo o *ground truth*) e protótipos visuais de interface.
+>
+> **Ainda a desenvolver:** banco SQLite operacional, serviços Python/FastAPI, integração com Ollama, autenticação e autorização, consultas reais, integração dos componentes, testes e validação. A **implantação empresarial** será posterior ao protótipo, com requisitos de segurança considerados desde o planejamento.
 
-### Visualizar a demonstração da interface
+### Demonstração visual da interface
 
-**[Abrir o arquivo HTML da demonstração](demo/index.html)** · **[Ver o código React](frontend/README.md)**
+Para quem quiser conhecer **como a interface poderá ficar**, há uma [**demonstração navegável em HTML**](demo/index.html), com sete páginas, gráficos ilustrativos e temas claro/escuro. O arquivo pode ser baixado e aberto no navegador do celular ou computador, inclusive offline. O [código do frontend React](frontend/README.md) também está disponível.
 
-A pasta [`demo/`](demo/) contém um **arquivo HTML independente**, com as sete áreas de navegação: **Visão geral, Fontes de dados, Consultas, Análises, Assistente, Relatórios e Configurações**. A prévia inclui gráficos demonstrativos, alternância de tema e interações simples para avaliar a aparência e a navegação no computador ou celular.
-
-Para testar **sem publicar o repositório**:
-
-1. Acesse [`demo/index.html`](demo/index.html) no GitHub e toque em **Download raw file** (ícone de download).
-2. Abra o arquivo baixado em um navegador, como o Chrome.
-3. Navegue pelas abas e abra **Análises** para visualizar os gráficos.
-
-O arquivo funciona **offline**, sem instalação, API ou servidor. A versão HTML é uma **prévia visual simplificada**, independente do frontend React em `frontend/`; algumas interações e detalhes visuais podem diferir.
-
-**Já disponível:** documentação, dataset sintético em CSV (incluindo *ground truth*), sete telas React e demonstração HTML offline.
-
-**Ainda a desenvolver:** banco SQLite operacional, serviços Python/FastAPI, integração com Ollama, autenticação e autorização, consultas reais, integração entre frontend e backend e testes de segurança e desempenho. A implantação empresarial virá após a validação do protótipo.
+A demonstração é **apenas uma prévia de design e navegação**, com exemplos fictícios; não representa funcionalidades empresariais já implementadas nem se conecta a dados reais ou serviços de IA.
 
 ## Objetivo
 
