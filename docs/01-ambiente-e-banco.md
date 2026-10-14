@@ -4,6 +4,8 @@
 
 **Entrada:** `data/csv/*.csv`. **Saída esperada:** `runtime/databases/inventario.db` e testes de importação.
 
+**Decisão técnica:** nesta etapa, **Python + biblioteca padrão sqlite3** são suficientes. A interface **React + TypeScript + Vite** e a API **FastAPI** só serão implementadas na [etapa 06](06-interface-e-relatorios.md). Separar desde já a persistência da apresentação para não misturar código de UI com consultas SQL.
+
 ## Passo 1 — Preparar o Python no Windows
 
 Criar um ambiente virtual na raiz do repositório:
@@ -15,7 +17,7 @@ py -3 -m venv .venv
 python --version
 ```
 
-Se a execução de scripts estiver bloqueada, use o Python diretamente pelo caminho `.venv\Scripts\python.exe` ou ajuste a política **somente no escopo apropriado**. O projeto usa SQLite pela biblioteca padrão.
+Se a execução de scripts estiver bloqueada, use o Python diretamente pelo caminho `.venv\Scripts\python.exe` ou ajuste a política **somente no escopo apropriado**. O projeto usa SQLite pela biblioteca padrão. **Não é necessário instalar Node.js, React, Tailwind ou FastAPI para executar esta etapa.**
 
 Arquivos a criar nesta etapa:
 - `pyproject.toml` — metadados e dependência de `pytest`.
@@ -121,4 +123,4 @@ PRAGMA foreign_key_check;
 
 **Critério de aceite:** o banco SQLite é construído localmente e reproduz os 4.161 registros, com `foreign_key_check` vazio.
 
-**Próxima etapa:** [02 — Integridade e transações](02-integridade-e-transacoes.md).
+**Próxima etapa:** [02 — Integridade e transações](02-integridade-e-transacoes.md). O futuro FastAPI deverá reutilizar estas funções de banco, sem duplicar a lógica de persistência.
