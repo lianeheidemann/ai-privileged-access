@@ -46,7 +46,7 @@ A implantação com PostgreSQL, segmentação e TLS ocorrerá na [etapa 08](08-a
 - Login, cloud, múltiplos usuários, dados empresariais reais.
 - Treinar LLM, criar endpoints públicos ou permitir edição pelo assistente.
 - Permitir SQL livre ou restauração destrutiva com um clique.
-- Considerar todo alerta como fraude, erro ou corrupção confirmada.
+- Considerar todo alerta como um problema confirmado, sem validação adicional.
 
 ## 3. Princípios de arquitetura
 
