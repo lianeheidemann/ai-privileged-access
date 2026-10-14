@@ -1,0 +1,19 @@
+id,codigo,nome,unidade
+1,ST001,Suporte técnico,Unidade 1
+2,ST002,Desenvolvimento,Unidade 2
+3,ST003,Redes,Unidade 3
+4,ST004,Infraestrutura,Unidade 1
+5,ST005,Laboratório de informática,Unidade 2
+6,ST006,Biblioteca,Unidade 3
+7,ST007,Secretaria acadêmica,Unidade 1
+8,ST008,Financeiro,Unidade 2
+9,ST009,Compras,Unidade 3
+10,ST010,Recursos humanos,Unidade 1
+11,ST011,Coordenação,Unidade 2
+12,ST012,Sala de aula,Unidade 3
+13,ST013,Pesquisa aplicada,Unidade 1
+14,ST014,Almoxarifado,Unidade 2
+15,ST015,Diretoria,Unidade 3
+16,ST016,Atendimento,Unidade 1
+17,ST017,Multimídia,Unidade 2
+18,ST018,Administração,Unidade 3
