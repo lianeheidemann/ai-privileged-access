@@ -21,7 +21,7 @@ ollama --version
 ollama list
 ```
 
-O Ollama normalmente disponibiliza inferência via endereço local em `127.0.0.1`. Isso é uma **API local**, não uma chamada a um provedor externo. Desabilitar exposições de rede desnecessárias.
+O Ollama normalmente disponibiliza inferência via **http://127.0.0.1:11434**. Isso é uma **API local**, não uma chamada a um provedor externo. Configurar bind em loopback, desabilitar funcionalidades cloud e verificar exposição de portas conforme a [etapa 08, seção 2.1](08-arquitetura-de-rede-e-seguranca.md). **React nunca deve chamar o Ollama diretamente.**
 
 ## Passo 2 — Definir perguntas suportadas
 
@@ -63,6 +63,22 @@ pergunta -> intenção permitida -> parâmetros validados
          -> explicação via LLM local
 ```
 
+### Fronteira de segurança entre as camadas
+
+Esta etapa implementa apenas **serviços Python**. Na [etapa 06](06-interface-e-relatorios.md), o **FastAPI** receberá as perguntas do **React + TypeScript**, validará entrada e escopo e chamará o serviço Python de consultas. Somente esse serviço Python poderá consultar SQLite e conversar com Ollama.
+
+~~~mermaid
+flowchart LR
+    UI["React · navegador local"] -->|"/api/chat"| API["FastAPI + Pydantic"]
+    API --> CAT["Consultas SQL predefinidas"]
+    CAT --> DB[("SQLite · leitura")]
+    CAT --> O["Ollama · loopback"]
+    O --> API
+    API --> UI
+~~~
+
+O endpoint `POST /api/chat` é **planejado para a etapa 06**, não precisa ser construído agora. Não duplicar SQL em componentes React, não usar CORS liberado para todas as origens e não entregar credenciais ou caminhos internos do SQLite ao navegador.
+
 ## Passo 4 — Integrar o LLM para explicações
 
 Arquivos: `src/dataguard/assistant/ollama_client.py`, `service.py`.
@@ -96,11 +112,11 @@ Comparar contagens/hash de uma cópia de teste do banco antes e depois de pergun
 ## Passo 6 — Testar execução offline
 
 1. Baixar previamente modelo e dependências.
-2. Iniciar SQLite + aplicação + Ollama local.
+2. Iniciar o serviço Python de consultas e o Ollama local; quando a etapa 06 estiver pronta, iniciar também FastAPI e o frontend React.
 3. Desativar acesso à internet (mantendo loopback local).
 4. Executar perguntas e verificações.
 5. Registrar consumo de RAM/VRAM, latência e eventuais falhas.
 
-**Critério de aceite:** perguntas autorizadas retornam valores corretos e rastreáveis; consultas proibidas não alteram o banco; o sistema funciona sem internet após a preparação.
+**Critério de aceite:** o serviço Python de perguntas retorna valores corretos e rastreáveis; consultas proibidas não alteram o banco; não existe dependência de inferência remota. A validação completa do fluxo navegador → FastAPI → Ollama offline ocorre nas etapas 06 e 07.
 
 **Próxima etapa:** [06 — Interface e relatórios](06-interface-e-relatorios.md).
