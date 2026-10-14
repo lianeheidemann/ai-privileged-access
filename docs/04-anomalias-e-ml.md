@@ -1,8 +1,10 @@
 # 04 — Detectar anomalias: regras primeiro, ML depois
 
-**Objetivo:** localizar automaticamente comportamentos fora do padrão no inventário fictício e medir a qualidade da detecção.
+**Objetivo:** demonstrar uma **funcionalidade de análise empresarial** sobre dados sintéticos: localizar comportamentos fora do padrão e medir a qualidade da detecção, sem tornar o ML requisito para toda consulta segura.
 
 **Pré-requisito:** [etapa 02](02-integridade-e-transacoes.md); a etapa 03 é recomendada para preservar evidências. **Não usar IA generativa para decidir o que é erro.**
+
+**Segurança dos dados:** executar extração e processamento dentro do ambiente autorizado; obter apenas campos e períodos necessários; não transmitir datasets ou vetores derivados a serviços externos; não publicar amostras reais, modelos treinados com dados sensíveis ou relatórios identificáveis. A política de retenção também se aplica a features e resultados.
 
 ## Passo 1 — Entender o gabarito separado
 
