@@ -83,6 +83,9 @@ Comece pelo [**guia de desenvolvimento em `docs/`**](docs/README.md). Cada etapa
 | 5 | Consultas em português com IA local | [05 — Assistente offline](docs/05-assistente-local.md) |
 | 6 | Dashboard e exportações | [06 — Interface](docs/06-interface-e-relatorios.md) |
 | 7 | Testes e avaliação reprodutível | [07 — Testes](docs/07-testes-e-experimentos.md) |
+| **8 (futura)** | **Rede privada, PostgreSQL, controle de acesso e prevenção de vazamentos** | [08 — Arquitetura de rede e segurança](docs/08-arquitetura-de-rede-e-seguranca.md) |
+
+A **etapa 08 é opcional e posterior à conclusão do MVP**. Ela inclui um segundo cenário de arquitetura, com redes privadas, PostgreSQL, papéis de usuário, TLS, firewall, auditoria de acessos e testes de segurança. Não é uma funcionalidade já implementada.
 
 ## Stack planejada
 
