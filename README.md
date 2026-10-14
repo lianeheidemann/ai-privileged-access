@@ -1,5 +1,27 @@
 # DataGuard AI
 
+<p>
+  <img src="assets/badges/badge_em-construcao.svg" alt="Em construção" height="28">
+</p>
+
+<p>
+  <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python">
+  <img src="https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white" alt="FastAPI">
+  <img src="https://img.shields.io/badge/SQLite-416A84?style=flat-square&logo=sqlite&logoColor=white" alt="SQLite">
+  <img src="https://img.shields.io/badge/Ollama-353943?style=flat-square&logo=ollama&logoColor=white" alt="Ollama">
+  <img src="https://img.shields.io/badge/scikit--learn-5A6D85?style=flat-square&logo=scikitlearn&logoColor=white" alt="scikit-learn">
+</p>
+
+<p>
+  <img src="https://img.shields.io/badge/React-1676A3?style=flat-square&logo=react&logoColor=white" alt="React">
+  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript">
+  <img src="https://img.shields.io/badge/Vite-6750A4?style=flat-square&logo=vite&logoColor=white" alt="Vite">
+  <img src="https://img.shields.io/badge/Tailwind%20CSS-0F766E?style=flat-square&logo=tailwindcss&logoColor=white" alt="Tailwind CSS">
+  <img src="https://img.shields.io/badge/shadcn%2Fui-374151?style=flat-square&logo=shadcnui&logoColor=white" alt="shadcn/ui">
+  <img src="https://img.shields.io/badge/TanStack-4B5563?style=flat-square" alt="TanStack">
+  <img src="https://img.shields.io/badge/Recharts-475569?style=flat-square" alt="Recharts">
+</p>
+
 **Local Database Integrity Auditing · Anomaly Detection · Private AI Assistant**
 
 Projeto experimental para auditoria da integridade de dados, detecção de anomalias e consultas em português por IA **local**, com interface web no próprio computador, **sem APIs externas de inferência**.
