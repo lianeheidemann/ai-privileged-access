@@ -60,7 +60,7 @@
 
 ### Protótipo visual
 
-Consulte o [**frontend**](frontend/) ou a [**demonstração no GitHub Pages**](https://lianeheidemann.github.io/dataguard-ai/). As sete telas usam Tailwind CSS, componentes no padrão shadcn/ui, TanStack Table/Query e Recharts.
+Consulte a [**demonstração no GitHub Pages**](https://lianeheidemann.github.io/dataguard-ai/). As sete telas usam Tailwind CSS, componentes no padrão shadcn/ui, TanStack Table/Query e Recharts.
 
 O protótipo **não se conecta** a banco, backend ou IA. Os números vêm de um JSON gerado a partir dos CSVs sintéticos. O assistente demonstra a política de bloqueio (escrita, contorno de regras, segredos, SQL livre, envio externo) e responde só com números do dataset, **sem LLM**.
 
