@@ -203,15 +203,7 @@ Ver [`scripts/dataset/`](scripts/dataset/README.md). **Limitação conhecida:** 
 
 Os documentos são **guias** com tarefas, arquivos previstos, testes e critérios de aceite. Não representam módulos implementados.
 
-```mermaid
-flowchart LR
-    A["02 · Arquitetura e ameaças"] --> B["03 · Banco SQLite"]
-    B --> C["04 · Corte vertical: catálogo + papéis + Ollama"]
-    C --> D["05 · FastAPI + React"]
-    D --> E["06 · Testes e metas"]
-    E -. "implantação posterior" .-> F["07 · Rede privada"]
-    B -. "trilha complementar" .-> G["08 · Integridade"] -.-> H["09 · Auditoria"] -.-> I["10 · Anomalias e ML"]
-```
+![Roadmap do DataGuard AI — trilha principal e trilha complementar](assets/diagrams/roadmap.svg)
 
 | Etapa | Trilha | Objetivo | Documento |
 | --- | --- | --- | --- |
