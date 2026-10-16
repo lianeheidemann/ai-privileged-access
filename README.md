@@ -73,7 +73,7 @@ O ponto de partida é o [**guia de desenvolvimento**](docs/README.md): ele expli
 | Pasta | Conteúdo |
 | --- | --- |
 | [`docs/`](docs/README.md) | Guia de desenvolvimento |
-| [`docs/hardware/`](docs/hardware/README.md) | Estimativa de requisitos de hardware: do MVP em um notebook à operação em alta disponibilidade (mais de 500 funcionários) |
+| [`docs/hardware/`](docs/hardware/README.md) | Estimativa de requisitos de hardware: do MVP em um notebook à operação em alta disponibilidade (+100 funcionários) |
 | [`docs/software/`](docs/software/00-stack-e-decisoes-de-software.md) | Stack e decisões de software, da arquitetura à anomalia e ML |
 | [`docs/software/interface/`](docs/software/interface/README.md) | Guias de direção visual, um por tela: [visão geral](docs/software/interface/visao-geral.md), [fontes de dados](docs/software/interface/fontes-de-dados.md), [consultas](docs/software/interface/consultas.md), [análises](docs/software/interface/analises.md), [assistente](docs/software/interface/assistente.md), [auditoria](docs/software/interface/auditoria.md) e [configurações](docs/software/interface/configuracoes.md) |
 
