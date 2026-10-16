@@ -71,11 +71,11 @@ O ponto de partida é o [**guia de desenvolvimento**](docs/README.md): ele expli
 | Pasta | Conteúdo |
 | --- | --- |
 | [`docs/`](docs/README.md) | Guia de desenvolvimento |
-| [`docs/hardware/`](docs/hardware/README.md) | Estimativa de requisitos de hardware: do MVP em um notebook à operação em alta disponibilidade (+100 funcionários) |
+| [`docs/hardware/`](docs/hardware/) | Estimativa de requisitos de hardware: do MVP em um notebook à operação em alta disponibilidade (+100 funcionários) |
 | [`docs/software/`](docs/software/00-stack-e-decisoes-de-software.md) | Stack e decisões de software, da arquitetura à anomalia e ML |
-| [`docs/software/interface/`](docs/software/interface/README.md) | Guias de direção visual |
+| [`docs/software/interface/`](docs/software/interface/) | Guias de direção visual |
 
-Outros READMEs: [scripts do dataset](scripts/dataset/README.md) (validação e geração).
+Outros READMEs: [scripts do dataset](scripts/dataset/) (validação e geração).
 
 ## Objetivo
 
