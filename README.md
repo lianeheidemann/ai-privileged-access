@@ -244,10 +244,10 @@ dataguard-ai/
 │   └── software/                  # 00 — Stack e decisões; 02–10 — etapas
 │       └── interface/             # Um guia de direção visual por tela
 ├── assets/
-│   ├── badges/                    # Selo "Em construção"
+│   ├── badges/                    
 │   └── diagrams/                  # SVGs da arquitetura e do modelo de dados
 ├── data/
-│   ├── csv/                       # Seis conjuntos sintéticos (v2)
+│   ├── csv/                       # Seis conjuntos sintéticos 
 │   ├── ground_truth/              # Gabarito de anomalias (somente avaliação)
 │   ├── avaliacao/                 # Perguntas do assistente com resultado esperado
 │   ├── dataset_info.json          # Versão, seed, data de referência e limitações
