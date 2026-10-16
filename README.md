@@ -53,7 +53,7 @@
 > - documentação de arquitetura, ameaças e testes;
 > - [stack e decisões de software](docs/software/00-stack-e-decisoes-de-software.md);
 > - [dimensionamento de hardware](docs/hardware/01-dimensionamento-de-hardware.md);
-> - dataset sintético **v2**, validado por script, com gabarito e [conjunto de perguntas de avaliação](data/avaliacao/perguntas_assistente.csv);
+> - dataset sintético, validado por script, com gabarito e [conjunto de perguntas de avaliação](data/avaliacao/perguntas_assistente.csv);
 > - **protótipo visual React** com as sete telas, alimentado por agregados reais do dataset sintético e coberto por testes.
 >
 > **Ainda não implementado:** banco SQLite operacional, serviços Python/FastAPI, autorização por papel, integração com Ollama, consultas reais, validação dos controles de segurança e benchmarks. **Não existe sistema funcional nem aplicação pronta para uso empresarial.**
@@ -172,7 +172,7 @@ As versões exatas em uso, as versões de referência do backend e as alternativ
 
 **Linguagens predominantes:** Python, TypeScript e SQL. O **Node.js** serve apenas às ferramentas de build do frontend. Na distribuição local, o FastAPI servirá o build estático.
 
-## Dados sintéticos v2
+## Dados sintéticos
 
 A pasta [`data/`](data/) contém os CSVs que darão origem ao SQLite local. **Nenhum dado pessoal ou empresarial real.**
 
@@ -194,20 +194,6 @@ Arquivos de apoio:
 | [`avaliacao/perguntas_assistente.csv`](data/avaliacao/perguntas_assistente.csv) | 28 perguntas (normais, acesso negado, adversariais e fora do escopo) com resultado esperado calculado |
 | [`dataset_info.json`](data/dataset_info.json) | Versão, seed, data de referência (**13/10/2026**), histórico e limitações |
 | [`MANIFEST.sha256`](data/MANIFEST.sha256) | Hashes SHA-256 de todos os arquivos de dados |
-
-**A v2 corrigiu vazamentos de rótulo da v1:**
-- as anomalias ocupavam os IDs 701–750;
-- havia textos exclusivos, como "Teste: …" e "Falha recorrente";
-- horários, minutos, prioridades e centavos eram distintos dos registros normais;
-- as rajadas caíam nas mesmas datas;
-- havia chamados antigos abertos sem rótulo.
-
-As contagens foram preservadas. Para verificar:
-
-```powershell
-# Confere contagens, chaves, gabarito, vazamentos e hashes (somente leitura)
-python scripts/dataset/validar_dataset.py
-```
 
 Ver [`scripts/dataset/`](scripts/dataset/README.md). **Limitação conhecida:** as classes foram plantadas por regras determinísticas, então um detector por regras com os mesmos limiares as reproduz por construção. O gabarito valida a **implementação**, não o desempenho em dados reais.
 
