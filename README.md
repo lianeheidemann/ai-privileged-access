@@ -3,13 +3,13 @@
 <p align="center"><strong>PRIVATE AI   •   SECURE DATA ACCESS   •   ON-PREMISES PROCESSING</strong></p>
 
 <p align="center">
-<img src="assets/badges/badge_em-construcao.svg" alt="Em construção" width="230" ><br><br>
 <a href="https://github.com/lianeheidemann/dataguard-ai/actions/workflows/deploy-pages.yml">
 <img alt="CI & Deploy" src="https://img.shields.io/github/actions/workflow/status/lianeheidemann/dataguard-ai/deploy-pages.yml?branch=main&style=flat-square&label=CI%20%26%20Deploy&logo=githubactions&logoColor=white&labelColor=222938">
 </a>
 <a href="https://lianeheidemann.github.io/dataguard-ai/">
 <img alt="Live Demo" src="https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-426D91?style=flat-square&logo=githubpages&logoColor=white&labelColor=222938">
 </a><br>
+  <img src="assets/badges/badge_em-construcao.svg" alt="Em construção" width="230" >
 </p>
 
 ---
