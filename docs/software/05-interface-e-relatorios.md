@@ -1,6 +1,6 @@
 # 05 — API FastAPI e interface React conectada
 
-> **Status:** o **protótipo visual React já existe** em [`frontend/`](../../frontend/README.md), com as sete telas, a stack definida e testes. O que falta nesta etapa é a **API FastAPI** e a troca da API simulada (`frontend/src/services/demo-api.ts`) por chamadas reais. Tudo roda **no próprio computador**, sem hospedagem nem APIs externas.
+> **Status:** o **protótipo visual React já existe** em [`frontend/`](../../frontend/), com as sete telas, a stack definida e testes. O que falta nesta etapa é a **API FastAPI** e a troca da API simulada (`frontend/src/services/demo-api.ts`) por chamadas reais. Tudo roda **no próprio computador**, sem hospedagem nem APIs externas.
 
 **Objetivo:** expor pela API FastAPI os serviços da trilha principal (autorização, catálogo, assistente) e, quando existirem, os da trilha complementar, conectando o protótipo React a eles. A primeira execução é local. A interface corporativa posterior será acessível apenas a usuários autorizados na intranet.
 
