@@ -3,10 +3,16 @@
 <p align="center"><strong>Private AI   ·   Secure Data Access   ·   On-Premises Processing</strong></p>
 
 <p align="center">
-  <img src="assets/badges/badge_em-construcao.svg" alt="Em construção" height="28">
-</p><br>
+<img src="assets/badges/badge_em-construcao.svg" alt="Em construção" width="200" ><br>
+<a href="https://github.com/lianeheidemann/dataguard-ai/actions/workflows/deploy-pages.yml">
+<img alt="CI & Deploy" src="https://img.shields.io/github/actions/workflow/status/lianeheidemann/dataguard-ai/deploy-pages.yml?branch=main&style=flat-square&label=CI%20%26%20Deploy&logo=githubactions&logoColor=white&labelColor=222938">
+</a>
+<a href="https://lianeheidemann.github.io/dataguard-ai/">
+<img alt="Live Demo" src="https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-426D91?style=flat-square&logo=githubpages&logoColor=white&labelColor=222938">
+</a>
+</p>
 
-
+---
 
 <p align="center"><sub><strong>[ BACKEND · BANCO · IA (planejados) ]</strong></sub></p>
 <p align="center">
@@ -28,10 +34,7 @@
   <img height="21" alt="Vitest" src="https://img.shields.io/badge/Vitest-6E9F18?style=for-the-badge&logo=vitest&logoColor=FFFFFF">
 </p>
 
-<p align="center">
-  <a href="https://github.com/lianeheidemann/dataguard-ai/actions/workflows/deploy-pages.yml"><img alt="CI e deploy" src="https://github.com/lianeheidemann/dataguard-ai/actions/workflows/deploy-pages.yml/badge.svg?branch=main"></a>
-  <a href="https://lianeheidemann.github.io/dataguard-ai/"><img alt="Demo" src="https://img.shields.io/badge/demo-GitHub%20Pages-315f7d"></a>
-</p><br>
+---
 
 **DataGuard AI** é um projeto de estudo e validação técnica sobre **segurança na integração de inteligência artificial local a dados empresariais**. A pergunta central é: *quais controles são necessários para que um LLM executado na infraestrutura da organização ajude usuários autorizados a consultar e analisar dados, sem vazar informações nem ampliar privilégios?*
 
