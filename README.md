@@ -75,7 +75,7 @@ O ponto de partida é o [**guia de desenvolvimento**](docs/README.md): ele expli
 | [`docs/software/`](docs/software/00-stack-e-decisoes-de-software.md) | Stack e decisões de software, da arquitetura à anomalia e ML |
 | [`docs/software/interface/`](docs/software/interface/README.md) | Guias de direção visual |
 
-Outros READMEs: [frontend](frontend/README.md) (protótipo visual) e [scripts do dataset](scripts/dataset/README.md) (validação e geração).
+Outros READMEs: [scripts do dataset](scripts/dataset/README.md) (validação e geração).
 
 ## Objetivo
 
