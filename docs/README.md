@@ -31,7 +31,6 @@ Isso valida cedo o hardware, a qualidade do modelo em português e os controles 
 | Etapa | Trilha | Documento | Entrega verificável |
 | --- | --- | --- | --- |
 | 00 | Referência | [Stack e decisões de software](software/00-stack-e-decisoes-de-software.md) | Alternativas, riscos, versões e candidatos a modelo registrados |
-| 01 | Referência | [Dimensionamento de hardware](hardware/README.md) | Hardware do MVP à empresa, com o que medir antes de comprar |
 | 02 | Principal | [Arquitetura e escopo](software/02-arquitetura-e-escopo.md) | Limites, ameaças e decisões registrados |
 | 03 | Principal | [Ambiente e banco](software/03-ambiente-e-banco.md) | SQLite gerado dos CSVs validados; relações conferidas |
 | 04 | Principal | [Assistente local](software/04-assistente-local.md) | Corte vertical com papéis, catálogo somente leitura e Ollama |
@@ -42,7 +41,7 @@ Isso valida cedo o hardware, a qualidade do modelo em português e os controles 
 | 09 | Complementar | [Auditoria e backups](software/09-auditoria-e-backups.md) | Evidências verificáveis e restauração testada |
 | 10 | Complementar | [Anomalias e ML](software/10-anomalias-e-ml.md) | Alertas com evidências; ML exploratório |
 
-> **Numeração alterada em 14/10/2026.** Os documentos de referência passaram a abrir a sequência (00 e 01) e as etapas foram renumeradas na ordem de leitura. Equivalência com a **numeração original**: arquitetura 00 → **02**, banco 01 → **03**, assistente 05 → **04**, interface 06 → **05**, testes 07 → **06**, rede 08 → **07**, integridade 02 → **08**, auditoria 03 → **09**, anomalias 04 → **10**. Os arquivos foram renomeados de acordo e, depois, separados nas pastas `hardware/` e `software/`; se você tem links ou anotações antigos, use esta tabela.
+> **Numeração alterada em 14/10/2026.** O documento de referência passou a abrir a sequência (00) e as etapas foram renumeradas na ordem de leitura. Equivalência com a **numeração original**: arquitetura 00 → **02**, banco 01 → **03**, assistente 05 → **04**, interface 06 → **05**, testes 07 → **06**, rede 08 → **07**, integridade 02 → **08**, auditoria 03 → **09**, anomalias 04 → **10**. Os arquivos foram renomeados de acordo e, depois, separados nas pastas `hardware/` e `software/`. O dimensionamento de hardware, antes numerado como 01, saiu da sequência e virou o [`hardware/README.md`](hardware/README.md); se você tem links ou anotações antigos, use esta tabela.
 
 **Organização das pastas:**
 
@@ -51,9 +50,9 @@ Isso valida cedo o hardware, a qualidade do modelo em português e os controles 
 | [`hardware/`](hardware/README.md) | Dimensionamento de hardware: notebook do MVP, piloto, departamento e empresa |
 | [`software/`](software/00-stack-e-decisoes-de-software.md) | Stack e decisões de software, etapas 02–10 e guias por tela em [`software/interface/`](software/interface/README.md) |
 
-A numeração é única e continua a mesma (00–10), independentemente da pasta; só os caminhos mudaram.
+A numeração (00 e 02–10) é única e vale só para `software/`; `hardware/` não tem número.
 
-**Referência (00 e 01):** não são etapas de implementação. [Stack e decisões de software](software/00-stack-e-decisoes-de-software.md) registra por que cada tecnologia foi escolhida, as alternativas, os riscos e as versões; [Dimensionamento de hardware](hardware/README.md) dimensiona o MVP no notebook e as escalas maiores.
+**Referência (00):** não é etapa de implementação. [Stack e decisões de software](software/00-stack-e-decisoes-de-software.md) registra por que cada tecnologia foi escolhida, as alternativas, os riscos e as versões. Fora da sequência, [Dimensionamento de hardware](hardware/README.md) dimensiona o MVP no notebook e as escalas maiores.
 
 ## Stack e situação
 
@@ -96,7 +95,7 @@ A numeração é única e continua a mesma (00–10), independentemente da pasta
 dataguard-ai/
 ├── README.md
 ├── docs/                         # Guias (esta pasta)
-│   ├── hardware/                 # Dimensionamento de hardware (01)
+│   ├── hardware/                 # Dimensionamento de hardware (sem número)
 │   └── software/                 # Stack e decisões (00), etapas 02–10 e interface/
 ├── data/
 │   ├── csv/                      # Dados sintéticos v2

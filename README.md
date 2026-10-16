@@ -216,7 +216,6 @@ flowchart LR
 | Etapa | Trilha | Objetivo | Documento |
 | --- | --- | --- | --- |
 | 00 | Referência | Alternativas, riscos, versões e candidatos a modelo de cada tecnologia | [Stack e decisões de software](docs/software/00-stack-e-decisoes-de-software.md) |
-| 01 | Referência | Hardware do MVP no notebook até a empresa com alta disponibilidade | [Dimensionamento de hardware](docs/hardware/README.md) |
 | 02 | Principal | Arquitetura, escopo, ameaças e decisões | [Arquitetura e escopo](docs/software/02-arquitetura-e-escopo.md) |
 | 03 | Principal | Ambiente Python, esquema SQLite e importação validada | [Banco de dados](docs/software/03-ambiente-e-banco.md) |
 | 04 | Principal | **Corte vertical:** autorização por papel, catálogo somente leitura e Ollama local | [Assistente local](docs/software/04-assistente-local.md) |
@@ -227,7 +226,7 @@ flowchart LR
 | 09 | Complementar | Auditoria, hashes e backups | [Evidências e backups](docs/software/09-auditoria-e-backups.md) |
 | 10 | Complementar | Regras de anomalia e Isolation Forest exploratório | [Anomalias e ML](docs/software/10-anomalias-e-ml.md) |
 
-Os documentos estão numerados na ordem de leitura: **00–01** de referência, **02–07** na trilha principal e **08–10** na complementar. Consulte o [guia de desenvolvimento](docs/README.md), que traz a equivalência com a numeração antiga.
+Os documentos estão numerados na ordem de leitura: **00** de referência, **02–07** na trilha principal e **08–10** na complementar. Consulte o [guia de desenvolvimento](docs/README.md), que traz a equivalência com a numeração antiga.
 
 ### Estrutura do repositório
 
@@ -240,7 +239,7 @@ dataguard-ai/
 ├── .gitattributes                 # Dados em LF, para os hashes do manifesto
 ├── .gitignore                     # Exclui runtime/, bancos, segredos e builds
 ├── docs/                          # Guia de desenvolvimento (docs/README.md)
-│   ├── hardware/                  # 01 — Dimensionamento de hardware
+│   ├── hardware/                  # Dimensionamento de hardware
 │   └── software/                  # 00 — Stack e decisões; 02–10 — etapas
 │       └── interface/             # Um guia de direção visual por tela
 ├── assets/
