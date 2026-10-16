@@ -43,7 +43,8 @@ O caso de uso é agilizar consultas, análises e relatórios. O protótipo usa *
 >
 > **Já disponível:**
 > - documentação de arquitetura, ameaças e testes;
-> - [decisões tecnológicas](docs/software/00-decisoes-tecnologicas.md);
+> - [decisões tecnológicas de software](docs/software/00-decisoes-tecnologicas.md);
+> - [requisitos de hardware](docs/hardware/01-requisitos-de-hardware.md);
 > - dataset sintético **v2**, validado por script, com gabarito e [conjunto de perguntas de avaliação](data/avaliacao/perguntas_assistente.csv);
 > - **protótipo visual React** com as sete telas, alimentado por agregados reais do dataset sintético e coberto por testes.
 >
