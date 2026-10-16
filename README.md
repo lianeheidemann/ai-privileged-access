@@ -55,6 +55,19 @@ Consulte o [**frontend**](frontend/README.md) ou a [**demonstração no GitHub P
 
 O protótipo **não se conecta** a banco, backend ou IA. Os números vêm de um JSON gerado a partir dos CSVs sintéticos. O assistente demonstra a política de bloqueio (escrita, contorno de regras, segredos, SQL livre, envio externo) e responde só com números do dataset, **sem LLM**.
 
+## Documentação
+
+O ponto de partida é o [**guia de desenvolvimento**](docs/README.md): ele explica as duas trilhas, a ordem de leitura, a stack, o padrão de trabalho e a primeira tarefa. A numeração das etapas (00–10) é única; as pastas apenas agrupam os documentos.
+
+| Pasta | Conteúdo |
+| --- | --- |
+| [`docs/`](docs/README.md) | Guia de desenvolvimento, trilhas, equivalência com a numeração antiga e regra geral de qualidade |
+| [`docs/hardware/`](docs/hardware/01-requisitos-de-hardware.md) | Etapa 01: hardware do notebook do MVP até a empresa com alta disponibilidade |
+| [`docs/software/`](docs/software/00-decisoes-tecnologicas.md) | Decisão tecnológica (00) e etapas 02–10, da arquitetura à anomalia e ML |
+| [`docs/software/interface/`](docs/software/interface/README.md) | Guias de direção visual, um por tela: [visão geral](docs/software/interface/visao-geral.md), [fontes de dados](docs/software/interface/fontes-de-dados.md), [consultas](docs/software/interface/consultas.md), [análises](docs/software/interface/analises.md), [assistente](docs/software/interface/assistente.md), [auditoria](docs/software/interface/auditoria.md) e [configurações](docs/software/interface/configuracoes.md) |
+
+Outros READMEs: [frontend](frontend/README.md) (protótipo visual) e [scripts do dataset](scripts/dataset/README.md) (validação e geração).
+
 ## Objetivo
 
 **Objetivo principal:** investigar e validar os **controles de segurança** necessários para integrar IA local a dados empresariais:
@@ -228,7 +241,9 @@ Diretórios marcados como planejados ainda não existem.
 ~~~text
 dataguard-ai/
 ├── README.md
-├── docs/                          # Requisitos, arquitetura, decisões e testes
+├── docs/                          # Guia de desenvolvimento (docs/README.md)
+│   ├── hardware/                  # Etapa 01: requisitos de hardware
+│   └── software/                  # Etapas 00 e 02–10; interface/ traz um guia por tela
 ├── assets/diagrams/               # SVGs da arquitetura e do modelo de dados
 ├── data/                          # CSVs sintéticos, gabarito, perguntas de avaliação, manifesto
 ├── .github/workflows/             # CI: valida o dataset, testa, compila e publica a demo
