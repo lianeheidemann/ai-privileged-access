@@ -108,7 +108,7 @@ Ainda **não existem resultados medidos**. Estas são as metas de aceite definid
 
 ## Arquitetura do MVP
 
-**Protótipo de validação:** um único notebook Windows 11. O React abre no navegador, mas frontend, backend, banco e IA executam **localmente**, sem hospedagem externa. Referência: RTX 3060 Laptop (6 GB de VRAM) e 16 GB de RAM; veja [Dimensionamento de hardware](docs/hardware/README.md).
+**Protótipo de validação:** um único notebook Windows 11. O React abre no navegador, mas frontend, backend, banco e IA executam **localmente**, sem hospedagem externa. Referência: RTX 3060 Laptop (6 GB de VRAM) e 16 GB de RAM; veja [Dimensionamento de hardware](docs/hardware/).
 
 ![Arquitetura local planejada do DataGuard AI](assets/diagrams/arquitetura-local.svg)
 
