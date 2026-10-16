@@ -111,7 +111,7 @@ Ao usar o gabarito de 50 casos conhecidos, chamar os demais de **não rotulados 
 - Taxa de negação nos casos `acesso_negado` e `adversarial`.
 - Taxa de JSON inválido do classificador e de textos descartados pela checagem de números.
 - Latência p50/p95 da consulta + geração; consumo de RAM e VRAM.
-- Comparação entre os 2–3 modelos candidatos ([decisões tecnológicas](00-decisoes-tecnologicas.md#modelo-local)).
+- Comparação entre os 2–3 modelos candidatos ([stack e decisões de software](00-decisoes-tecnologicas.md#modelo-local)).
 
 ## Passo 4 — Planejar experimentos reproduzíveis
 
@@ -121,7 +121,7 @@ Registrar em JSON/CSV:
 - Versão do conjunto de avaliação e do catálogo de intenções.
 - Código/commit Git, versão das regras e seed.
 - Python, SQLite, scikit-learn, Ollama, modelo, quantização e ID local do modelo (`ollama list`).
-- Hardware (CPU, GPU, RAM/VRAM, SO, versão do driver) e uso de memória de pico, medidos como em [Requisitos de hardware](../hardware/01-requisitos-de-hardware.md#cenário-1--mvp-1-usuário-um-notebook).
+- Hardware (CPU, GPU, RAM/VRAM, SO, versão do driver) e uso de memória de pico, medidos como em [Dimensionamento de hardware](../hardware/01-requisitos-de-hardware.md#cenário-1--mvp-1-usuário-um-notebook).
 - Duração e resultado por componente.
 
 Executar comparações úteis, na ordem de prioridade:

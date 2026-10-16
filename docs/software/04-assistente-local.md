@@ -89,9 +89,9 @@ Ferramentas:
 - **Ollama** servindo modelos instalados localmente, em `127.0.0.1:11434`.
 - Cliente Python mínimo (HTTP para o loopback), com timeout.
 
-Notebook de referência: **RTX 3060 Laptop 6 GB de VRAM + 16 GB de RAM**. O dimensionamento para o MVP e para escalas maiores está em [Requisitos de hardware](../hardware/01-requisitos-de-hardware.md).
+Notebook de referência: **RTX 3060 Laptop 6 GB de VRAM + 16 GB de RAM**. O dimensionamento para o MVP e para escalas maiores está em [Dimensionamento de hardware](../hardware/01-requisitos-de-hardware.md).
 
-**Critério de escolha:** avaliar **2 a 3 modelos candidatos** de 3–4B parâmetros, com quantização Q4, de famílias com bom suporte a português e a saídas estruturadas (JSON). A lista de candidatos e os critérios estão em [Decisões tecnológicas](00-decisoes-tecnologicas.md#modelo-local). Para cada candidato, medir com as perguntas `normal` e `fora_escopo` do conjunto de avaliação:
+**Critério de escolha:** avaliar **2 a 3 modelos candidatos** de 3–4B parâmetros, com quantização Q4, de famílias com bom suporte a português e a saídas estruturadas (JSON). A lista de candidatos e os critérios estão em [Stack e decisões de software](00-decisoes-tecnologicas.md#modelo-local). Para cada candidato, medir com as perguntas `normal` e `fora_escopo` do conjunto de avaliação:
 - acerto na classificação de intenção e na extração de parâmetros;
 - latência p50/p95 e consumo de VRAM/RAM;
 - taxa de saídas JSON inválidas.

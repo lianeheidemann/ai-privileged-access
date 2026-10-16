@@ -274,7 +274,7 @@ flowchart LR
 
 ### Hardware e isolamento do laboratório
 
-> Dimensionamento por número de usuários (piloto, departamento e empresa): [Requisitos de hardware](../hardware/01-requisitos-de-hardware.md).
+> Dimensionamento por número de usuários (piloto, departamento e empresa): [Dimensionamento de hardware](../hardware/01-requisitos-de-hardware.md).
 
 O notebook de referência tem **16 GB de RAM e RTX 3060 Laptop 6 GB de VRAM**. A interface será **React + TypeScript** e a API será **FastAPI**, conforme a escolha de stack do projeto. Prefira, inicialmente, **um único host Windows 11**, com serviços isolados por processos, Docker/WSL2 ou VM, e um modelo pequeno quantizado. Isso permite estudar portas e comunicação sem necessitar de dois computadores físicos.
 

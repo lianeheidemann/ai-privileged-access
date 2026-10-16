@@ -91,7 +91,7 @@ flowchart TD
 | Qualidade de dados (complementar) | Python + SQLite + scikit-learn | Etapas 08–10 |
 | Rede corporativa | PostgreSQL, RLS, TLS, identidade corporativa, segmentação | Etapa 07, **somente após o MVP** |
 
-Justificativas e alternativas estão em [Decisões tecnológicas](00-decisoes-tecnologicas.md).
+Justificativas e alternativas estão em [Stack e decisões de software](00-decisoes-tecnologicas.md).
 
 Em desenvolvimento, Vite, FastAPI e Ollama ficam restritos ao **loopback 127.0.0.1**. Em uso local, depois do build, o FastAPI pode servir os arquivos React compilados, sem Vite e sem hospedagem externa. O **SQLite não tem porta de rede**. O frontend nunca chama o banco nem o Ollama diretamente.
 
