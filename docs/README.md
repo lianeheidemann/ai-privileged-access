@@ -31,7 +31,7 @@ Isso valida cedo o hardware, a qualidade do modelo em português e os controles 
 | Etapa | Trilha | Documento | Entrega verificável |
 | --- | --- | --- | --- |
 | 00 | Referência | [Stack e decisões de software](software/00-stack-e-decisoes-de-software.md) | Alternativas, riscos, versões e candidatos a modelo registrados |
-| 01 | Referência | [Dimensionamento de hardware](hardware/01-dimensionamento-de-hardware.md) | Hardware do MVP à empresa, com o que medir antes de comprar |
+| 01 | Referência | [Dimensionamento de hardware](hardware/README.md) | Hardware do MVP à empresa, com o que medir antes de comprar |
 | 02 | Principal | [Arquitetura e escopo](software/02-arquitetura-e-escopo.md) | Limites, ameaças e decisões registrados |
 | 03 | Principal | [Ambiente e banco](software/03-ambiente-e-banco.md) | SQLite gerado dos CSVs validados; relações conferidas |
 | 04 | Principal | [Assistente local](software/04-assistente-local.md) | Corte vertical com papéis, catálogo somente leitura e Ollama |
@@ -48,12 +48,12 @@ Isso valida cedo o hardware, a qualidade do modelo em português e os controles 
 
 | Pasta | Conteúdo |
 | --- | --- |
-| [`hardware/`](hardware/01-dimensionamento-de-hardware.md) | Dimensionamento de hardware: notebook do MVP, piloto, departamento e empresa |
+| [`hardware/`](hardware/README.md) | Dimensionamento de hardware: notebook do MVP, piloto, departamento e empresa |
 | [`software/`](software/00-stack-e-decisoes-de-software.md) | Stack e decisões de software, etapas 02–10 e guias por tela em [`software/interface/`](software/interface/README.md) |
 
 A numeração é única e continua a mesma (00–10), independentemente da pasta; só os caminhos mudaram.
 
-**Referência (00 e 01):** não são etapas de implementação. [Stack e decisões de software](software/00-stack-e-decisoes-de-software.md) registra por que cada tecnologia foi escolhida, as alternativas, os riscos e as versões; [Dimensionamento de hardware](hardware/01-dimensionamento-de-hardware.md) dimensiona o MVP no notebook e as escalas maiores.
+**Referência (00 e 01):** não são etapas de implementação. [Stack e decisões de software](software/00-stack-e-decisoes-de-software.md) registra por que cada tecnologia foi escolhida, as alternativas, os riscos e as versões; [Dimensionamento de hardware](hardware/README.md) dimensiona o MVP no notebook e as escalas maiores.
 
 ## Stack e situação
 

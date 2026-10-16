@@ -11,7 +11,7 @@ Este documento registra **por que** cada tecnologia foi escolhida, quais alterna
 1. **Execução 100% local** depois do preparo, sem dependência de serviços externos em runtime.
 2. **Superfície de ataque pequena:** poucos serviços, bind em loopback, sem portas de banco.
 3. **Testabilidade:** cada controle de segurança precisa de teste automatizado.
-4. **Hardware de referência:** notebook Windows 11, 16 GB de RAM, RTX 3060 Laptop com 6 GB de VRAM. O dimensionamento para o MVP e para escala está em [Dimensionamento de hardware](../hardware/01-dimensionamento-de-hardware.md).
+4. **Hardware de referência:** notebook Windows 11, 16 GB de RAM, RTX 3060 Laptop com 6 GB de VRAM. O dimensionamento para o MVP e para escala está em [Dimensionamento de hardware](../hardware/README.md).
 5. **Curva de aprendizado e manutenção** compatíveis com um projeto de estudo individual.
 6. **Caminho para a empresa:** a escolha do MVP não pode impedir a etapa 07 (rede privada, outros SGBDs).
 
@@ -19,7 +19,7 @@ Este documento registra **por que** cada tecnologia foi escolhida, quais alterna
 
 ### Frontend (em uso)
 
-Versões exatas do `frontend/package-lock.json`. O `npm ci` instala exatamente estas.
+Versões exatas do [`frontend/package-lock.json`](../../frontend/package-lock.json). O `npm ci` instala exatamente estas.
 
 | Pacote | Versão | Uso |
 | --- | --- | --- |
@@ -116,17 +116,17 @@ Escolha o primeiro que atinja as metas da [etapa 06](06-testes-e-experimentos.md
 | npm (frontend) | `package-lock.json` commitado; `npm ci` na CI; atualizações revisadas |
 | PyPI (backend) | Python ≥ 3.10; `requirements` com versões e hashes (`pip install --require-hashes`) a partir da etapa 03 |
 | Modelos | Identificador registrado; download só na fase de preparo; offline depois |
-| Dados | `data/MANIFEST.sha256` verificado por `validar_dataset.py` na CI |
+| Dados | [`data/MANIFEST.sha256`](../../data/MANIFEST.sha256) verificado por `validar_dataset.py` na CI |
 
 ## Decisões recentes
 
 | Decisão | Motivo | Onde está |
 | --- | --- | --- |
 | Documentos numerados na ordem de leitura: **00–01** (referência), **02–07** (principal) e **08–10** (complementar) | A numeração antiga misturava as trilhas, e os dois documentos de referência ficavam soltos no fim da listagem | [Guia de desenvolvimento](../README.md) |
-| Dados em **LF** (`.gitattributes`) | Os hashes do `MANIFEST.sha256` dependem dos bytes do arquivo; `core.autocrlf` no Windows os alteraria | `.gitattributes` |
-| CI valida o dataset e confere o resumo gerado antes de publicar | Impede que a demo exiba números diferentes dos CSVs | `.github/workflows/deploy-pages.yml` |
+| Dados em **LF** (`.gitattributes`) | Os hashes do `MANIFEST.sha256` dependem dos bytes do arquivo; `core.autocrlf` no Windows os alteraria | [`.gitattributes`](../../.gitattributes) |
+| CI valida o dataset e confere o resumo gerado antes de publicar | Impede que a demo exiba números diferentes dos CSVs | [`.github/workflows/deploy-pages.yml`](../../.github/workflows/deploy-pages.yml) |
 | Nome do repositório mantido: **`dataguard-ai`** | O nome e o endereço da demo já são conhecidos; renomear quebraria o link do Pages | — |
-| Base do Vite derivada do nome do repositório | A demo sobrevive a uma eventual renomeação | `frontend/vite.config.ts` |
+| Base do Vite derivada do nome do repositório | A demo sobrevive a uma eventual renomeação | [`frontend/vite.config.ts`](../../frontend/vite.config.ts) |
 | Descrição e tópicos do GitHub centrados em segurança de IA local | Refletem o objetivo real do projeto | Configurações do repositório |
 
 ## Decisões em aberto
@@ -136,7 +136,7 @@ Escolha o primeiro que atinja as metas da [etapa 06](06-testes-e-experimentos.md
 | **Licença do repositório** | O repositório é público e **não tem arquivo `LICENSE`**: sem licença, ninguém pode reutilizar o código legalmente | Escolher uma (MIT e Apache-2.0 são comuns) ou manter todos os direitos reservados. **Nenhuma foi adicionada sem decisão** |
 | React 18 × 19 | Em uso: 18.3.1 | Avaliar a migração para o 19 e a compatibilidade das bibliotecas (shadcn/ui, Recharts, TanStack) |
 | Modelo local | Candidatos sem verificação oficial | Consultar a biblioteca do Ollama, medir e escolher (ver [Modelo local](#modelo-local)) |
-| Hardware do piloto | Só estimativas, nada medido | Definir o número de usuários simultâneos e medir o modelo escolhido antes de comprar (ver [Dimensionamento de hardware](../hardware/01-dimensionamento-de-hardware.md#como-dimensionar-de-verdade)) |
+| Hardware do piloto | Só estimativas, nada medido | Definir o número de usuários simultâneos e medir o modelo escolhido antes de comprar (ver [Dimensionamento de hardware](../hardware/README.md#como-dimensionar-de-verdade)) |
 | Python do backend | Alvo 3.12+ | Fixar a versão ao criar o `pyproject.toml` |
 | Cifragem do SQLite | BitLocker no MVP | Decidir por SQLCipher ou cifragem do SGBD antes de qualquer dado real |
 
@@ -157,4 +157,4 @@ Escolha o primeiro que atinja as metas da [etapa 06](06-testes-e-experimentos.md
 - [FAQ do Ollama](https://docs.ollama.com/faq): `OLLAMA_NO_CLOUD` e `disable_ollama_cloud` (consultada em 14/10/2026).
 - [README do Ollama](https://cdn.jsdelivr.net/gh/ollama/ollama@0.9.0/README.md): tamanho do Gemma 3 4B (versão 0.9.0, antiga).
 - Listas de modelos de terceiros, **fontes secundárias** e de qualidade irregular: [Morph](https://www.morphllm.com/best-ollama-models), [Toolhalla](https://toolhalla.ai/blog/best-ollama-models-2026). Servem só para levantar candidatos, nunca para confirmar licença ou tamanho.
-- Versões do backend: `pip index versions` em 14/10/2026. Versões do frontend: `frontend/package-lock.json`.
+- Versões do backend: `pip index versions` em 14/10/2026. Versões do frontend: [`frontend/package-lock.json`](../../frontend/package-lock.json).

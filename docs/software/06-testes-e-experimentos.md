@@ -121,7 +121,7 @@ Registrar em JSON/CSV:
 - Versão do conjunto de avaliação e do catálogo de intenções.
 - Código/commit Git, versão das regras e seed.
 - Python, SQLite, scikit-learn, Ollama, modelo, quantização e ID local do modelo (`ollama list`).
-- Hardware (CPU, GPU, RAM/VRAM, SO, versão do driver) e uso de memória de pico, medidos como em [Dimensionamento de hardware](../hardware/01-dimensionamento-de-hardware.md#cenário-1--mvp-1-usuário-um-notebook).
+- Hardware (CPU, GPU, RAM/VRAM, SO, versão do driver) e uso de memória de pico, medidos como em [Dimensionamento de hardware](../hardware/README.md#cenário-1--mvp-1-usuário-um-notebook).
 - Duração e resultado por componente.
 
 Executar comparações úteis, na ordem de prioridade:

@@ -52,7 +52,7 @@
 > **Já disponível:**
 > - documentação de arquitetura, ameaças e testes;
 > - [stack e decisões de software](docs/software/00-stack-e-decisoes-de-software.md);
-> - [dimensionamento de hardware](docs/hardware/01-dimensionamento-de-hardware.md);
+> - [dimensionamento de hardware](docs/hardware/README.md);
 > - dataset sintético, validado por script, com gabarito e [conjunto de perguntas de avaliação](data/avaliacao/perguntas_assistente.csv);
 > - **protótipo visual React** com as sete telas, alimentado por agregados reais do dataset sintético e coberto por testes.
 >
@@ -168,7 +168,7 @@ A justificativa, as alternativas consideradas e os riscos de cada escolha estão
 | Testes do backend | **pytest** | Planejado |
 | Fontes corporativas | Conectores somente leitura para **PostgreSQL, SQL Server, MySQL** | Futuro (etapa 07) |
 
-As versões exatas em uso, as versões de referência do backend e as alternativas consideradas estão em [Stack e decisões de software](docs/software/00-stack-e-decisoes-de-software.md#versões). O hardware necessário para o MVP e para escalas maiores está em [Dimensionamento de hardware](docs/hardware/01-dimensionamento-de-hardware.md).
+As versões exatas em uso, as versões de referência do backend e as alternativas consideradas estão em [Stack e decisões de software](docs/software/00-stack-e-decisoes-de-software.md#versões). O hardware necessário para o MVP e para escalas maiores está em [Dimensionamento de hardware](docs/hardware/README.md).
 
 **Linguagens predominantes:** Python, TypeScript e SQL. O **Node.js** serve apenas às ferramentas de build do frontend. Na distribuição local, o FastAPI servirá o build estático.
 
@@ -216,7 +216,7 @@ flowchart LR
 | Etapa | Trilha | Objetivo | Documento |
 | --- | --- | --- | --- |
 | 00 | Referência | Alternativas, riscos, versões e candidatos a modelo de cada tecnologia | [Stack e decisões de software](docs/software/00-stack-e-decisoes-de-software.md) |
-| 01 | Referência | Hardware do MVP no notebook até a empresa com alta disponibilidade | [Dimensionamento de hardware](docs/hardware/01-dimensionamento-de-hardware.md) |
+| 01 | Referência | Hardware do MVP no notebook até a empresa com alta disponibilidade | [Dimensionamento de hardware](docs/hardware/README.md) |
 | 02 | Principal | Arquitetura, escopo, ameaças e decisões | [Arquitetura e escopo](docs/software/02-arquitetura-e-escopo.md) |
 | 03 | Principal | Ambiente Python, esquema SQLite e importação validada | [Banco de dados](docs/software/03-ambiente-e-banco.md) |
 | 04 | Principal | **Corte vertical:** autorização por papel, catálogo somente leitura e Ollama local | [Assistente local](docs/software/04-assistente-local.md) |
