@@ -41,7 +41,8 @@
 
 **DataGuard AI** é um projeto de estudo e validação técnica sobre **segurança na integração de inteligência artificial local a dados empresariais**. A pergunta central é: *quais controles são necessários para que um LLM executado na infraestrutura da organização ajude usuários autorizados a consultar e analisar dados, sem vazar informações nem ampliar privilégios?*
 
-O caso de uso é agilizar consultas, análises e relatórios. O protótipo usa **SQLite e dados 100% sintéticos**. A arquitetura prevê conectores somente leitura para outros SGBDs, sem migrar as fontes corporativas.
+> [!NOTE]
+> O caso de uso é agilizar consultas, análises e relatórios. O protótipo usa **SQLite e dados 100% sintéticos**. A arquitetura prevê conectores somente leitura para outros SGBDs, sem migrar as fontes corporativas.
 
 ## Status atual
 
