@@ -9,7 +9,7 @@
 <a href="https://lianeheidemann.github.io/dataguard-ai/">
 <img alt="Live Demo" src="https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-426D91?style=flat-square&logo=githubpages&logoColor=white&labelColor=222938">
 </a><br>
-  <img src="assets/badges/badge_em-construcao.svg" alt="Em construção" width="230" >
+  <img src="assets/badges/badge_em-construcao.svg" alt="Em construção" width="210" >
 </p>
 
 ---
