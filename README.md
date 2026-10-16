@@ -271,9 +271,10 @@ dataguard-ai/
 
 ## Segurança e limitações
 
-**Requisito central:** nenhum dado corporativo pode ser enviado a APIs externas ou a serviços de inferência em nuvem.
-- O Ollama usará **apenas modelos locais**, sem fallback hospedado, com recursos de nuvem desabilitados e bloqueados por política de rede verificável.
-- **API interna não é API externa:** FastAPI e Ollama se comunicam somente dentro da infraestrutura autorizada.
+> [!CAUTION]
+> **Requisito central:** nenhum dado corporativo pode ser enviado a APIs externas ou a serviços de inferência em nuvem.
+> - O Ollama usará **apenas modelos locais**, sem fallback hospedado, com recursos de nuvem desabilitados e bloqueados por política de rede verificável.
+> - **API interna não é API externa:** FastAPI e Ollama se comunicam somente dentro da infraestrutura autorizada.
 
 **Controle de consultas:** o assistente não tem acesso direto ao SGBD. Antes de executar uma consulta do catálogo, com credencial de privilégio mínimo, o backend valida:
 - identidade e papel;
