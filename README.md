@@ -71,11 +71,11 @@ O ponto de partida é o [**guia de desenvolvimento**](docs/README.md): ele expli
 | Pasta | Conteúdo |
 | --- | --- |
 | [`docs/`](docs/README.md) | Guia de desenvolvimento |
-| [`docs/hardware/`](docs/hardware/README.md) | Estimativa de requisitos de hardware: do MVP em um notebook à operação em alta disponibilidade (+100 funcionários) |
+| [`docs/hardware/`](docs/hardware/) | Estimativa de requisitos de hardware: do MVP em um notebook à operação em alta disponibilidade (+100 funcionários) |
 | [`docs/software/`](docs/software/00-stack-e-decisoes-de-software.md) | Stack e decisões de software, da arquitetura à anomalia e ML |
-| [`docs/software/interface/`](docs/software/interface/README.md) | Guias de direção visual |
+| [`docs/software/interface/`](docs/software/interface/) | Guias de direção visual |
 
-Outros READMEs: [scripts do dataset](scripts/dataset/README.md) (validação e geração).
+Outros READMEs: [scripts do dataset](scripts/dataset/) (validação e geração).
 
 ## Objetivo
 
@@ -108,7 +108,7 @@ Ainda **não existem resultados medidos**. Estas são as metas de aceite definid
 
 ## Arquitetura do MVP
 
-**Protótipo de validação:** um único notebook Windows 11. O React abre no navegador, mas frontend, backend, banco e IA executam **localmente**, sem hospedagem externa. Referência: RTX 3060 Laptop (6 GB de VRAM) e 16 GB de RAM; veja [Dimensionamento de hardware](docs/hardware/01-dimensionamento-de-hardware.md).
+**Protótipo de validação:** um único notebook Windows 11. O React abre no navegador, mas frontend, backend, banco e IA executam **localmente**, sem hospedagem externa. Referência: RTX 3060 Laptop (6 GB de VRAM) e 16 GB de RAM; veja [Dimensionamento de hardware](docs/hardware/README.md).
 
 ![Arquitetura local planejada do DataGuard AI](assets/diagrams/arquitetura-local.svg)
 
@@ -244,10 +244,10 @@ dataguard-ai/
 │   └── software/                  # 00 — Stack e decisões; 02–10 — etapas
 │       └── interface/             # Um guia de direção visual por tela
 ├── assets/
-│   ├── badges/                    # Selo "Em construção"
+│   ├── badges/                    
 │   └── diagrams/                  # SVGs da arquitetura e do modelo de dados
 ├── data/
-│   ├── csv/                       # Seis conjuntos sintéticos (v2)
+│   ├── csv/                       # Seis conjuntos sintéticos 
 │   ├── ground_truth/              # Gabarito de anomalias (somente avaliação)
 │   ├── avaliacao/                 # Perguntas do assistente com resultado esperado
 │   ├── dataset_info.json          # Versão, seed, data de referência e limitações
