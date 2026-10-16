@@ -37,7 +37,7 @@ python --version
 Se a execução de scripts estiver bloqueada, use o Python diretamente pelo caminho `.venv\Scripts\python.exe` ou ajuste a política **somente no escopo apropriado**. O projeto usa SQLite pela biblioteca padrão. **Não é necessário instalar Node.js, React, Tailwind ou FastAPI para executar esta etapa.**
 
 Arquivos a criar nesta etapa:
-- `pyproject.toml` — metadados (Python ≥ 3.10; alvo 3.12 ou superior, ver [Decisões tecnológicas](00-decisoes-tecnologicas.md#versões)) e dependência de `pytest` com versão fixada. Gere os hashes (`pip install --require-hashes`) quando as dependências crescerem.
+- `pyproject.toml` — metadados (Python ≥ 3.10; alvo 3.12 ou superior, ver [Stack e decisões de software](00-stack-e-decisoes-de-software.md#versões)) e dependência de `pytest` com versão fixada. Gere os hashes (`pip install --require-hashes`) quando as dependências crescerem.
 - O `.gitignore` da raiz já ignora `.venv/`, `__pycache__/`, `runtime/`, `.env`, chaves e `*.db`/`*.sqlite3`. Revise-o, mas não o recrie.
 - `src/dataguard/db/schema.sql` — criação das tabelas.
 - `src/dataguard/db/connection.py` — conexão configurada.

@@ -43,7 +43,8 @@ O caso de uso é agilizar consultas, análises e relatórios. O protótipo usa *
 >
 > **Já disponível:**
 > - documentação de arquitetura, ameaças e testes;
-> - [decisões tecnológicas](docs/software/00-decisoes-tecnologicas.md);
+> - [stack e decisões de software](docs/software/00-stack-e-decisoes-de-software.md);
+> - [dimensionamento de hardware](docs/hardware/01-dimensionamento-de-hardware.md);
 > - dataset sintético **v2**, validado por script, com gabarito e [conjunto de perguntas de avaliação](data/avaliacao/perguntas_assistente.csv);
 > - **protótipo visual React** com as sete telas, alimentado por agregados reais do dataset sintético e coberto por testes.
 >
@@ -54,6 +55,19 @@ O caso de uso é agilizar consultas, análises e relatórios. O protótipo usa *
 Consulte o [**frontend**](frontend/README.md) ou a [**demonstração no GitHub Pages**](https://lianeheidemann.github.io/dataguard-ai/). As sete telas usam Tailwind CSS, componentes no padrão shadcn/ui, TanStack Table/Query e Recharts, com temas claro e escuro.
 
 O protótipo **não se conecta** a banco, backend ou IA. Os números vêm de um JSON gerado a partir dos CSVs sintéticos. O assistente demonstra a política de bloqueio (escrita, contorno de regras, segredos, SQL livre, envio externo) e responde só com números do dataset, **sem LLM**.
+
+## Documentação
+
+O ponto de partida é o [**guia de desenvolvimento**](docs/README.md): ele explica as duas trilhas, a ordem de leitura, a stack, o padrão de trabalho e a primeira tarefa. A numeração das etapas (00–10) é única; as pastas apenas agrupam os documentos.
+
+| Pasta | Conteúdo |
+| --- | --- |
+| [`docs/`](docs/README.md) | Guia de desenvolvimento, trilhas, equivalência com a numeração antiga e regra geral de qualidade |
+| [`docs/hardware/`](docs/hardware/01-dimensionamento-de-hardware.md) | Etapa 01: hardware do notebook do MVP até a empresa com alta disponibilidade |
+| [`docs/software/`](docs/software/00-stack-e-decisoes-de-software.md) | Stack e decisões de software (00) e etapas 02–10, da arquitetura à anomalia e ML |
+| [`docs/software/interface/`](docs/software/interface/README.md) | Guias de direção visual, um por tela: [visão geral](docs/software/interface/visao-geral.md), [fontes de dados](docs/software/interface/fontes-de-dados.md), [consultas](docs/software/interface/consultas.md), [análises](docs/software/interface/analises.md), [assistente](docs/software/interface/assistente.md), [auditoria](docs/software/interface/auditoria.md) e [configurações](docs/software/interface/configuracoes.md) |
+
+Outros READMEs: [frontend](frontend/README.md) (protótipo visual) e [scripts do dataset](scripts/dataset/README.md) (validação e geração).
 
 ## Objetivo
 
@@ -86,7 +100,7 @@ Ainda **não existem resultados medidos**. Estas são as metas de aceite definid
 
 ## Arquitetura do MVP
 
-**Protótipo de validação:** um único notebook Windows 11. O React abre no navegador, mas frontend, backend, banco e IA executam **localmente**, sem hospedagem externa. Referência: RTX 3060 Laptop (6 GB de VRAM) e 16 GB de RAM; veja [Requisitos de hardware](docs/hardware/01-requisitos-de-hardware.md).
+**Protótipo de validação:** um único notebook Windows 11. O React abre no navegador, mas frontend, backend, banco e IA executam **localmente**, sem hospedagem externa. Referência: RTX 3060 Laptop (6 GB de VRAM) e 16 GB de RAM; veja [Dimensionamento de hardware](docs/hardware/01-dimensionamento-de-hardware.md).
 
 ![Arquitetura local planejada do DataGuard AI](assets/diagrams/arquitetura-local.svg)
 
@@ -129,7 +143,7 @@ Requisitos de segurança dessa fase:
 
 ## Tecnologias
 
-A justificativa, as alternativas consideradas e os riscos de cada escolha estão em [**Decisões tecnológicas**](docs/software/00-decisoes-tecnologicas.md).
+A justificativa, as alternativas consideradas e os riscos de cada escolha estão em [**Stack e decisões de software**](docs/software/00-stack-e-decisoes-de-software.md).
 
 | Camada | Stack | Situação |
 | --- | --- | --- |
@@ -146,7 +160,7 @@ A justificativa, as alternativas consideradas e os riscos de cada escolha estão
 | Testes do backend | **pytest** | Planejado |
 | Fontes corporativas | Conectores somente leitura para **PostgreSQL, SQL Server, MySQL** | Futuro (etapa 07) |
 
-As versões exatas em uso, as versões de referência do backend e as alternativas consideradas estão em [Decisões tecnológicas](docs/software/00-decisoes-tecnologicas.md#versões). O hardware necessário para o MVP e para escalas maiores está em [Requisitos de hardware](docs/hardware/01-requisitos-de-hardware.md).
+As versões exatas em uso, as versões de referência do backend e as alternativas consideradas estão em [Stack e decisões de software](docs/software/00-stack-e-decisoes-de-software.md#versões). O hardware necessário para o MVP e para escalas maiores está em [Dimensionamento de hardware](docs/hardware/01-dimensionamento-de-hardware.md).
 
 **Linguagens predominantes:** Python, TypeScript e SQL. O **Node.js** serve apenas às ferramentas de build do frontend. Na distribuição local, o FastAPI servirá o build estático.
 
@@ -207,8 +221,8 @@ flowchart LR
 
 | Etapa | Trilha | Objetivo | Documento |
 | --- | --- | --- | --- |
-| 00 | Referência | Alternativas, riscos, versões e candidatos a modelo de cada tecnologia | [Decisões tecnológicas](docs/software/00-decisoes-tecnologicas.md) |
-| 01 | Referência | Hardware do MVP no notebook até a empresa com alta disponibilidade | [Requisitos de hardware](docs/hardware/01-requisitos-de-hardware.md) |
+| 00 | Referência | Alternativas, riscos, versões e candidatos a modelo de cada tecnologia | [Stack e decisões de software](docs/software/00-stack-e-decisoes-de-software.md) |
+| 01 | Referência | Hardware do MVP no notebook até a empresa com alta disponibilidade | [Dimensionamento de hardware](docs/hardware/01-dimensionamento-de-hardware.md) |
 | 02 | Principal | Arquitetura, escopo, ameaças e decisões | [Arquitetura e escopo](docs/software/02-arquitetura-e-escopo.md) |
 | 03 | Principal | Ambiente Python, esquema SQLite e importação validada | [Banco de dados](docs/software/03-ambiente-e-banco.md) |
 | 04 | Principal | **Corte vertical:** autorização por papel, catálogo somente leitura e Ollama local | [Assistente local](docs/software/04-assistente-local.md) |
@@ -228,7 +242,9 @@ Diretórios marcados como planejados ainda não existem.
 ~~~text
 dataguard-ai/
 ├── README.md
-├── docs/                          # Requisitos, arquitetura, decisões e testes
+├── docs/                          # Guia de desenvolvimento (docs/README.md)
+│   ├── hardware/                  # Etapa 01: dimensionamento de hardware
+│   └── software/                  # Etapas 00 e 02–10; interface/ traz um guia por tela
 ├── assets/diagrams/               # SVGs da arquitetura e do modelo de dados
 ├── data/                          # CSVs sintéticos, gabarito, perguntas de avaliação, manifesto
 ├── .github/workflows/             # CI: valida o dataset, testa, compila e publica a demo
@@ -279,4 +295,4 @@ A IA não poderá executar SQL arbitrário nem alterar o banco. Alertas de quali
 
 ## Licença
 
-Ainda **não definida**: o repositório não tem arquivo `LICENSE`, e sem ele o código não pode ser reutilizado. A escolha está registrada como decisão em aberto em [Decisões tecnológicas](docs/software/00-decisoes-tecnologicas.md#decisões-em-aberto).
+Ainda **não definida**: o repositório não tem arquivo `LICENSE`, e sem ele o código não pode ser reutilizado. A escolha está registrada como decisão em aberto em [Stack e decisões de software](docs/software/00-stack-e-decisoes-de-software.md#decisões-em-aberto).

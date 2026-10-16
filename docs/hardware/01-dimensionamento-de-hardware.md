@@ -1,8 +1,8 @@
-# 01 — Requisitos de hardware
+# 01 — Dimensionamento de hardware
 
 > **Última revisão:** 14/10/2026.
 
-Este documento dimensiona o hardware do DataGuard AI para quatro cenários: o **MVP** em um notebook, um **piloto**, um **departamento** e uma **empresa** com alta disponibilidade. Ele complementa as [decisões tecnológicas](../software/00-decisoes-tecnologicas.md) e a [etapa 07](../software/07-arquitetura-de-rede-e-seguranca.md).
+Este documento dimensiona o hardware do DataGuard AI para quatro cenários: o **MVP** em um notebook, um **piloto**, um **departamento** e uma **empresa** com alta disponibilidade. Ele complementa a [stack e decisões de software](../software/00-stack-e-decisoes-de-software.md) e a [etapa 07](../software/07-arquitetura-de-rede-e-seguranca.md).
 
 ## Como ler este documento
 
@@ -57,7 +57,7 @@ Aplicada a tamanhos comuns de modelo (valores **calculados pela regra**; apenas 
 | CPU | 4 núcleos | 6 a 8 núcleos | A registrar na etapa 06 |
 | Disco | SSD com 20 GB livres | SSD com 50 GB livres | A registrar |
 | Sistema | Windows 11 | Windows 11 com BitLocker | **Windows 11** |
-| Modelo | 3–4B em Q4 | 3–4B em Q4 | A escolher (ver [Modelo local](../software/00-decisoes-tecnologicas.md#modelo-local)) |
+| Modelo | 3–4B em Q4 | 3–4B em Q4 | A escolher (ver [Modelo local](../software/00-stack-e-decisoes-de-software.md#modelo-local)) |
 
 **O que cabe nos 6 GB da referência (estimativa):**
 - Um modelo de **3–4B em Q4** (pesos de ~2 a 2,5 GB) cabe com contexto de cerca de 4k tokens e folga.
