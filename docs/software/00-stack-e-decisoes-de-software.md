@@ -19,7 +19,7 @@ Este documento registra **por que** cada tecnologia foi escolhida, quais alterna
 
 ### Frontend (em uso)
 
-Versões exatas do `frontend/package-lock.json`. O `npm ci` instala exatamente estas.
+Versões exatas do [`frontend/package-lock.json`](../../frontend/package-lock.json). O `npm ci` instala exatamente estas.
 
 | Pacote | Versão | Uso |
 | --- | --- | --- |
@@ -116,17 +116,17 @@ Escolha o primeiro que atinja as metas da [etapa 06](06-testes-e-experimentos.md
 | npm (frontend) | `package-lock.json` commitado; `npm ci` na CI; atualizações revisadas |
 | PyPI (backend) | Python ≥ 3.10; `requirements` com versões e hashes (`pip install --require-hashes`) a partir da etapa 03 |
 | Modelos | Identificador registrado; download só na fase de preparo; offline depois |
-| Dados | `data/MANIFEST.sha256` verificado por `validar_dataset.py` na CI |
+| Dados | [`data/MANIFEST.sha256`](../../data/MANIFEST.sha256) verificado por `validar_dataset.py` na CI |
 
 ## Decisões recentes
 
 | Decisão | Motivo | Onde está |
 | --- | --- | --- |
 | Documentos numerados na ordem de leitura: **00–01** (referência), **02–07** (principal) e **08–10** (complementar) | A numeração antiga misturava as trilhas, e os dois documentos de referência ficavam soltos no fim da listagem | [Guia de desenvolvimento](../README.md) |
-| Dados em **LF** (`.gitattributes`) | Os hashes do `MANIFEST.sha256` dependem dos bytes do arquivo; `core.autocrlf` no Windows os alteraria | `.gitattributes` |
-| CI valida o dataset e confere o resumo gerado antes de publicar | Impede que a demo exiba números diferentes dos CSVs | `.github/workflows/deploy-pages.yml` |
+| Dados em **LF** (`.gitattributes`) | Os hashes do `MANIFEST.sha256` dependem dos bytes do arquivo; `core.autocrlf` no Windows os alteraria | [`.gitattributes`](../../.gitattributes) |
+| CI valida o dataset e confere o resumo gerado antes de publicar | Impede que a demo exiba números diferentes dos CSVs | [`.github/workflows/deploy-pages.yml`](../../.github/workflows/deploy-pages.yml) |
 | Nome do repositório mantido: **`dataguard-ai`** | O nome e o endereço da demo já são conhecidos; renomear quebraria o link do Pages | — |
-| Base do Vite derivada do nome do repositório | A demo sobrevive a uma eventual renomeação | `frontend/vite.config.ts` |
+| Base do Vite derivada do nome do repositório | A demo sobrevive a uma eventual renomeação | [`frontend/vite.config.ts`](../../frontend/vite.config.ts) |
 | Descrição e tópicos do GitHub centrados em segurança de IA local | Refletem o objetivo real do projeto | Configurações do repositório |
 
 ## Decisões em aberto
@@ -157,4 +157,4 @@ Escolha o primeiro que atinja as metas da [etapa 06](06-testes-e-experimentos.md
 - [FAQ do Ollama](https://docs.ollama.com/faq): `OLLAMA_NO_CLOUD` e `disable_ollama_cloud` (consultada em 14/10/2026).
 - [README do Ollama](https://cdn.jsdelivr.net/gh/ollama/ollama@0.9.0/README.md): tamanho do Gemma 3 4B (versão 0.9.0, antiga).
 - Listas de modelos de terceiros, **fontes secundárias** e de qualidade irregular: [Morph](https://www.morphllm.com/best-ollama-models), [Toolhalla](https://toolhalla.ai/blog/best-ollama-models-2026). Servem só para levantar candidatos, nunca para confirmar licença ou tamanho.
-- Versões do backend: `pip index versions` em 14/10/2026. Versões do frontend: `frontend/package-lock.json`.
+- Versões do backend: `pip index versions` em 14/10/2026. Versões do frontend: [`frontend/package-lock.json`](../../frontend/package-lock.json).
