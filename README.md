@@ -17,7 +17,7 @@
 <table align="center" width="100%">
 <tr>
 <td>
-<p align="center"><sub><strong>[ BACKEND · BANCO · IA (planejados) ]</strong></sub></p>
+<p align="center"><sub><strong> BACKEND · BANCO · IA (planejados) </strong></sub></p>
 <p align="center">
   <img height="21" alt="Python" src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=FFFFFF">
   <img height="21" alt="FastAPI" src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=FFFFFF">
@@ -25,7 +25,7 @@
   <img height="21" alt="Ollama" src="https://img.shields.io/badge/Ollama-000000?style=for-the-badge&logo=ollama&logoColor=FFFFFF">
   <img height="21" alt="scikit-learn" src="https://img.shields.io/badge/scikit--learn-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=FFFFFF">
 </p>
-<p align="center"><sub><strong>[ FRONTEND · PROTÓTIPO VISUAL (em uso) ]</strong></sub></p>
+<p align="center"><sub><strong> FRONTEND · PROTÓTIPO VISUAL (em uso) </strong></sub></p>
 <p align="center">
   <img height="21" alt="React" src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB">
   <img height="21" alt="TypeScript" src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=FFFFFF">
