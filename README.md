@@ -168,7 +168,7 @@ As versões exatas em uso, as versões de referência do backend e as alternativ
 
 **Linguagens predominantes:** Python, TypeScript e SQL. O **Node.js** serve apenas às ferramentas de build do frontend. Na distribuição local, o FastAPI servirá o build estático.
 
-## Dados sintéticos — versão 2
+## Dados sintéticos v2
 
 A pasta [`data/`](data/) contém os CSVs que darão origem ao SQLite local. **Nenhum dado pessoal ou empresarial real.**
 
