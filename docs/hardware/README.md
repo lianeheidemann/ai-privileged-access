@@ -1,4 +1,4 @@
-# 01 — Dimensionamento de hardware
+# Dimensionamento de hardware
 
 > **Última revisão:** 14/10/2026.
 
