@@ -62,7 +62,7 @@ O ponto de partida é o [**guia de desenvolvimento**](docs/README.md): ele expli
 
 | Pasta | Conteúdo |
 | --- | --- |
-| [`docs/`](docs/README.md) | Guia de desenvolvimento, trilhas, equivalência com a numeração antiga e regra geral de qualidade |
+| [`docs/`](docs/README.md) | Guia de desenvolvimento |
 | [`docs/hardware/`](docs/hardware/01-dimensionamento-de-hardware.md) | Etapa 01: hardware do notebook do MVP até a empresa com alta disponibilidade |
 | [`docs/software/`](docs/software/00-stack-e-decisoes-de-software.md) | Stack e decisões de software (00) e etapas 02–10, da arquitetura à anomalia e ML |
 | [`docs/software/interface/`](docs/software/interface/README.md) | Guias de direção visual, um por tela: [visão geral](docs/software/interface/visao-geral.md), [fontes de dados](docs/software/interface/fontes-de-dados.md), [consultas](docs/software/interface/consultas.md), [análises](docs/software/interface/analises.md), [assistente](docs/software/interface/assistente.md), [auditoria](docs/software/interface/auditoria.md) e [configurações](docs/software/interface/configuracoes.md) |
