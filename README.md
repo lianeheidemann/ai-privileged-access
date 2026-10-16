@@ -241,20 +241,31 @@ Os documentos estão numerados na ordem de leitura: **00–01** de referência, 
 
 ### Estrutura do repositório
 
-Diretórios marcados como planejados ainda não existem.
+Itens sem marcação **existem no repositório**. Os marcados como *(planejado)* ou *(futuro)* ainda não foram criados.
 
 ~~~text
 dataguard-ai/
 ├── README.md
-├── docs/                          # Guia de desenvolvimento (docs/README.md)
-│   ├── hardware/                  # Etapa 01: dimensionamento de hardware
-│   └── software/                  # Etapas 00 e 02–10; interface/ traz um guia por tela
-├── assets/diagrams/               # SVGs da arquitetura e do modelo de dados
-├── data/                          # CSVs sintéticos, gabarito, perguntas de avaliação, manifesto
 ├── .github/workflows/             # CI: valida o dataset, testa, compila e publica a demo
-├── scripts/dataset/               # Validação e geração de artefatos do dataset
+├── .gitattributes                 # Dados em LF, para os hashes do manifesto
+├── .gitignore                     # Exclui runtime/, bancos, segredos e builds
+├── docs/                          # Guia de desenvolvimento (docs/README.md)
+│   ├── hardware/                  # 01 — Dimensionamento de hardware
+│   └── software/                  # 00 — Stack e decisões; 02–10 — etapas
+│       └── interface/             # Um guia de direção visual por tela
+├── assets/
+│   ├── badges/                    # Selo "Em construção"
+│   └── diagrams/                  # SVGs da arquitetura e do modelo de dados
+├── data/
+│   ├── csv/                       # Seis conjuntos sintéticos (v2)
+│   ├── ground_truth/              # Gabarito de anomalias (somente avaliação)
+│   ├── avaliacao/                 # Perguntas do assistente com resultado esperado
+│   ├── dataset_info.json          # Versão, seed, data de referência e limitações
+│   └── MANIFEST.sha256            # Hashes SHA-256 dos arquivos de dados
+├── scripts/dataset/               # Validação, manifesto, perguntas e resumo do frontend
 ├── config/                        # Exemplos sem segredos (usuários e papéis fictícios)
-├── frontend/                      # Protótipo React + TypeScript + Vite (implementado)
+├── frontend/                      # Protótipo React + TypeScript + Vite
+│   └── src/                       # pages/, components/, services/ (API simulada), lib/, test/
 ├── src/dataguard/                 # Backend Python (planejado)
 │   ├── db/                        # SQLite de demonstração
 │   ├── security/                  # Autenticação local, papéis e políticas
@@ -263,9 +274,10 @@ dataguard-ai/
 │   ├── reports/                   # Exportação controlada
 │   ├── integrity/ audit/ detection/   # Trilha complementar
 │   └── connectors/                # Fontes corporativas somente leitura (futuro)
-├── deployment/                    # Laboratório corporativo futuro
 ├── tests/                         # Testes Python (planejado)
-└── runtime/                       # Bancos, logs e evidências locais; fora do Git
+├── pyproject.toml                 # Metadados e dependências do backend (planejado)
+├── deployment/                    # Laboratório corporativo futuro
+└── runtime/                       # Bancos, logs e evidências locais; fora do Git (planejado)
 ~~~
 
 ## Segurança e limitações
