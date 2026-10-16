@@ -1,25 +1,29 @@
-# DataGuard AI
+<h1 align="center">DataGuard AI</h1>
 
-<p>
-  <img src="assets/badges/badge_em-construcao.svg" alt="Em construção" height="28">
+<p align="center"><strong>Private AI   ·   Secure Data Access   ·   On-Premises Processing</strong></p>
+
+<p align="center">
+<img src="assets/badges/badge_em-construcao.svg" alt="Em construção" width="200" ><br>
+<a href="https://github.com/lianeheidemann/dataguard-ai/actions/workflows/deploy-pages.yml">
+<img alt="CI & Deploy" src="https://img.shields.io/github/actions/workflow/status/lianeheidemann/dataguard-ai/deploy-pages.yml?branch=main&style=flat-square&label=CI%20%26%20Deploy&logo=githubactions&logoColor=white&labelColor=222938">
+</a>
+<a href="https://lianeheidemann.github.io/dataguard-ai/">
+<img alt="Live Demo" src="https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-426D91?style=flat-square&logo=githubpages&logoColor=white&labelColor=222938">
+</a>
 </p>
 
-<p>
-  <a href="https://github.com/lianeheidemann/dataguard-ai/actions/workflows/deploy-pages.yml"><img alt="CI e deploy" src="https://github.com/lianeheidemann/dataguard-ai/actions/workflows/deploy-pages.yml/badge.svg?branch=main"></a>
-  <a href="https://lianeheidemann.github.io/dataguard-ai/"><img alt="Demo" src="https://img.shields.io/badge/demo-GitHub%20Pages-315f7d"></a>
-</p>
+---
 
-<p><sub><strong>BACKEND · BANCO · IA (planejados)</strong></sub></p>
-<p>
+<p align="center"><sub><strong>[ BACKEND · BANCO · IA (planejados) ]</strong></sub></p>
+<p align="center">
   <img height="21" alt="Python" src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=FFFFFF">
   <img height="21" alt="FastAPI" src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=FFFFFF">
   <img height="21" alt="SQLite" src="https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=FFFFFF">
   <img height="21" alt="Ollama" src="https://img.shields.io/badge/Ollama-000000?style=for-the-badge&logo=ollama&logoColor=FFFFFF">
   <img height="21" alt="scikit-learn" src="https://img.shields.io/badge/scikit--learn-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=FFFFFF">
 </p>
-
-<p><sub><strong>FRONTEND · PROTÓTIPO VISUAL (em uso)</strong></sub></p>
-<p>
+<p align="center"><sub><strong>[ FRONTEND · PROTÓTIPO VISUAL (em uso) ]</strong></sub></p>
+<p align="center">
   <img height="21" alt="React" src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB">
   <img height="21" alt="TypeScript" src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=FFFFFF">
   <img height="21" alt="Vite" src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=FFD62E">
@@ -30,7 +34,7 @@
   <img height="21" alt="Vitest" src="https://img.shields.io/badge/Vitest-6E9F18?style=for-the-badge&logo=vitest&logoColor=FFFFFF">
 </p>
 
-**Private AI · Secure Data Access · On-Premises Processing**
+---
 
 **DataGuard AI** é um projeto de estudo e validação técnica sobre **segurança na integração de inteligência artificial local a dados empresariais**. A pergunta central é: *quais controles são necessários para que um LLM executado na infraestrutura da organização ajude usuários autorizados a consultar e analisar dados, sem vazar informações nem ampliar privilégios?*
 
@@ -62,7 +66,7 @@ O ponto de partida é o [**guia de desenvolvimento**](docs/README.md): ele expli
 
 | Pasta | Conteúdo |
 | --- | --- |
-| [`docs/`](docs/README.md) | Guia de desenvolvimento, trilhas, equivalência com a numeração antiga e regra geral de qualidade |
+| [`docs/`](docs/README.md) | Guia de desenvolvimento |
 | [`docs/hardware/`](docs/hardware/01-dimensionamento-de-hardware.md) | Etapa 01: hardware do notebook do MVP até a empresa com alta disponibilidade |
 | [`docs/software/`](docs/software/00-stack-e-decisoes-de-software.md) | Stack e decisões de software (00) e etapas 02–10, da arquitetura à anomalia e ML |
 | [`docs/software/interface/`](docs/software/interface/README.md) | Guias de direção visual, um por tela: [visão geral](docs/software/interface/visao-geral.md), [fontes de dados](docs/software/interface/fontes-de-dados.md), [consultas](docs/software/interface/consultas.md), [análises](docs/software/interface/analises.md), [assistente](docs/software/interface/assistente.md), [auditoria](docs/software/interface/auditoria.md) e [configurações](docs/software/interface/configuracoes.md) |
@@ -164,7 +168,7 @@ As versões exatas em uso, as versões de referência do backend e as alternativ
 
 **Linguagens predominantes:** Python, TypeScript e SQL. O **Node.js** serve apenas às ferramentas de build do frontend. Na distribuição local, o FastAPI servirá o build estático.
 
-## Dados sintéticos — versão 2
+## Dados sintéticos v2
 
 A pasta [`data/`](data/) contém os CSVs que darão origem ao SQLite local. **Nenhum dado pessoal ou empresarial real.**
 
@@ -237,20 +241,31 @@ Os documentos estão numerados na ordem de leitura: **00–01** de referência, 
 
 ### Estrutura do repositório
 
-Diretórios marcados como planejados ainda não existem.
+Itens sem marcação **existem no repositório**. Os marcados como *(planejado)* ou *(futuro)* ainda não foram criados.
 
 ~~~text
 dataguard-ai/
 ├── README.md
-├── docs/                          # Guia de desenvolvimento (docs/README.md)
-│   ├── hardware/                  # Etapa 01: dimensionamento de hardware
-│   └── software/                  # Etapas 00 e 02–10; interface/ traz um guia por tela
-├── assets/diagrams/               # SVGs da arquitetura e do modelo de dados
-├── data/                          # CSVs sintéticos, gabarito, perguntas de avaliação, manifesto
 ├── .github/workflows/             # CI: valida o dataset, testa, compila e publica a demo
-├── scripts/dataset/               # Validação e geração de artefatos do dataset
+├── .gitattributes                 # Dados em LF, para os hashes do manifesto
+├── .gitignore                     # Exclui runtime/, bancos, segredos e builds
+├── docs/                          # Guia de desenvolvimento (docs/README.md)
+│   ├── hardware/                  # 01 — Dimensionamento de hardware
+│   └── software/                  # 00 — Stack e decisões; 02–10 — etapas
+│       └── interface/             # Um guia de direção visual por tela
+├── assets/
+│   ├── badges/                    # Selo "Em construção"
+│   └── diagrams/                  # SVGs da arquitetura e do modelo de dados
+├── data/
+│   ├── csv/                       # Seis conjuntos sintéticos (v2)
+│   ├── ground_truth/              # Gabarito de anomalias (somente avaliação)
+│   ├── avaliacao/                 # Perguntas do assistente com resultado esperado
+│   ├── dataset_info.json          # Versão, seed, data de referência e limitações
+│   └── MANIFEST.sha256            # Hashes SHA-256 dos arquivos de dados
+├── scripts/dataset/               # Validação, manifesto, perguntas e resumo do frontend
 ├── config/                        # Exemplos sem segredos (usuários e papéis fictícios)
-├── frontend/                      # Protótipo React + TypeScript + Vite (implementado)
+├── frontend/                      # Protótipo React + TypeScript + Vite
+│   └── src/                       # pages/, components/, services/ (API simulada), lib/, test/
 ├── src/dataguard/                 # Backend Python (planejado)
 │   ├── db/                        # SQLite de demonstração
 │   ├── security/                  # Autenticação local, papéis e políticas
@@ -259,9 +274,10 @@ dataguard-ai/
 │   ├── reports/                   # Exportação controlada
 │   ├── integrity/ audit/ detection/   # Trilha complementar
 │   └── connectors/                # Fontes corporativas somente leitura (futuro)
-├── deployment/                    # Laboratório corporativo futuro
 ├── tests/                         # Testes Python (planejado)
-└── runtime/                       # Bancos, logs e evidências locais; fora do Git
+├── pyproject.toml                 # Metadados e dependências do backend (planejado)
+├── deployment/                    # Laboratório corporativo futuro
+└── runtime/                       # Bancos, logs e evidências locais; fora do Git (planejado)
 ~~~
 
 ## Segurança e limitações
