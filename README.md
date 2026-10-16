@@ -10,7 +10,7 @@
 <a href="https://lianeheidemann.github.io/dataguard-ai/">
 <img alt="Live Demo" src="https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-426D91?style=flat-square&logo=githubpages&logoColor=white&labelColor=222938">
 </a>
-</p>
+</p><br>
 
 
 
