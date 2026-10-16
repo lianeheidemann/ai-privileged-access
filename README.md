@@ -1,15 +1,14 @@
 <h1 align="center">DataGuard AI</h1>
 
+<p align="center"><strong>Private AI   ·   Secure Data Access   ·   On-Premises Processing</strong></p>
+
 <p align="center">
   <img src="assets/badges/badge_em-construcao.svg" alt="Em construção" height="28">
-</p>
+</p><br>
 
-<p align="center">
-  <a href="https://github.com/lianeheidemann/dataguard-ai/actions/workflows/deploy-pages.yml"><img alt="CI e deploy" src="https://github.com/lianeheidemann/dataguard-ai/actions/workflows/deploy-pages.yml/badge.svg?branch=main"></a>
-  <a href="https://lianeheidemann.github.io/dataguard-ai/"><img alt="Demo" src="https://img.shields.io/badge/demo-GitHub%20Pages-315f7d"></a>
-</p>
 
-<p align="center"><sub><strong>BACKEND · BANCO · IA (planejados)</strong></sub></p>
+
+<p align="center"><sub><strong>[ BACKEND · BANCO · IA (planejados) ]</strong></sub></p>
 <p align="center">
   <img height="21" alt="Python" src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=FFFFFF">
   <img height="21" alt="FastAPI" src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=FFFFFF">
@@ -17,8 +16,7 @@
   <img height="21" alt="Ollama" src="https://img.shields.io/badge/Ollama-000000?style=for-the-badge&logo=ollama&logoColor=FFFFFF">
   <img height="21" alt="scikit-learn" src="https://img.shields.io/badge/scikit--learn-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=FFFFFF">
 </p>
-
-<p align="center"><sub><strong>FRONTEND · PROTÓTIPO VISUAL (em uso)</strong></sub></p>
+<p align="center"><sub><strong>[ FRONTEND · PROTÓTIPO VISUAL (em uso) ]</strong></sub></p>
 <p align="center">
   <img height="21" alt="React" src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB">
   <img height="21" alt="TypeScript" src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=FFFFFF">
@@ -30,7 +28,10 @@
   <img height="21" alt="Vitest" src="https://img.shields.io/badge/Vitest-6E9F18?style=for-the-badge&logo=vitest&logoColor=FFFFFF">
 </p>
 
-<p align="center"><strong>Private AI · Secure Data Access · On-Premises Processing</strong></p>
+<p align="center">
+  <a href="https://github.com/lianeheidemann/dataguard-ai/actions/workflows/deploy-pages.yml"><img alt="CI e deploy" src="https://github.com/lianeheidemann/dataguard-ai/actions/workflows/deploy-pages.yml/badge.svg?branch=main"></a>
+  <a href="https://lianeheidemann.github.io/dataguard-ai/"><img alt="Demo" src="https://img.shields.io/badge/demo-GitHub%20Pages-315f7d"></a>
+</p><br>
 
 **DataGuard AI** é um projeto de estudo e validação técnica sobre **segurança na integração de inteligência artificial local a dados empresariais**. A pergunta central é: *quais controles são necessários para que um LLM executado na infraestrutura da organização ajude usuários autorizados a consultar e analisar dados, sem vazar informações nem ampliar privilégios?*
 
