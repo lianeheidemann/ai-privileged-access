@@ -72,7 +72,7 @@ O ponto de partida é o [**guia de desenvolvimento**](docs/README.md): ele expli
 | --- | --- |
 | [`docs/`](docs/README.md) | Guia de desenvolvimento |
 | [`docs/hardware/`](docs/hardware/) | Estimativa de requisitos de hardware: do MVP em um notebook à operação em alta disponibilidade (+100 funcionários) |
-| [`docs/software/`](docs/software/00-stack-e-decisoes-de-software.md) | Stack e decisões de software, da arquitetura à anomalia e ML |
+| [`docs/software/`](docs/software/) | Stack e decisões de software, da arquitetura à anomalia e ML |
 | [`docs/software/interface/`](docs/software/interface/) | Guias de direção visual |
 
 Outros READMEs: [scripts do dataset](scripts/dataset/) (validação e geração).
