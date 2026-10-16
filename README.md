@@ -51,8 +51,8 @@
 >
 > **Já disponível:**
 > - documentação de arquitetura, ameaças e testes;
-> - [stack e decisões de software](docs/software/00-stack-e-decisoes-de-software.md);
-> - [dimensionamento de hardware](docs/hardware/README.md);
+> - [stack e decisões de software](docs/software/);
+> - [dimensionamento de hardware](docs/hardware/);
 > - dataset sintético, validado por script, com gabarito e [conjunto de perguntas de avaliação](data/avaliacao/perguntas_assistente.csv);
 > - **protótipo visual React** com as sete telas, alimentado por agregados reais do dataset sintético e coberto por testes.
 >
