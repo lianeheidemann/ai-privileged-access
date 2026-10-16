@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="470" viewBox="0 0 1100 470" role="img" aria-label="Roadmap do DataGuard AI: trilha principal das etapas 02 a 07 e trilha complementar das etapas 08 a 10. A etapa 07 é uma implantação posterior.">
+<style>
+:root{--ink:#243449;--muted:#64748b;--line:#a1afbd;--edge:#cbd5e1;--fill:#f8fafc;--accent:#315f7d;--accentfill:#e9f1f7}
+@media(prefers-color-scheme:dark){:root{--ink:#e6eef6;--muted:#9fb0c1;--line:#718599;--edge:#405466;--fill:#182632;--accent:#a5c9df;--accentfill:#213849}}
+.box{fill:var(--fill);stroke:var(--edge);stroke-width:1.5}
+.focus{fill:var(--accentfill);stroke:var(--accent);stroke-width:1.5}
+.ink{fill:var(--ink)}.muted{fill:var(--muted)}
+.line{stroke:var(--line);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.dash{stroke:var(--line);stroke-width:1.8;fill:none;stroke-dasharray:6 6;stroke-linecap:round;stroke-linejoin:round}
+.title{font:600 30px system-ui,Segoe UI,sans-serif}
+.head{font:600 18px system-ui,Segoe UI,sans-serif}
+.sub{font:400 13px system-ui,Segoe UI,sans-serif}
+.small{font:500 12px system-ui,Segoe UI,sans-serif;letter-spacing:.6px}
+</style>
+<text x="36" y="48" class="ink title">ROADMAP</text>
+<text x="1064" y="46" class="muted small" text-anchor="end">DATA GUARD AI · ETAPAS 02–10</text>
+<text x="36" y="84" class="muted small">TRILHA PRINCIPAL</text>
+<path d="M180 157 H211 M361 157 H392 M542 157 H573 M723 157 H754" class="line"/>
+<path d="M904 157 H935" class="dash"/>
+<path d="M286 207 V267 H467 V306" class="dash"/>
+<path d="M542 356 H573 M723 356 H754" class="dash"/>
+<rect x="30" y="107" width="150" height="100" rx="12" class="box"/>
+<text x="47" y="134" class="muted small">ETAPA 02</text>
+<text x="47" y="164" class="ink head">Arquitetura</text>
+<text x="47" y="186" class="muted sub">e ameaças</text>
+<rect x="211" y="107" width="150" height="100" rx="12" class="box"/>
+<text x="228" y="134" class="muted small">ETAPA 03</text>
+<text x="228" y="164" class="ink head">Banco</text>
+<text x="228" y="186" class="muted sub">SQLite</text>
+<rect x="392" y="107" width="150" height="100" rx="12" class="focus"/>
+<text x="409" y="134" class="muted small">ETAPA 04</text>
+<text x="409" y="163" class="ink head">Corte vertical</text>
+<text x="409" y="185" class="muted sub">catálogo · papéis · Ollama</text>
+<rect x="573" y="107" width="150" height="100" rx="12" class="box"/>
+<text x="590" y="134" class="muted small">ETAPA 05</text>
+<text x="590" y="164" class="ink head">FastAPI</text>
+<text x="590" y="186" class="muted sub">+ React</text>
+<rect x="754" y="107" width="150" height="100" rx="12" class="box"/>
+<text x="771" y="134" class="muted small">ETAPA 06</text>
+<text x="771" y="164" class="ink head">Testes</text>
+<text x="771" y="186" class="muted sub">e metas</text>
+<rect x="935" y="107" width="150" height="100" rx="12" class="box"/>
+<text x="952" y="134" class="muted small">ETAPA 07</text>
+<text x="952" y="164" class="ink head">Rede privada</text>
+<text x="952" y="186" class="muted sub">implantação posterior</text>
+<text x="392" y="286" class="muted small">TRILHA COMPLEMENTAR</text>
+<rect x="392" y="306" width="150" height="100" rx="12" class="box"/>
+<text x="409" y="333" class="muted small">ETAPA 08</text>
+<text x="409" y="363" class="ink head">Integridade</text>
+<text x="409" y="385" class="muted sub">regras e transações</text>
+<rect x="573" y="306" width="150" height="100" rx="12" class="box"/>
+<text x="590" y="333" class="muted small">ETAPA 09</text>
+<text x="590" y="363" class="ink head">Auditoria</text>
+<text x="590" y="385" class="muted sub">e backups</text>
+<rect x="754" y="306" width="150" height="100" rx="12" class="box"/>
+<text x="771" y="333" class="muted small">ETAPA 10</text>
+<text x="771" y="363" class="ink head">Anomalias</text>
+<text x="771" y="385" class="muted sub">e ML</text>
+<text x="1064" y="446" class="muted small" text-anchor="end">Linha contínua: fluxo principal · Linha tracejada: implantação posterior / trilha complementar</text>
+</svg>
