@@ -12,8 +12,11 @@
 </a>
 </p>
 
----
 
+
+<table align="center" width="100%">
+<tr>
+<td>
 <p align="center"><sub><strong>[ BACKEND · BANCO · IA (planejados) ]</strong></sub></p>
 <p align="center">
   <img height="21" alt="Python" src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=FFFFFF">
@@ -33,8 +36,11 @@
   <img height="21" alt="Recharts" src="https://img.shields.io/badge/Recharts-22B5BF?style=for-the-badge">
   <img height="21" alt="Vitest" src="https://img.shields.io/badge/Vitest-6E9F18?style=for-the-badge&logo=vitest&logoColor=FFFFFF">
 </p>
+</td>
+</tr>
+</table>
 
----
+
 
 **DataGuard AI** é um projeto de estudo e validação técnica sobre **segurança na integração de inteligência artificial local a dados empresariais**. A pergunta central é: *quais controles são necessários para que um LLM executado na infraestrutura da organização ajude usuários autorizados a consultar e analisar dados, sem vazar informações nem ampliar privilégios?*
 
