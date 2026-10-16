@@ -1,6 +1,6 @@
 <h1 align="center">DataGuard AI</h1>
 
-<p align="center"><strong>Private AI   ·   Secure Data Access   ·   On-Premises Processing</strong></p>
+<p align="center"><strong>Private AI   •   Secure Data Access   •   On-Premises Processing</strong></p>
 
 <p align="center">
 <img src="assets/badges/badge_em-construcao.svg" alt="Em construção" width="200" ><br>
