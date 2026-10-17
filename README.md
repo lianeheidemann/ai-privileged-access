@@ -66,7 +66,7 @@ O protótipo **não se conecta** a banco, backend ou IA. Os números vêm de um 
 
 ## Documentação
 
-O ponto de partida é o [**guia de desenvolvimento**](docs/README.md): ele explica as duas trilhas, a ordem de leitura, a stack, o padrão de trabalho e a primeira tarefa. A numeração das etapas (00–10) é única; as pastas apenas agrupam os documentos.
+O ponto de partida é o [**guia de desenvolvimento**](docs/README.md): ele explica as duas trilhas, a ordem de leitura, a stack, o padrão de trabalho e a primeira tarefa.
 
 | Pasta | Conteúdo |
 | --- | --- |
