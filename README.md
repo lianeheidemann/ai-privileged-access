@@ -1,35 +1,60 @@
-<p align="center">
-<img width="320" src="assets/privileged-access-v1.png">
-</p>
 
 <h1 align="center">AI Privileged Access</h1>
 
-<p align="center"><strong>PRIVATE AI   •   SECURE DATA ACCESS   •   ON-PREMISES PROCESSING</strong></p>
+<p align="center">
+  <strong>PRIVATE AI · SECURE DATA ACCESS · ON-PREMISES PROCESSING</strong>
+</p>
 
+<p align="center">
+  <img
+    src="assets/privileged-access-v1.png"
+    width="320"
+    alt="Privileged Access? — ilustração de uma expressão pensativa"
+  >
+</p>
 
 <h3 align="center">QUEM REALMENTE TEM ACESSO PRIVILEGIADO?</h3>
 
 <p align="center">
-Este projeto investiga como a inteligência artificial local pode acessar dados organizacionais de forma segura, sem ampliar privilégios, expor informações ou reforçar desigualdades ocultas no acesso.
+  Este projeto investiga como sistemas de inteligência artificial local
+  podem auxiliar no acesso seguro a dados organizacionais, respeitando
+  as permissões de cada usuário, sem ampliar privilégios, expor
+  informações ou reforçar desigualdades ocultas no acesso.
 </p>
 
----
-
-
 <p align="center">
-<a href="https://github.com/lianeheidemann/ai-privileged-access/actions/workflows/deploy-pages.yml">
-<img alt="CI & Deploy" src="https://img.shields.io/github/actions/workflow/status/lianeheidemann/ai-privileged-access/deploy-pages.yml?branch=main&style=flat-square&label=CI%20%26%20Deploy&logo=githubactions&logoColor=white&labelColor=222938">
-</a>
-<a href="https://lianeheidemann.github.io/ai-privileged-access/">
-<img alt="Live Demo" src="https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-426D91?style=flat-square&logo=githubpages&logoColor=white&labelColor=222938">
-</a><br>
-  <img src="assets/badges/badge_em-construcao.svg" alt="Em construção" width="210" >
+  <em>Porque, em muitos sistemas, privilégio não é apenas uma questão técnica.</em>
 </p>
 
 ---
 
 <p align="center">
-  <sub><strong>Backend · Banco de Dados · IA (planejados)</strong></sub>
+  <a href="https://github.com/lianeheidemann/ai-privileged-access/actions/workflows/deploy-pages.yml">
+    <img
+      alt="CI & Deploy"
+      src="https://img.shields.io/github/actions/workflow/status/lianeheidemann/ai-privileged-access/deploy-pages.yml?branch=main&style=flat-square&label=CI%20%26%20Deploy&logo=githubactions&logoColor=white&labelColor=222938"
+    >
+  </a>
+  <a href="https://lianeheidemann.github.io/ai-privileged-access/">
+    <img
+      alt="Live Demo"
+      src="https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-426D91?style=flat-square&logo=githubpages&logoColor=white&labelColor=222938"
+    >
+  </a>
+</p>
+
+<p align="center">
+  <img
+    src="assets/badges/badge_em-construcao.svg"
+    alt="Em construção"
+    width="180"
+  >
+</p>
+
+---
+
+<p align="center">
+  <sub><strong>BACKEND · BANCO DE DADOS · IA (PLANEJADOS)</strong></sub>
 </p>
 
 <p align="center">
@@ -41,7 +66,7 @@ Este projeto investiga como a inteligência artificial local pode acessar dados 
 </p>
 
 <p align="center">
-  <sub><strong>Frontend · Protótipo Visual (em uso)</strong></sub>
+  <sub><strong>FRONTEND · PROTÓTIPO VISUAL (EM USO)</strong></sub>
 </p>
 
 <p align="center">
@@ -57,7 +82,23 @@ Este projeto investiga como a inteligência artificial local pode acessar dados 
 
 ---
 
-**AI Privileged Access** é um projeto de estudo e validação técnica sobre **segurança na integração de inteligência artificial local a dados empresariais**. A pergunta central é: *quais controles são necessários para que um LLM executado na infraestrutura da organização ajude usuários autorizados a consultar e analisar dados, sem vazar informações nem ampliar privilégios?*
+## Sobre o projeto
+
+**AI Privileged Access** é um projeto de estudo e validação técnica
+sobre **segurança na integração de inteligência artificial local
+a dados empresariais**.
+
+A pesquisa parte de um desafio central:
+
+*Quais controles são necessários para que um LLM executado na
+infraestrutura de uma organização auxilie usuários autorizados
+a consultar e analisar dados, sem expor informações confidenciais
+ou ultrapassar os privilégios concedidos?*
+
+A proposta contempla políticas de acesso, segregação de permissões,
+proteção dos dados e validação dos controles de segurança,
+considerando também aspectos de qualidade e desempenho do sistema.
+
 
 > [!NOTE]
 > O caso de uso é agilizar consultas, análises e relatórios. O protótipo usa **SQLite e dados 100% sintéticos**. A arquitetura prevê conectores somente leitura para outros SGBDs, sem migrar as fontes corporativas.
