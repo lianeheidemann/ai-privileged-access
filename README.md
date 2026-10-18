@@ -4,11 +4,17 @@
 
 <h1 align="center">AI Privileged Access</h1>
 
+<p align="center"><strong>PRIVATE AI   •   SECURE DATA ACCESS   •   ON-PREMISES PROCESSING</strong></p>
+
+
 <h3 align="center">QUEM REALMENTE TEM ACESSO PRIVILEGIADO?</h3>
-                                                    
+
+<p align="center">
+Este projeto investiga como a inteligência artificial local pode acessar dados organizacionais de forma segura, sem ampliar privilégios, expor informações ou reforçar desigualdades ocultas no acesso.
+</p>
+
 ---
 
-<p align="center"><strong>PRIVATE AI   •   SECURE DATA ACCESS   •   ON-PREMISES PROCESSING</strong></p>
 
 <p align="center">
 <a href="https://github.com/lianeheidemann/ai-privileged-access/actions/workflows/deploy-pages.yml">
@@ -48,12 +54,6 @@
   <img height="21" alt="Recharts" src="https://img.shields.io/badge/Recharts-22B5BF?style=for-the-badge">
   <img height="21" alt="Vitest" src="https://img.shields.io/badge/Vitest-6E9F18?style=for-the-badge&logo=vitest&logoColor=FFFFFF">
 </p>
-
----
-
-
-
-<p align="center"><strong>- ESTABELECER CRITÉRIOS PARA O ACESSO PRIVILEGIADO É ESSENCIAL<br>PARA A GARANTIA DA *QUALIDADE* E A AVALIAÇÃO DO *DESEMPENHO* DO SISTEMA?<br><br>- ESSE FOI O PRINCIPAL PROBLEMA IDENTIFICADO, E QUE PRECISA SER ENFRENTADO E RESOLVIDO..</strong></p>
 
 ---
 
