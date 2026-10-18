@@ -45,7 +45,7 @@
 <img width="320" src="assets/privileged-access-v1.png">
 </h2>
 
-<p align="center"><strong>Is establishing criteria for privileged access essential for quality assurance and system performance evaluation?</strong></p>
+<p align="center"><strong>- ESTABELECER CRITÉRIOS PARA O ACESSO PRIVILEGIADO É ESSENCIAL<br>PARA A GARANTIA DA *QUALIDADE* E A AVALIAÇÃO DE DESEMPENHO DE SISTEMAS?<br><br>- ESSE FOI O PRINCIPAL PROBLEMA IDENTIFICADO, E QUE PRECISA SER ENFRENTADO E RESOLVIDO..</strong></p>
 
 **AI Privileged Access** é um projeto de estudo e validação técnica sobre **segurança na integração de inteligência artificial local a dados empresariais**. A pergunta central é: *quais controles são necessários para que um LLM executado na infraestrutura da organização ajude usuários autorizados a consultar e analisar dados, sem vazar informações nem ampliar privilégios?*
 
