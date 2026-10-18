@@ -1,4 +1,12 @@
+<p align="center">
+<img width="320" src="assets/privileged-access-v1.png">
+</p>
+
 <h1 align="center">AI Privileged Access</h1>
+
+<h3 align="center">QUEM REALMENTE TEM ACESSO PRIVILEGIADO?</h3>
+                                                    
+---
 
 <p align="center"><strong>PRIVATE AI   •   SECURE DATA ACCESS   •   ON-PREMISES PROCESSING</strong></p>
 
@@ -43,9 +51,7 @@
 
 ---
 
-<p align="center">
-<img width="320" src="assets/privileged-access-v1.png">
-</p>
+
 
 <p align="center"><strong>- ESTABELECER CRITÉRIOS PARA O ACESSO PRIVILEGIADO É ESSENCIAL<br>PARA A GARANTIA DA *QUALIDADE* E A AVALIAÇÃO DO *DESEMPENHO* DO SISTEMA?<br><br>- ESSE FOI O PRINCIPAL PROBLEMA IDENTIFICADO, E QUE PRECISA SER ENFRENTADO E RESOLVIDO..</strong></p>
 
