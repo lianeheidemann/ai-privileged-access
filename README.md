@@ -41,9 +41,11 @@
   <img height="21" alt="Vitest" src="https://img.shields.io/badge/Vitest-6E9F18?style=for-the-badge&logo=vitest&logoColor=FFFFFF">
 </p>
 
-<h2 align="center">
+---
+
+<p align="center">
 <img width="320" src="assets/privileged-access-v1.png">
-</h2>
+</p>
 
 <p align="center"><strong>- ESTABELECER CRITÉRIOS PARA O ACESSO PRIVILEGIADO É ESSENCIAL<br>PARA A GARANTIA DA *QUALIDADE* E A AVALIAÇÃO DO *DESEMPENHO* DO SISTEMA?<br><br>- ESSE FOI O PRINCIPAL PROBLEMA IDENTIFICADO, E QUE PRECISA SER ENFRENTADO E RESOLVIDO..</strong></p>
 
