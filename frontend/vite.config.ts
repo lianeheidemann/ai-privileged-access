@@ -8,7 +8,7 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   // No GitHub Pages o site fica em /<nome-do-repositório>/; deriva do ambiente da Action para sobreviver a renomeações.
-  base: process.env.GITHUB_PAGES === 'true' ? `/${(process.env.GITHUB_REPOSITORY ?? 'lianeheidemann/dataguard-ai').split('/')[1]}/` : '/',
+  base: process.env.GITHUB_PAGES === 'true' ? `/${(process.env.GITHUB_REPOSITORY ?? 'lianeheidemann/ai-privileged-access').split('/')[1]}/` : '/',
   resolve: { alias: { '@': path.resolve(__dirname, 'src') } },
   build: {
     // Recharts (~540 kB) fica em um chunk próprio, carregado só na tela Análises.

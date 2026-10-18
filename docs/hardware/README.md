@@ -2,7 +2,7 @@
 
 > **Última revisão:** 14/10/2026.
 
-Este documento dimensiona o hardware do DataGuard AI para quatro cenários: o **MVP** em um notebook, um **piloto**, um **departamento** e uma **empresa** com alta disponibilidade. Ele complementa a [stack e decisões de software](../software/00-stack-e-decisoes-de-software.md) e a [etapa 07](../software/07-arquitetura-de-rede-e-seguranca.md).
+Este documento dimensiona o hardware do AI Privileged Access para quatro cenários: o **MVP** em um notebook, um **piloto**, um **departamento** e uma **empresa** com alta disponibilidade. Ele complementa a [stack e decisões de software](../software/00-stack-e-decisoes-de-software.md) e a [etapa 07](../software/07-arquitetura-de-rede-e-seguranca.md).
 
 ## Como ler este documento
 

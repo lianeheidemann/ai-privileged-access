@@ -1,12 +1,12 @@
-<h1 align="center">DataGuard AI</h1>
+<h1 align="center">AI Privileged Access</h1>
 
 <p align="center"><strong>PRIVATE AI   •   SECURE DATA ACCESS   •   ON-PREMISES PROCESSING</strong></p>
 
 <p align="center">
-<a href="https://github.com/lianeheidemann/dataguard-ai/actions/workflows/deploy-pages.yml">
-<img alt="CI & Deploy" src="https://img.shields.io/github/actions/workflow/status/lianeheidemann/dataguard-ai/deploy-pages.yml?branch=main&style=flat-square&label=CI%20%26%20Deploy&logo=githubactions&logoColor=white&labelColor=222938">
+<a href="https://github.com/lianeheidemann/ai-privileged-access/actions/workflows/deploy-pages.yml">
+<img alt="CI & Deploy" src="https://img.shields.io/github/actions/workflow/status/lianeheidemann/ai-privileged-access/deploy-pages.yml?branch=main&style=flat-square&label=CI%20%26%20Deploy&logo=githubactions&logoColor=white&labelColor=222938">
 </a>
-<a href="https://lianeheidemann.github.io/dataguard-ai/">
+<a href="https://lianeheidemann.github.io/ai-privileged-access/">
 <img alt="Live Demo" src="https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-426D91?style=flat-square&logo=githubpages&logoColor=white&labelColor=222938">
 </a><br>
   <img src="assets/badges/badge_em-construcao.svg" alt="Em construção" width="210" >
@@ -39,7 +39,7 @@
 
 
 
-**DataGuard AI** é um projeto de estudo e validação técnica sobre **segurança na integração de inteligência artificial local a dados empresariais**. A pergunta central é: *quais controles são necessários para que um LLM executado na infraestrutura da organização ajude usuários autorizados a consultar e analisar dados, sem vazar informações nem ampliar privilégios?*
+**AI Privileged Access** é um projeto de estudo e validação técnica sobre **segurança na integração de inteligência artificial local a dados empresariais**. A pergunta central é: *quais controles são necessários para que um LLM executado na infraestrutura da organização ajude usuários autorizados a consultar e analisar dados, sem vazar informações nem ampliar privilégios?*
 
 > [!NOTE]
 > O caso de uso é agilizar consultas, análises e relatórios. O protótipo usa **SQLite e dados 100% sintéticos**. A arquitetura prevê conectores somente leitura para outros SGBDs, sem migrar as fontes corporativas.
@@ -60,7 +60,7 @@
 
 ### Protótipo visual
 
-Consulte a [**demonstração no GitHub Pages**](https://lianeheidemann.github.io/dataguard-ai/). As sete telas usam Tailwind CSS, componentes no padrão shadcn/ui, TanStack Table/Query e Recharts.
+Consulte a [**demonstração no GitHub Pages**](https://lianeheidemann.github.io/ai-privileged-access/). As sete telas usam Tailwind CSS, componentes no padrão shadcn/ui, TanStack Table/Query e Recharts.
 
 O protótipo **não se conecta** a banco, backend ou IA. Os números vêm de um JSON gerado a partir dos CSVs sintéticos. O assistente demonstra a política de bloqueio (escrita, contorno de regras, segredos, SQL livre, envio externo) e responde só com números do dataset, **sem LLM**.
 
@@ -110,7 +110,7 @@ Ainda **não existem resultados medidos**. Estas são as metas de aceite definid
 
 **Protótipo de validação:** um único notebook Windows 11. O React abre no navegador, mas frontend, backend, banco e IA executam **localmente**, sem hospedagem externa. Referência: RTX 3060 Laptop (6 GB de VRAM) e 16 GB de RAM; veja [Dimensionamento de hardware](docs/hardware/).
 
-![Arquitetura local planejada do DataGuard AI](assets/diagrams/arquitetura-local.svg)
+![Arquitetura local planejada do AI Privileged Access](assets/diagrams/arquitetura-local.svg)
 
 | Serviço | Desenvolvimento local | Papel |
 | --- | --- | --- |
@@ -145,7 +145,7 @@ Requisitos de segurança dessa fase:
 
 **A autorização deve ser aplicada pelo backend e pelas permissões efetivas do banco, não por instruções ao modelo.**
 
-![Arquitetura empresarial planejada do DataGuard AI](assets/diagrams/arquitetura-empresarial.svg)
+![Arquitetura empresarial planejada do AI Privileged Access](assets/diagrams/arquitetura-empresarial.svg)
 
 **Diagrama conceitual, não implementado.** A ausência de vazamentos não é garantida pelo desenho; ela exige testes de rede, permissões, registros e tratamento de dados ([etapa 07](docs/software/07-arquitetura-de-rede-e-seguranca.md)).
 
@@ -197,13 +197,13 @@ Arquivos de apoio:
 
 Ver [`scripts/dataset/`](scripts/dataset/README.md). **Limitação conhecida:** as classes foram plantadas por regras determinísticas, então um detector por regras com os mesmos limiares as reproduz por construção. O gabarito valida a **implementação**, não o desempenho em dados reais.
 
-![Modelo de dados sintético do DataGuard AI](assets/diagrams/modelo-dados.svg)
+![Modelo de dados sintético do AI Privileged Access](assets/diagrams/modelo-dados.svg)
 
 ## Roadmap — trilha principal e trilha complementar
 
 Os documentos são **guias** com tarefas, arquivos previstos, testes e critérios de aceite. Não representam módulos implementados.
 
-![Roadmap do DataGuard AI — trilha principal e trilha complementar](assets/diagrams/roadmap.svg)
+![Roadmap do AI Privileged Access — trilha principal e trilha complementar](assets/diagrams/roadmap.svg)
 
 | Etapa | Trilha | Objetivo | Documento |
 | --- | --- | --- | --- |
@@ -225,7 +225,7 @@ Os documentos estão numerados na ordem de leitura: **00** de referência, **02�
 Itens sem marcação **existem no repositório**. Os marcados como *(planejado)* ou *(futuro)* ainda não foram criados.
 
 ~~~text
-dataguard-ai/
+ai-privileged-access/
 ├── README.md
 ├── .github/workflows/             # CI: valida o dataset, testa, compila e publica a demo
 ├── .gitattributes                 # Dados em LF, para os hashes do manifesto
@@ -247,7 +247,7 @@ dataguard-ai/
 ├── config/                        # Exemplos sem segredos (usuários e papéis fictícios)
 ├── frontend/                      # Protótipo React + TypeScript + Vite
 │   └── src/                       # pages/, components/, services/ (API simulada), lib/, test/
-├── src/dataguard/                 # Backend Python (planejado)
+├── src/ai_privileged_access/                 # Backend Python (planejado)
 │   ├── db/                        # SQLite de demonstração
 │   ├── security/                  # Autenticação local, papéis e políticas
 │   ├── assistant/                 # Catálogo de consultas e cliente Ollama

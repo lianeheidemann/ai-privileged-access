@@ -26,7 +26,7 @@ export default function Reports() {
   const relatorio = relatorios.find((r) => r.id === id)!
   const linhas = data ? relatorio.dados(data) : []
   const total = linhas.reduce((a, [, n]) => a + n, 0)
-  const exportar = () => downloadCsv(`dataguard-demo-${relatorio.id}.csv`, ['Grupo', 'Registros', 'Participação'], linhas.map(([g, n]) => [label(g), n, formatPercent(n, total)]))
+  const exportar = () => downloadCsv(`ai-privileged-access-demo-${relatorio.id}.csv`, ['Grupo', 'Registros', 'Participação'], linhas.map(([g, n]) => [label(g), n, formatPercent(n, total)]))
   return (
     <>
       <PageHeader eyebrow="Data workspace / reports" title="Relatórios" description="Organize resultados e prepare-os para compartilhar." status="Dados sintéticos" />

@@ -29,7 +29,7 @@ O objetivo do projeto é uma **solução empresarial de IA privada**; o inventá
 flowchart TB
     C["Cliente autorizado"] -->|"HTTPS 443"| G["Gateway / proxy TLS"]
     subgraph PRIVATE["Rede privada de aplicação"]
-        G --> A["Backend DataGuard AI"]
+        G --> A["Backend AI Privileged Access"]
         A -->|"Conta de leitura · TCP 5432 · TLS"| P[("PostgreSQL")]
         A -->|"Acesso somente interno"| L["Ollama — IA local"]
         A --> LOG["Logs e auditoria"]
@@ -73,7 +73,7 @@ flowchart TD
     X -.- R
 ~~~
 
-O endereço **127.0.0.1** designa a própria máquina (*loopback*). Se outro computador acessar seu próprio 127.0.0.1, ele **não** chegará ao notebook que executa o DataGuard AI. **SQLite não possui porta TCP própria:** o programa Python abre um arquivo de banco no disco.
+O endereço **127.0.0.1** designa a própria máquina (*loopback*). Se outro computador acessar seu próprio 127.0.0.1, ele **não** chegará ao notebook que executa o AI Privileged Access. **SQLite não possui porta TCP própria:** o programa Python abre um arquivo de banco no disco.
 
 | Serviço | Porta de exemplo | Endereço de escuta no MVP | Quem acessa |
 | --- | ---: | --- | --- |
@@ -123,7 +123,7 @@ Abrir **http://127.0.0.1:5173**. **Não usar** a opção "--host 0.0.0.0", "host
 
 #### B. Configurar o FastAPI
 
-**Exemplo:** comando para projeto com arquivo **main.py** e variável **app** na raiz; caso o backend seja movido para um pacote em **src/dataguard/api/**, adaptar o caminho do módulo.
+**Exemplo:** comando para projeto com arquivo **main.py** e variável **app** na raiz; caso o backend seja movido para um pacote em **src/ai_privileged_access/api/**, adaptar o caminho do módulo.
 
 ~~~powershell
 # Inicia o FastAPI somente na interface de loopback do Windows
@@ -326,7 +326,7 @@ Tarefas:
 6. Configurar `listen_addresses`, `pg_hba.conf`, TLS e credenciais restritas, conforme topologia adotada.
 7. Criar conta da aplicação com o mínimo de privilégios; não usar superusuário no backend.
 
-**Arquivos futuros:** `src/dataguard/db/postgres/`, `scripts/import_to_postgres.py`, `tests/integration/test_postgres.py`.
+**Arquivos futuros:** `src/ai_privileged_access/db/postgres/`, `scripts/import_to_postgres.py`, `tests/integration/test_postgres.py`.
 
 **Aceite:** contagens e regras produzem resultados equivalentes; acesso negado fora das origens/contas autorizadas; a conta de consulta não consegue executar escrita.
 
@@ -346,7 +346,7 @@ Substituir a autenticação local do MVP pela identidade corporativa de laborat�
 
 **Não basta esconder botões ou instruir o LLM a não responder.** O serviço de consulta deve filtrar os dados antes de enviá-los à IA.
 
-**Arquivos futuros:** `src/dataguard/security/auth.py`, `policy.py`, `migrations/rls/`, `tests/security/test_authorization.py`.
+**Arquivos futuros:** `src/ai_privileged_access/security/auth.py`, `policy.py`, `migrations/rls/`, `tests/security/test_authorization.py`.
 
 **Aceite:** um usuário restrito não obtém linhas de outro setor, mesmo alterando URL, filtros, IDs ou o texto do prompt.
 

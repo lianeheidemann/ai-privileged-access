@@ -10,7 +10,7 @@
 
 **Não é necessário alterar os seis CSVs nem as seis tabelas de domínio agora.** O inventário é um *fixture* sintético de validação; não deve ser apresentado como esquema universal de bancos empresariais. Para a implantação real, não substituir nem migrar automaticamente o banco da empresa: planejar **conector de leitura**, usuário de banco dedicado com permissões mínimas e **visões autorizadas**. PostgreSQL é uma opção para o laboratório de rede da etapa 07, não uma exigência para todos os clientes.
 
-Separar conceitualmente **banco de origem** (dados empresariais, mantidos sob controle da organização) e **banco operacional do DataGuard AI** (configuração, execução, resultados e auditoria, com retenção mínima). Nunca copiar uma base completa para inferência por conveniência.
+Separar conceitualmente **banco de origem** (dados empresariais, mantidos sob controle da organização) e **banco operacional do AI Privileged Access** (configuração, execução, resultados e auditoria, com retenção mínima). Nunca copiar uma base completa para inferência por conveniência.
 
 **Evoluções de metadados a planejar, sem criar agora:** `fontes_dados` (identificador lógico, tipo de SGBD, endpoint interno referenciado sem segredo), `politicas_acesso` (perfil, fonte, conjunto autorizado), `consultas_permitidas` (ID, versão, parâmetros e limites), `execucoes_consulta` (quem, quando, finalidade, status, volume, sem SQL sensível), `politicas_retencao` e `versoes_conectores`. Não armazenar senhas em tabelas; usar mecanismo de segredos da implantação.
 
@@ -39,9 +39,9 @@ Se a execução de scripts estiver bloqueada, use o Python diretamente pelo cami
 Arquivos a criar nesta etapa:
 - `pyproject.toml` — metadados (Python ≥ 3.10; alvo 3.12 ou superior, ver [Stack e decisões de software](00-stack-e-decisoes-de-software.md#versões)) e dependência de `pytest` com versão fixada. Gere os hashes (`pip install --require-hashes`) quando as dependências crescerem.
 - O `.gitignore` da raiz já ignora `.venv/`, `__pycache__/`, `runtime/`, `.env`, chaves e `*.db`/`*.sqlite3`. Revise-o, mas não o recrie.
-- `src/dataguard/db/schema.sql` — criação das tabelas.
-- `src/dataguard/db/connection.py` — conexão configurada.
-- `src/dataguard/db/import_csv.py` — importador idempotente ou recriação explícita.
+- `src/ai_privileged_access/db/schema.sql` — criação das tabelas.
+- `src/ai_privileged_access/db/connection.py` — conexão configurada.
+- `src/ai_privileged_access/db/import_csv.py` — importador idempotente ou recriação explícita.
 - `tests/test_database.py` — testes do esquema, importação e FKs.
 
 ## Passo 2 — Conferir os CSVs de origem

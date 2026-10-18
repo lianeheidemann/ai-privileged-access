@@ -62,7 +62,7 @@ Bind, proxy, firewall e validação offline: [07 — Rede e segurança, seção 
 ## 3. Estrutura
 
 ~~~text
-dataguard-ai/
+ai-privileged-access/
 ├── frontend/                          # Já existe
 │   └── src/
 │       ├── components/ui/             # Primitivas shadcn/ui
@@ -72,7 +72,7 @@ dataguard-ai/
 │       ├── services/                  # demo-api.ts → substituir por cliente /api
 │       ├── lib/  types/  test/
 │       └── data/demo-summary.json     # Remover do build quando a API existir
-├── src/dataguard/
+├── src/ai_privileged_access/
 │   ├── api/                           # Criar nesta etapa
 │   │   ├── main.py
 │   │   ├── deps.py                    # Sessão, usuário atual, papel
@@ -92,7 +92,7 @@ dataguard-ai/
 ### 05.1 — API FastAPI mínima
 
 1. Adicionar FastAPI, Uvicorn e Pydantic às dependências Python, com versões fixadas e hashes.
-2. Criar `src/dataguard/api/main.py`.
+2. Criar `src/ai_privileged_access/api/main.py`.
 3. `GET /api/health` reporta o **estado real** da API e das dependências (`ok`, `degraded`, `unavailable`).
 4. Sessão local: `POST /api/session` com um usuário fictício. Usar cookie `HttpOnly` e `SameSite=Strict`, com expiração curta.
 5. **Toda rota de dados** depende do usuário atual e chama `policy.autorizar` antes do serviço.

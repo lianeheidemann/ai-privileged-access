@@ -1,6 +1,6 @@
-# Guia de desenvolvimento — DataGuard AI
+# Guia de desenvolvimento — AI Privileged Access
 
-Este é o **ponto de partida** para construir o DataGuard AI em partes. O objetivo principal é validar os **controles de segurança** de uma IA local que consulta dados empresariais: autorização por papel, catálogo de consultas somente leitura, minimização, resistência a prompt injection e operação sem inferência externa. O inventário sintético é apenas o caso de teste.
+Este é o **ponto de partida** para construir o AI Privileged Access em partes. O objetivo principal é validar os **controles de segurança** de uma IA local que consulta dados empresariais: autorização por papel, catálogo de consultas somente leitura, minimização, resistência a prompt injection e operação sem inferência externa. O inventário sintético é apenas o caso de teste.
 
 **Situação atual:**
 - **Disponível:** dataset sintético **v2** validado ([`scripts/dataset/`](../scripts/dataset/README.md)), conjunto de perguntas de avaliação e protótipo visual React testado.
@@ -92,7 +92,7 @@ A numeração (00 e 02–10) é única e vale só para `software/`; `hardware/` 
 ## Estrutura prevista
 
 ```text
-dataguard-ai/
+ai-privileged-access/
 ├── README.md
 ├── docs/                         # Guias (esta pasta)
 │   ├── hardware/                 # Dimensionamento de hardware (sem número)
@@ -106,7 +106,7 @@ dataguard-ai/
 ├── scripts/dataset/              # Validação e geração (implementado)
 ├── config/                       # Exemplos sem segredos (implementado)
 ├── frontend/                     # Protótipo React (implementado)
-├── src/dataguard/                # Backend, a partir da etapa 03
+├── src/ai_privileged_access/                # Backend, a partir da etapa 03
 │   ├── db/  security/  assistant/  api/  reports/
 │   └── integrity/  audit/  detection/   # trilha complementar
 ├── tests/                        # A partir da etapa 03

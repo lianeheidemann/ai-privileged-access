@@ -31,7 +31,7 @@ O gabarito contém casos injetados conhecidos. Na v2, as sete regras de referên
 
 ## Passo 2 — Implementar baseline por regras
 
-Arquivo: `src/dataguard/detection/rule_detector.py`.
+Arquivo: `src/ai_privileged_access/detection/rule_detector.py`.
 
 1. Criar regras independentes com nomes estáveis (`R01` etc.).
 2. Cada regra recebe conexão SQLite em modo leitura e data de referência.
@@ -58,7 +58,7 @@ Os zeros acima são **placeholders do formato**, não valores reais de um regist
 
 ## Passo 3 — Criar features para Machine Learning
 
-Arquivo: `src/dataguard/detection/features.py`.
+Arquivo: `src/ai_privileged_access/detection/features.py`.
 
 Sugestões de atributos derivados:
 - Razão entre preço pago e valor de referência de sua categoria.
@@ -77,7 +77,7 @@ Sugestões de atributos derivados:
 
 ## Passo 4 — Implementar Isolation Forest
 
-Arquivos: `src/dataguard/detection/isolation_forest.py`, `tests/test_detection.py`.
+Arquivos: `src/ai_privileged_access/detection/isolation_forest.py`, `tests/test_detection.py`.
 
 1. Construir o baseline exclusivamente por regras.
 2. Definir **antes** da avaliação o protocolo de treino/validação/teste e o conjunto de features.
@@ -94,7 +94,7 @@ Arquivos: `src/dataguard/detection/isolation_forest.py`, `tests/test_detection.p
 
 ## Passo 5 — Avaliar com o gabarito
 
-Arquivo: `src/dataguard/detection/evaluate.py`.
+Arquivo: `src/ai_privileged_access/detection/evaluate.py`.
 
 A avaliação junta alertas e gabarito **somente depois que as previsões foram congeladas**.
 

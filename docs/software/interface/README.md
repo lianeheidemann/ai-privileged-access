@@ -1,6 +1,6 @@
 # Interfaces — guia de direção visual
 
-Documentação breve para orientar as telas do DataGuard AI. **São referências, não layouts fechados.** O [protótipo visual](../../../frontend/) já implementa as sete telas com dados sintéticos, sem backend. A conexão à API ocorre na [etapa 05](../05-interface-e-relatorios.md).
+Documentação breve para orientar as telas do AI Privileged Access. **São referências, não layouts fechados.** O [protótipo visual](../../../frontend/) já implementa as sete telas com dados sintéticos, sem backend. A conexão à API ocorre na [etapa 05](../05-interface-e-relatorios.md).
 
 ## Direção geral
 
