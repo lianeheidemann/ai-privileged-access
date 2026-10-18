@@ -8,7 +8,7 @@ import { PageHeader } from '@/components/layout/PageHeader'
 import { usePreferences } from '@/lib/preferences'
 
 const ambiente: [string, string][] = [
-  ['Aplicação', 'DataGuard AI — protótipo 0.8'],
+  ['Aplicação', 'AI Privileged Access — protótipo 0.8'],
   ['Dados', 'Sintéticos (dataset v2)'],
   ['Modelo de IA', 'Não conectado'],
   ['API interna', 'Não conectada'],

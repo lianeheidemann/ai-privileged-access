@@ -2,7 +2,7 @@
 
 > **Trilha complementar (qualidade dos dados).** Esta etapa não bloqueia a trilha principal de segurança da IA local (02 → 03 → 04 → 05 → 06). Ela pode ser feita em paralelo ou depois do corte vertical da [etapa 04](04-assistente-local.md).
 
-**Objetivo:** registrar operações e acessos do **DataGuard AI**, produzir evidências e verificar/restaurar backups **sem destruir o banco principal**. O sistema não substitui o mecanismo corporativo de backup nem deve assumir permissão de escrita no banco de origem.
+**Objetivo:** registrar operações e acessos do **AI Privileged Access**, produzir evidências e verificar/restaurar backups **sem destruir o banco principal**. O sistema não substitui o mecanismo corporativo de backup nem deve assumir permissão de escrita no banco de origem.
 
 **Pré-requisito:** [etapa 08](08-integridade-e-transacoes.md).
 
@@ -105,7 +105,7 @@ Nunca substituir automaticamente `runtime/databases/inventario.db`.
 | B05 | Restaurar em destino novo | Contagens e estrutura preservadas |
 | B06 | Falhar a criação de backup | Operação sinalizada como erro, não como sucesso |
 
-Arquivos previstos: `src/dataguard/audit/events.py`, `hash_chain.py`, `backup.py`, `manifest.py`, `tests/test_audit.py`, `tests/test_backup.py`.
+Arquivos previstos: `src/ai_privileged_access/audit/events.py`, `hash_chain.py`, `backup.py`, `manifest.py`, `tests/test_audit.py`, `tests/test_backup.py`.
 
 ### Critérios para concluir
 

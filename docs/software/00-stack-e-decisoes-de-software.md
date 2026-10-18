@@ -125,7 +125,7 @@ Escolha o primeiro que atinja as metas da [etapa 06](06-testes-e-experimentos.md
 | Documentos numerados na ordem de leitura: **00** (referência), **02–07** (principal) e **08–10** (complementar) | A numeração antiga misturava as trilhas, e os documentos de referência ficavam soltos no fim da listagem | [Guia de desenvolvimento](../README.md) |
 | Dados em **LF** (`.gitattributes`) | Os hashes do `MANIFEST.sha256` dependem dos bytes do arquivo; `core.autocrlf` no Windows os alteraria | [`.gitattributes`](../../.gitattributes) |
 | CI valida o dataset e confere o resumo gerado antes de publicar | Impede que a demo exiba números diferentes dos CSVs | [`.github/workflows/deploy-pages.yml`](../../.github/workflows/deploy-pages.yml) |
-| Nome do repositório mantido: **`dataguard-ai`** | O nome e o endereço da demo já são conhecidos; renomear quebraria o link do Pages | — |
+| Repositório renomeado para **`ai-privileged-access`** | O nome reflete o foco em privilégios e acesso; o endereço do GitHub Pages passa a ser `/ai-privileged-access/` | — |
 | Base do Vite derivada do nome do repositório | A demo sobrevive a uma eventual renomeação | [`frontend/vite.config.ts`](../../frontend/vite.config.ts) |
 | Descrição e tópicos do GitHub centrados em segurança de IA local | Refletem o objetivo real do projeto | Configurações do repositório |
 

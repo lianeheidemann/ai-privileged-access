@@ -51,8 +51,8 @@ Arquivo de exemplo: [`config/usuarios-ficticios.example.json`](../../config/usua
 | `admin_lab` | Nenhuma consulta de negócio | — | Não |
 
 Arquivos:
-- `src/dataguard/security/users.py`: carrega usuários do arquivo de configuração local (cópia de `.example`, fora do Git). Autenticação local simples, com senha gerada localmente e guardada só como hash (`hashlib.scrypt`), nunca versionada.
-- `src/dataguard/security/policy.py`: `autorizar(usuario, intencao, parametros) -> Decisao`. Função pura e testável.
+- `src/ai_privileged_access/security/users.py`: carrega usuários do arquivo de configuração local (cópia de `.example`, fora do Git). Autenticação local simples, com senha gerada localmente e guardada só como hash (`hashlib.scrypt`), nunca versionada.
+- `src/ai_privileged_access/security/policy.py`: `autorizar(usuario, intencao, parametros) -> Decisao`. Função pura e testável.
 - `tests/test_authorization.py`.
 
 **Exportação não é uma intenção do catálogo.** É uma ação controlada pelo papel (coluna "Exporta?"). O caso Q016 de `data/avaliacao/perguntas_assistente.csv` usa o valor `exportacao` no campo de intenção só para testar esse bloqueio.
@@ -73,7 +73,7 @@ Arquivos:
 | `custo_reparo_por_setor` | Qual o custo total de reparos do setor de Redes? | `setor_id?` | `SUM` com `GROUP BY` |
 | `resumo_alertas` | O que a última verificação encontrou? | — | Leitura do resultado armazenado (após etapa 10) |
 
-Arquivos: `src/dataguard/assistant/query_catalog.py`, `query_service.py`, `tests/test_readonly.py`.
+Arquivos: `src/ai_privileged_access/assistant/query_catalog.py`, `query_service.py`, `tests/test_readonly.py`.
 
 Restrições da camada de consulta:
 1. Conexão SQLite independente aberta em URI com `mode=ro`.
@@ -108,7 +108,7 @@ Configure o bind em loopback e desabilite os recursos de nuvem conforme a [etapa
 
 ## Passo 4 — Integrar o LLM
 
-Arquivos: `src/dataguard/assistant/ollama_client.py`, `classifier.py`, `service.py`.
+Arquivos: `src/ai_privileged_access/assistant/ollama_client.py`, `classifier.py`, `service.py`.
 
 **Classificação:** o LLM recebe a pergunta e a **lista fechada de intenções** e devolve JSON (`intencao`, `parametros`). A saída é validada contra o catálogo. Se for inválida, desconhecida ou ambígua, retorne "sem intenção" em vez de adivinhar. Uma alternativa sem LLM (palavras-chave ou seleção pelo usuário) serve de fallback e de baseline.
 

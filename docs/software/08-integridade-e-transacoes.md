@@ -2,7 +2,7 @@
 
 > **Trilha complementar (qualidade dos dados).** Esta etapa não bloqueia a trilha principal de segurança da IA local (02 → 03 → 04 → 05 → 06). Ela pode ser feita em paralelo ou depois do corte vertical da [etapa 04](04-assistente-local.md).
 
-**Objetivo:** impedir operações inválidas no banco sintético, detectar inconsistências e registrar resultados verificáveis. No cenário empresarial, **o DataGuard AI não deve executar alterações no banco de origem**; usar consultas e verificações somente leitura. **Não integrar IA nesta etapa.**
+**Objetivo:** impedir operações inválidas no banco sintético, detectar inconsistências e registrar resultados verificáveis. No cenário empresarial, **o AI Privileged Access não deve executar alterações no banco de origem**; usar consultas e verificações somente leitura. **Não integrar IA nesta etapa.**
 
 **Pré-requisito:** [etapa 03](03-ambiente-e-banco.md) concluída.
 
@@ -11,9 +11,9 @@
 ## Passo 1 — Criar o serviço de verificação
 
 Arquivos sugeridos:
-- `src/dataguard/integrity/sqlite_checks.py`
-- `src/dataguard/integrity/business_rules.py`
-- `src/dataguard/integrity/models.py` (estrutura de achados)
+- `src/ai_privileged_access/integrity/sqlite_checks.py`
+- `src/ai_privileged_access/integrity/business_rules.py`
+- `src/ai_privileged_access/integrity/models.py` (estrutura de achados)
 - `tests/test_integrity.py`
 - `tests/test_transactions.py`
 

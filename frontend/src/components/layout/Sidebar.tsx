@@ -24,7 +24,7 @@ export function Sidebar({ active, open, onNavigate, onClose }: Props) {
         <div className="flex items-center gap-3 px-2 pb-10">
           <span className="grid size-9 place-items-center rounded-lg bg-accent text-primary"><ShieldCheck className="size-5" /></span>
           <span className="text-lg font-bold tracking-tight">
-            DataGuard <span className="text-primary">AI</span>
+            AI <span className="text-primary">Privileged Access</span>
             <small className="mt-0.5 block text-[9px] font-semibold tracking-[0.18em] text-muted-foreground">PRIVATE DATA WORKSPACE</small>
           </span>
           <Button variant="ghost" size="icon" className="ml-auto lg:hidden" aria-label="Fechar menu" onClick={onClose}><X /></Button>

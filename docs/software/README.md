@@ -1,6 +1,6 @@
 # Documentação de software
 
-Guias de implementação do DataGuard AI. A numeração (00 e 02–10) segue a ordem de leitura; o índice completo, com a pasta de [hardware](../hardware/README.md), está no [guia de desenvolvimento](../README.md).
+Guias de implementação do AI Privileged Access. A numeração (00 e 02–10) segue a ordem de leitura; o índice completo, com a pasta de [hardware](../hardware/README.md), está no [guia de desenvolvimento](../README.md).
 
 ## Referência
 
