@@ -14,16 +14,23 @@
 
 ---
 
-<p><sub><strong> Backend · Banco de Dados · IA (planejados) </strong></sub></p>
-<p>
+<p align="center">
+  <sub><strong>Backend · Banco de Dados · IA (planejados)</strong></sub>
+</p>
+
+<p align="center">
   <img height="21" alt="Python" src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=FFFFFF">
   <img height="21" alt="FastAPI" src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=FFFFFF">
   <img height="21" alt="SQLite" src="https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=FFFFFF">
   <img height="21" alt="Ollama" src="https://img.shields.io/badge/Ollama-000000?style=for-the-badge&logo=ollama&logoColor=FFFFFF">
   <img height="21" alt="scikit-learn" src="https://img.shields.io/badge/scikit--learn-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=FFFFFF">
 </p>
-<p><sub><strong> Frontend · Protótipo Visual (em uso) </strong></sub></p>
-<p>
+
+<p align="center">
+  <sub><strong>Frontend · Protótipo Visual (em uso)</strong></sub>
+</p>
+
+<p align="center">
   <img height="21" alt="React" src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB">
   <img height="21" alt="TypeScript" src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=FFFFFF">
   <img height="21" alt="Vite" src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=FFD62E">
@@ -35,7 +42,7 @@
 </p>
 
 <h2 align="center">
-<img width="410" src="assets/privileged-access-v1.png">
+<img width="320" src="assets/privileged-access-v1.png">
 </h2>
 
 <p align="center"><strong>Is establishing criteria for privileged access essential for quality assurance and system performance evaluation?</strong></p>
